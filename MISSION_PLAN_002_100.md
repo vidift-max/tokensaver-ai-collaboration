@@ -746,3 +746,22 @@ O protocolo central exige que missões dependentes aguardem decisões anteriores
 - Nenhuma alteração no repositório principal `vidift-max/tokensaver-ai`.
 
 **Próximo gate:** GPT-6 revisar e aprovar 031–039 e o escopo do harness 040; resolver formalmente as dependências 003–014 antes de conectar providers reais ou executar testes de integração. Manter main-repo write, secrets e operações privilegiadas desabilitados.
+
+
+---
+
+## CONCILIAÇÃO — REFERÊNCIA CANÔNICA DA FASE D (2026-11-10)
+
+Para evitar múltiplas fontes normativas, o relatório consolidado `reports/AUTOMATION_AI_MISSIONS_031_040_AGENT_ADAPTERS.md` é a referência principal das Missões 031–040. Os dez relatórios individuais `AUTOMATION_AI_MISSION_031_...` a `040_...` são notas suplementares por missão.
+
+A matriz de testes de referência é a versão consolidada com **35 casos AD-001..AD-035**. A matriz de 20 casos no relatório individual 040 é antecedente/suplementar; não deve ser tratada como suíte paralela ou substituta.
+
+**Validação registrada:** `reports/AUTOMATION_AI_MISSIONS_031_040_VALIDATION.md`.
+- Registry JSON parse: PASS.
+- 4 providers, 4 agentes, 12 capability profiles.
+- 4/4 agentes com referências válidas de provider e capabilities.
+- 0 agentes habilitados; 4/4 em modo manual_assisted.
+- 35 IDs de teste únicos, AD-001..AD-035.
+- Nenhum MockAdapter, teste funcional, build ou CI executado.
+
+**Status:** entregas documentais REVIEW_REQUIRED; execução funcional da Missão 040 permanece bloqueada até aprovação das dependências 003–020 e autorização do harness mock. Nenhum provider real foi ativado.
