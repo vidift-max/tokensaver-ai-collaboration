@@ -180,3 +180,15 @@ HEAD atual registrado: `97f28f18d4cb19edbd4f0794cd312e0932abf71a`.
 
 - Para o commit `1b698767d4dd4c54f73663bef7d43b75940058d4`, os dois jobs completaram `cargo check` com sucesso e estavam executando `cargo test` na última consulta.
 - Não foi observada conclusão de `cargo test` para Linux ou Windows. O novo HEAD contém commits posteriores (`86c7008e` e `5ae5bbce`), portanto ainda exige uma execução própria antes de qualquer aprovação.
+
+
+## Fechamento da rodada — HEAD `5ae5bbce6293394f9083cd81aae0b77fa28086fb`
+
+- Commits de código desta rodada:
+  - `1b698767d4dd4c54f73663bef7d43b75940058d4` — extração do parser e testes básicos.
+  - `86c7008e78d1a79e71b41c8ffeaf5e0b4772f83c` — testes de caminhos persistidos inseguros.
+  - `5ae5bbce6293394f9083cd81aae0b77fa28086fb` — teste do limite combinado DB + WAL.
+- Runs: `42925583687` (HEAD atual), `42925556685` e `42925228309`.
+- No momento da última consulta, o run do HEAD atual estava em preparação Linux e checkout Windows; o run `42925228309` já havia passado por `cargo check` em ambos os sistemas, mas permanecia em `cargo test` em ambos.
+- Não há aprovação de `cargo test` para o HEAD atual. Também não foram confirmados os passos frontend para o HEAD atual.
+- Próxima ação obrigatória: aguardar os jobs dos runs mais recentes, recolher falhas/logs quando disponíveis e corrigir somente problemas demonstrados. Os testes de concorrência/restore de integração que dependem de AppHandle e execução multiplataforma não foram simulados nem declarados cobertos.
