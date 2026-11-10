@@ -536,3 +536,36 @@ Priorizar GH-01 (permissions explícitas), GH-02 (pinning de actions por SHA) e 
 - **Missões 031–040 concluídas:** não.
 - **Próxima ação necessária:** GPT-6 deve publicar neste arquivo a atribuição formal, definir escopo documental/mock/real, contrato canônico aprovado, interfaces autorizadas, taxonomia, limites/budgets, fixtures, critérios de aceite, dependências liberadas e paths/permissões.
 - **Estado final:** aguardando instrução formal do GPT-6 integrador. Não inferir autorização operacional a partir das descrições resumidas do roadmap.
+
+
+---
+
+## REGISTRO DE ENTREGA DOCUMENTAL — MISSÕES 031 A 040 (2026-11-10)
+
+**STATUS: ENTREGUES COMO ESPECIFICAÇÃO — REVIEW_REQUIRED / IMPLEMENTAÇÃO BLOQUEADA POR DEPENDÊNCIAS**
+
+- **Agente:** ChatGPT — GPT-6 (OpenAI), arquitetura de integração e automação multiagente.
+- **Instrução recebida:** solicitação explícita do usuário para executar as Missões 031–040.
+- **Plano consultado:** MISSION_PLAN_002_100.md, Fase D — Adaptadores de IA.
+- **Relatório:** [reports/AUTOMATION_AI_MISSIONS_031_040_AGENT_ADAPTERS.md](reports/AUTOMATION_AI_MISSIONS_031_040_AGENT_ADAPTERS.md).
+- **Artefatos:** contracts/adapters/v1/provider-registry.json; contracts/adapters/v1/README.md.
+- **Entregas:** 031 interface comum e envelopes; 032 adaptador GPT/OpenAI; 033 Claude/Anthropic; 034 Kimi/provider mapping; 035 Automation AI; 036 registry de providers/agentes/capabilities; 037 capability matching determinístico; 038 fallback seguro; 039 limites/quota/budget ledger; 040 matriz de 35 cenários de teste mock.
+- **Auditoria de base:** consultados CENTRAL.md, INSTRUCTIONS.md, MISSION_PLAN_002_100.md, especificações 001/003/004/009/010, contratos contracts/v1/ e contracts/schemas/model-ref.json do projeto principal. Não foi localizado runtime de adapter/registry no TokenSaver principal por busca de paths/termos.
+- **Validação executada:** JSON.parse do provider registry: PASS; 4 agentes, 4 providers, 12 capability profiles; todas as referências de profile resolvidas; todos os agentes enabled=false; nenhum valor de credencial presente.
+- **Testes não executados:** nenhum MockAdapter executável, teste unitário/contrato/integração, build, CI, chamada real OpenAI/Anthropic/Kimi, quota/billing, cancelamento ou benchmark.
+- **Dependências:** contratos 003–010 permanecem REVIEW_REQUIRED; 011–020 permanecem BLOCKED no registro vigente. A Fase D está entregue documentalmente, mas o runtime de adapter requer desbloqueio e implementação das dependências.
+- **Provedores:** nenhum conectado. Model IDs, endpoints, credenciais, preços e quotas reais não foram presumidos nem configurados.
+- **TokenSaver principal:** nenhuma alteração. Nenhum commit no repositório principal.
+- **Ações operacionais:** nenhum adapter habilitado; nenhum worker, registry runtime, fallback engine ou quota enforcer implantado.
+- **Limitação:** o registro anterior de readiness BLOCKED foi produzido antes da execução desta solicitação. A instrução explícita do usuário permitiu preparar os artefatos documentais no repositório de colaboração, mas não remove os gates de dependência nem concede autoridade para ativação operacional.
+- **Próxima ação necessária:** GPT-6 deve revisar a interface e o registry, decidir os gates 003–020, confirmar providers/deployments com owner e autorizar a implementação incremental do MockAdapter e testes AD-001–AD-035.
+
+### RECOMENDAÇÃO AO GPT-6
+
+1. Aprovar ou corrigir o contrato comum 031 e o registry manual-only antes de qualquer integração.
+2. Desbloquear as dependências 003–020; implementar MockAdapter determinístico primeiro e executar a suíte de contrato em CI.
+3. Confirmar oficialmente provider mapping, model IDs, APIs, credenciais, pricing e quotas por deployment.
+4. Integrar um provider por vez em sandbox, sem ferramentas de escrita, mantendo todos os agentes desabilitados por padrão.
+5. Preservar separação entre autor, auditor e aprovador; aprovação GPT-6 deve ser ação autenticada fora do modelo.
+
+**Estado final:** documentação e registry draft 031–040 registrados; nenhuma integração real ativada. AGUARDANDO VALIDAÇÃO DO GPT-6 INTEGRADOR.
