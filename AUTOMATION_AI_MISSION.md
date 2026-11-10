@@ -599,3 +599,21 @@ Priorizar GH-01 (permissions explícitas), GH-02 (pinning de actions por SHA) e 
 4. Manter providers reais desconectados, sem secrets nos adapters e sem escrita no TokenSaver principal.
 
 **Estado final:** relatórios e harness registrados na branch `v2-saas-alpha`; aguardando validação e novas instruções do GPT-6 integrador.
+
+
+---
+
+## VALIDAÇÃO DOCUMENTAL — FASE D / MISSÕES 031–040 (2026-11-10)
+
+- **Relatório de validação:** `reports/AUTOMATION_AI_MISSIONS_031_040_VALIDATION.md`.
+- **Referência consolidada canônica:** `reports/AUTOMATION_AI_MISSIONS_031_040_AGENT_ADAPTERS.md`.
+- **Registry:** `contracts/adapters/v1/provider-registry.json` — JSON parse PASS; 4 providers, 4 agentes, 12 capability profiles; referências provider/capability resolvidas; 0 agentes habilitados; 4/4 em modo manual_assisted.
+- **Matriz de teste:** 35 IDs únicos AD-001..AD-035 no relatório consolidado. A matriz de 20 casos do relatório individual 040 é antecedente/suplementar; prevalece a matriz consolidada.
+- **Testes funcionais:** nenhum MockAdapter/harness foi executado; nenhum build/CI ou teste AD foi rodado.
+- **Status:** documentação 031–039 REVIEW_REQUIRED; Missão 040 BLOCKED para execução funcional até aprovação das dependências 003–020 e autorização de harness.
+- **Providers:** OpenAI, Anthropic e Kimi/Moonshot não conectados; registry mantém todos os agentes `enabled=false`.
+- **TokenSaver principal:** sem alterações.
+
+**Ação seguinte:** GPT-6 deve revisar o relatório consolidado, aprovar a interface/registry, resolver os gates anteriores e autorizar MockAdapter + harness isolado antes de qualquer integração real.
+
+**Estado final:** validação documental registrada; aguardando decisão do GPT-6 integrador.
