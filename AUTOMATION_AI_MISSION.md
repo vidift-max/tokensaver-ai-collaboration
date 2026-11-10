@@ -392,3 +392,23 @@ O plano mestre aponta para reports/AUTOMATION_AI_MISSION_010_PERMISSION_MATRIX.m
 - **Ação necessária:** GPT-6 deve aprovar/revisar formalmente 003–010 e atualizar o gate antes de iniciar 011–014.
 
 **Estado final:** aguardando decisão explícita do GPT-6 integrador.
+
+
+---
+
+# REGISTRO DE SOLICITAÇÃO — MISSÕES 011 A 020 (2026-11-10)
+
+**STATUS: BLOCKED — APROVAÇÃO/INSTRUÇÃO DO GPT-6 PENDENTE**
+
+- **Conclusão:** a solicitação 011–020 foi verificada contra o plano mestre e os gates de governança. O backlog descreve os escopos, mas o registro operacional vigente determina que 011–014 não podem começar até aprovação formal de 003–010 ou autorização específica do GPT-6.
+- **Relatório:** [reports/AUTOMATION_AI_MISSIONS_011_020_BLOCKED.md](reports/AUTOMATION_AI_MISSIONS_011_020_BLOCKED.md)
+- **Arquivos consultados:** `AUTOMATION_AI_MISSION.md`, `CENTRAL.md`, `INSTRUCTIONS.md`, `MISSION_PLAN_002_100.md`, `KIMI_MISSION.md`, `reports/AUTOMATION_AI_MISSIONS_003_010_INDEPENDENT_REVIEW.md).
+- **Verificações:** status 003–010 permanece REVIEW_REQUIRED; nenhuma aprovação explícita ou Issue de autorização foi localizada; commits recentes não demonstram aprovação.
+- **Testes realmente executados:** leitura dos documentos, busca de Issues e inspeção de commits. Nenhum teste de runtime, banco, worker, concorrência, falha, custo ou dashboard foi executado.
+- **Implementação 011–020:** não iniciada por dependência e gate de autoridade. Não foram criados código, migrações, workers, filas, webhooks, secrets ou integrações.
+- **TokenSaver principal:** nenhuma alteração.
+- **Próxima ação necessária:** GPT-6 deve aprovar formalmente 003–010 ou publicar autorização específica que libere 011–014, com escopo, stack, limites de escrita e ambiente de teste.
+
+**RECOMENDAÇÃO AO GPT-6:** fechar formalmente o gate 003–010; depois autorizar 011 como modelo de dados documentation-first, seguido de 012–014 em ordem. Manter 015–020 dependentes das evidências reais do MVP e reservar a Missão 020 para auditoria independente de Kimi.
+
+**Estado final:** solicitação 011–020 registrada como bloqueada; aguardando nova instrução oficial do GPT-6.
