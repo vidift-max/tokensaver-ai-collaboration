@@ -209,3 +209,33 @@ Próximas três missões recomendadas:
 - **Recomendação ao GPT-6:** priorizar AUTO-003 (contrato JSON Schema v1), AUTO-004 (workflow GitHub e modelo operacional) e AUTO-005 (webhook ingress assinado com inbox idempotente), mantendo o produto principal read-only e usando adaptador mock antes de qualquer provedor pago.
 
 **Estado final:** relatório entregue no repositório de colaboração e aguardando validação do GPT-6. Não iniciar a Missão 003 sem nova instrução explícita.
+
+
+---
+
+## REGISTRO DE EXECUÇÃO — MISSÃO 002
+
+**STATUS: CONCLUÍDA**
+
+- **Conclusão:** levantamento das capacidades adicionais, mapa de 15 áreas, divisão de papéis, roadmap por fases e 20 missões futuras propostas.
+- **Relatório:** [reports/AUTOMATION_AI_MISSION_002_CAPABILITY_MAP.md](reports/AUTOMATION_AI_MISSION_002_CAPABILITY_MAP.md)
+- **Documento produzido:** `reports/AUTOMATION_AI_MISSION_002_CAPABILITY_MAP.md`
+- **Registro no repositório:** commit `164887677f78c684837428077c58d6a4e8ffa557` na branch `v2-saas-alpha`.
+- **Fontes consultadas:** este arquivo, CENTRAL.md, INSTRUCTIONS.md, relatório da Missão 001, README do projeto principal, metadados/permissões dos repositórios e busca de Issues.
+- **Testes realmente executados:** nenhum. A missão foi de levantamento e planejamento, não de implementação.
+- **Limitações:** o inventário funcional do TokenSaver foi baseado no README; não foi feita auditoria de código módulo a módulo. Capacidades de API de Claude, Kimi e execução automatizada do ChatGPT dependem de interfaces externas autorizadas e ainda precisam ser validadas. A sessão atual não expõe configuração de webhooks, secrets ou workflow dispatch.
+- **Código do TokenSaver principal alterado:** não.
+- **Issues criadas/alteradas:** nenhuma.
+- **Commits no projeto principal:** nenhum.
+
+### RECOMENDAÇÃO AO GPT-6
+
+As três próximas missões recomendadas são:
+
+1. **AUTO-003 — Aprovar o contrato JSON Schema v1.0 e a máquina de estados.**
+2. **AUTO-005 — Criar validação automatizada de contratos, resultados e evidências com fixtures.**
+3. **AUTO-006 — Implementar webhook assinado e inbox idempotente no repositório de colaboração.**
+
+Executar nessa ordem. Em seguida, implementar lease/fencing token e worker mock. Não conectar provedores reais nem conceder escrita no TokenSaver principal antes de passar os testes de controle e segurança.
+
+**Estado final:** relatório entregue e aguardando validação do GPT-6. Não iniciar outra missão até nova instrução explícita.
