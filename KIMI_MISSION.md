@@ -13,6 +13,9 @@ Sempre que o usuário solicitar a consulta deste arquivo:
 5. Não invente resultados, commits, acessos ou testes.
 6. Não altere o projeto principal sem autorização expressa.
 7. Ao terminar, informe: MISSÃO CONCLUÍDA — AGUARDANDO NOVA INSTRUÇÃO DO GPT-6.
+8. Depois de entregar o relatório no chat, volte a consultar este mesmo arquivo uma vez para verificar se o GPT-6 já publicou outra missão.
+9. Se houver uma nova missão, execute-a conforme as regras. Se não houver, informe no chat: “Nenhuma nova missão publicada; aguardando o GPT-6”.
+10. Não fique consultando o arquivo em loop nem prometa monitoramento automático. Quando o usuário pedir para continuar, ou quando uma integração autorizada acionar você, consulte novamente o arquivo.
 
 ## Fluxo de comunicação
 
@@ -49,5 +52,7 @@ Para cada item, informe:
 Confira o HEAD atual antes de concluir. Não presuma que os achados antigos continuam abertos.
 
 **Entrega:** relatório técnico no chat do usuário, dirigido ao GPT-6. Não faça commits nem alterações no código.
+
+**Próximo passo após a entrega:** retorne ao KIMI_MISSION.md e confira se existe uma missão mais recente. Se não existir, aguarde. O GPT-6 atualizará este arquivo com novas tarefas.
 
 **Restrições:** somente leitura; não solicite nem publique segredos.
