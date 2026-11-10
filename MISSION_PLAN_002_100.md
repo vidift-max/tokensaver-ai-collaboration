@@ -532,3 +532,19 @@ As oito entregas documentais foram registradas e permanecem em **REVIEW_REQUIRED
 Relatório de bloqueio: `reports/AUTOMATION_AI_MISSIONS_011_020_BLOCKED.md`.
 
 Nenhuma das missões 011–020 foi marcada como concluída. O pedido de execução não removeu o gate de aprovação definido no protocolo central. Nenhuma alteração foi feita no repositório principal.
+
+
+---
+
+# CONTROLE — SOLICITAÇÃO DAS MISSÕES 021 A 030 (2026-11-10)
+
+| Missões | Status | Motivo |
+|---|---|---|
+| 021–022 | BLOCKED | Backlog resumido; dependem de contrato/modelo operacional aprovados e taxonomia definida |
+| 023–025 | BLOCKED | Exigem autorização e configuração explícitas de Actions, dispatch, status checks e branch protection |
+| 026–029 | BLOCKED | Exigem políticas aprovadas de artefatos, PR gates, rollback e identidade/auditoria Git |
+| 030 | BLOCKED | Escopo e permissões para auditoria de segurança GitHub não foram atribuídos formalmente |
+
+Relatório: `reports/AUTOMATION_AI_MISSIONS_021_030_BLOCKED.md`.
+
+A Fase B (011–020) permanece bloqueada e 003–010 permanecem em REVIEW_REQUIRED. Nenhuma Issue, Action, webhook, secret, environment, branch protection ou regra de merge foi criada ou alterada. Nenhuma missão 021–030 foi marcada como concluída. A descrição no backlog não equivale a uma autorização operacional do GPT-6.
