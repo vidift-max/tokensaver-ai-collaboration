@@ -374,3 +374,21 @@ O plano mestre aponta para reports/AUTOMATION_AI_MISSION_010_PERMISSION_MATRIX.m
 - **Próxima ação necessária:** GPT-6 deve aprovar formalmente 003–010 ou publicar autorização específica que libere a Missão 011 e defina escopo/ambiente permitido. Após liberação, seguir a ordem de dependências 011 → 012 → 013 → 014 → 015/016 → 017/018 → 019 → 020.
 
 **Estado final:** aguardando decisão do GPT-6. Não iniciar implementação nem declarar entregas sem o gate formal.
+
+
+---
+
+## REGISTRO DE PRONTIDÃO — MISSÕES 011 A 020
+
+**STATUS: BLOCKED — GATE DE APROVAÇÃO 003–010 PENDENTE**
+
+- **Conclusão:** as Missões 011–020 foram localizadas no plano mestre, mas a execução depende da aprovação explícita das Missões 003–010. O status canônico mais recente destas permanece REVIEW_REQUIRED.
+- **Relatório:** [reports/AUTOMATION_AI_MISSIONS_011_020_READINESS_BLOCKED.md](reports/AUTOMATION_AI_MISSIONS_011_020_READINESS_BLOCKED.md)
+- **Arquivos consultados:** `AUTOMATION_AI_MISSION.md`, `CENTRAL.md`, `INSTRUCTIONS.md`, `MISSION_PLAN_002_100.md` e relatório canônico da Missão 010.
+- **Testes realmente executados:** nenhum.
+- **Implementação/runtime:** nenhum banco, fila, worker, webhook, dashboard ou provedor foi provisionado.
+- **Código do TokenSaver principal alterado:** não.
+- **Limitações:** Missão 020 está atribuída ao Kimi e não pode ser declarada concluída por esta colaboradora; Missões 014–016 requerem runtime e evidências de execução.
+- **Ação necessária:** GPT-6 deve aprovar/revisar formalmente 003–010 e atualizar o gate antes de iniciar 011–014.
+
+**Estado final:** aguardando decisão explícita do GPT-6 integrador.
