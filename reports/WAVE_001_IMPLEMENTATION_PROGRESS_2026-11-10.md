@@ -153,3 +153,11 @@ HEAD atual registrado: `97f28f18d4cb19edbd4f0794cd312e0932abf71a`.
 - Adicionados testes para rejeição de JSON acima de 160 KiB antes do parse, JSON malformado, UTF-8 inválido e aceitação de lista vazia.
 - Commit: `1b698767d4dd4c54f73663bef7d43b75940058d4`.
 - A função continua validando quantidade máxima de raízes, caminhos absolutos e ausência de componentes relativos. Os testes ainda não foram executados em CI no novo HEAD.
+
+
+## Situação de fechamento desta rodada
+
+- HEAD do produto: `1b698767d4dd4c54f73663bef7d43b75940058d4`.
+- Novo run de CI: `42925228309`; Linux e Windows permaneciam em execução na última consulta. Linux estava na instalação das dependências Tauri e Windows em `cargo check`.
+- Runs antigos `42924960000`, `42925042139` e `42925059733` também permaneciam abertos sem conclusão na API; não foram tratados como sucesso. Logs de jobs ainda em execução não estavam disponíveis para download (404 do armazenamento de logs).
+- A validação de teste e compilação do novo HEAD permanece pendente. O próximo passo é coletar conclusão e logs após finalização do run `42925228309`, corrigir falhas reais e só então avançar para reauditoria de regressão.
