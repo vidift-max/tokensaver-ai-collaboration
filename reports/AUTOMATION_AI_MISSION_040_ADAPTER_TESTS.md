@@ -2,7 +2,7 @@
 
 **Responsável:** ChatGPT (GPT-6) — integração e automação multiagente  
 **Data:** 2026-11-10  
-**Status:** TEST PLAN READY / REVIEW_REQUIRED — execução bloqueada por ausência de harness e aprovação
+**Status:** BLOCKED — plano de teste preparado; execução não autorizada/sem harness
 
 ## Objetivo
 
