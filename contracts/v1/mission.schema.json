@@ -1,0 +1,118 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/vidift-max/tokensaver-ai-collaboration/contracts/v1/mission.schema.json",
+  "title": "TokenSaver Collaboration Mission v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "mission_id", "revision", "title", "created_at", "created_by", "assignee", "priority", "repository", "objective", "permissions", "execution", "budget", "approval", "status", "inputs", "deliverables"],
+  "properties": {
+    "schema_version": { "const": "1.0.0" },
+    "mission_id": { "type": "string", "pattern": "^[A-Z0-9][A-Z0-9._-]{2,99}$" },
+    "revision": { "type": "integer", "minimum": 1 },
+    "title": { "type": "string", "minLength": 1, "maxLength": 200 },
+    "created_at": { "type": "string", "format": "date-time" },
+    "created_by": { "type": "string", "minLength": 1, "maxLength": 100 },
+    "assignee": {
+      "type": "object", "additionalProperties": false,
+      "required": ["agent_id", "provider", "capability_profile"],
+      "properties": {
+        "agent_id": { "type": "string", "minLength": 1, "maxLength": 100 },
+        "provider": { "type": "string", "enum": ["openai", "anthropic", "moonshot", "manual", "mock", "other"] },
+        "capability_profile": { "type": "string", "minLength": 1, "maxLength": 120 }
+      }
+    },
+    "priority": { "enum": ["critical", "high", "medium", "low"] },
+    "repository": {
+      "type": "object", "additionalProperties": false,
+      "required": ["full_name", "ref", "scope"],
+      "properties": {
+        "full_name": { "type": "string", "pattern": "^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$" },
+        "ref": { "type": "string", "minLength": 1, "maxLength": 255 },
+        "scope": { "enum": ["read_only", "collaboration_write", "main_write"] },
+        "allowed_paths": { "type": "array", "items": { "type": "string", "minLength": 1, "maxLength": 500 }, "uniqueItems": true, "maxItems": 200 }
+      }
+    },
+    "objective": { "type": "string", "minLength": 1, "maxLength": 10000 },
+    "acceptance_criteria": { "type": "array", "minItems": 1, "maxItems": 50, "items": { "type": "string", "minLength": 1, "maxLength": 2000 } },
+    "inputs": {
+      "type": "array", "maxItems": 100,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["kind", "trust"],
+        "properties": {
+          "kind": { "enum": ["repository_file", "issue", "url", "artifact", "text"] },
+          "path": { "type": "string", "maxLength": 500 },
+          "url": { "type": "string", "format": "uri", "maxLength": 2048 },
+          "ref": { "type": "string", "maxLength": 255 },
+          "content": { "type": "string", "maxLength": 20000 },
+          "sha256": { "type": "string", "pattern": "^[a-fA-F0-9]{64}$" },
+          "trust": { "const": "untrusted_data" }
+        },
+        "allOf": [
+          { "if": { "properties": { "kind": { "const": "repository_file" } }, "required": ["kind"] }, "then": { "required": ["path", "ref"] } },
+          { "if": { "properties": { "kind": { "const": "url" } }, "required": ["kind"] }, "then": { "required": ["url"] } },
+          { "if": { "properties": { "kind": { "const": "text" } }, "required": ["kind"] }, "then": { "required": ["content"] } }
+        ]
+      }
+    },
+    "deliverables": {
+      "type": "array", "minItems": 1, "maxItems": 50,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["type", "required"],
+        "properties": {
+          "type": { "enum": ["markdown_report", "json", "patch", "pull_request", "test_evidence", "evidence_manifest", "other"] },
+          "path": { "type": "string", "maxLength": 500 },
+          "required": { "type": "boolean" },
+          "description": { "type": "string", "maxLength": 2000 }
+        }
+      }
+    },
+    "permissions": {
+      "type": "object", "additionalProperties": false,
+      "required": ["repository_read", "collaboration_repo_write", "main_repo_write", "execute_code", "network_allowlist", "secrets_access"],
+      "properties": {
+        "repository_read": { "type": "boolean" },
+        "collaboration_repo_write": { "type": "boolean" },
+        "main_repo_write": { "type": "boolean" },
+        "execute_code": { "type": "boolean" },
+        "network_allowlist": { "type": "array", "uniqueItems": true, "maxItems": 50, "items": { "type": "string", "pattern": "^[A-Za-z0-9.-]+(:[0-9]{1,5})?$" } },
+        "secrets_access": { "type": "array", "uniqueItems": true, "maxItems": 20, "items": { "type": "string", "minLength": 1, "maxLength": 100 } },
+        "operations": { "type": "array", "uniqueItems": true, "items": { "enum": ["read", "write_collaboration", "create_issue_comment", "create_branch", "open_pull_request", "write_main", "merge", "release", "deploy"] } }
+      }
+    },
+    "execution": {
+      "type": "object", "additionalProperties": false,
+      "required": ["timeout_seconds", "max_attempts", "max_parallel_runs", "retry_policy"],
+      "properties": {
+        "timeout_seconds": { "type": "integer", "minimum": 1, "maximum": 86400 },
+        "max_attempts": { "type": "integer", "minimum": 1, "maximum": 10 },
+        "max_parallel_runs": { "type": "integer", "minimum": 1, "maximum": 20 },
+        "retry_policy": { "enum": ["none", "transient_only", "safe_idempotent"] },
+        "deadline": { "type": "string", "format": "date-time" }
+      }
+    },
+    "budget": {
+      "type": "object", "additionalProperties": false,
+      "required": ["currency", "max_cost"],
+      "properties": {
+        "currency": { "const": "USD" },
+        "max_cost": { "type": "number", "minimum": 0, "maximum": 100000 },
+        "max_input_tokens": { "type": "integer", "minimum": 0, "maximum": 100000000 },
+        "max_output_tokens": { "type": "integer", "minimum": 0, "maximum": 100000000 }
+      }
+    },
+    "approval": {
+      "type": "object", "additionalProperties": false,
+      "required": ["required_before_execution", "required_before_main_repo_write", "approver"],
+      "properties": {
+        "required_before_execution": { "type": "boolean" },
+        "required_before_main_repo_write": { "const": true },
+        "approver": { "const": "gpt6-integrator" },
+        "approval_reference": { "type": "string", "maxLength": 300 }
+      }
+    },
+    "status": { "enum": ["DRAFT", "QUEUED", "ASSIGNED", "RUNNING", "RETRY_PENDING", "REVIEW_REQUIRED", "APPROVED", "COMPLETED", "BLOCKED", "FAILED", "CANCELLED", "EXPIRED"] },
+    "metadata": { "$ref": "metadata.schema.json" }
+  }
+}
