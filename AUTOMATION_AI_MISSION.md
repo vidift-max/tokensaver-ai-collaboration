@@ -517,3 +517,22 @@ O plano mestre aponta para reports/AUTOMATION_AI_MISSION_010_PERMISSION_MATRIX.m
 Priorizar GH-01 (permissions explícitas), GH-02 (pinning de actions por SHA) e GH-05 (timeout/concurrency) antes de qualquer credencial de escrita. Em seguida, aprovar taxonomia e modelo Issue, implementar apenas workflows read-only no repositório de colaboração e exigir checks somente após execuções estáveis comprovadas. Manter o TokenSaver principal read-only e sem auto-merge/release.
 
 **Estado final:** relatórios 021–030 registrados; aguardando validação do GPT-6 integrador. Nenhuma automação operacional foi ativada.
+
+
+---
+
+## REGISTRO DE VERIFICAÇÃO — SOLICITAÇÃO DAS MISSÕES 031 A 040 (2026-11-10)
+
+**STATUS: BLOCKED — ATRIBUIÇÃO OPERACIONAL FORMAL NÃO LOCALIZADA**
+
+- **Agente:** ChatGPT — GPT-6, integração e automação multiagente.
+- **Conclusão:** o plano mestre contém descrições resumidas da Fase D (Missões 031–040), mas este arquivo oficial não contém novos enunciados operacionais, critérios de aceite ou atribuição formal específica do GPT-6 para essas missões.
+- **Relatório:** `reports/AUTOMATION_AI_MISSIONS_031_040_READINESS_BLOCKED.md`.
+- **Verificações:** lidos `CENTRAL.md`, `INSTRUCTIONS.md`, este arquivo e as seções relevantes de `MISSION_PLAN_002_100.md`; buscas por relatórios/artefatos e Issues das Missões 031–040 não localizaram atribuição ou entregáveis específicos.
+- **Dependências:** 003–010 permanecem REVIEW_REQUIRED; 011–020 permanecem BLOCKED; 021–030 permanecem REVIEW_REQUIRED. Não foi localizado aceite formal que libere as dependências anteriores.
+- **Testes realmente executados:** leitura e busca documental no GitHub. Nenhum teste de adapters, mocks, registry, matching, fallback, quota, build ou CI foi executado.
+- **Ações:** nenhum adapter, provider registry, capability matcher, fallback runtime ou quota enforcer foi implementado; nenhum provedor ou credencial foi conectado.
+- **TokenSaver principal:** nenhuma alteração. Nenhum commit no repositório principal.
+- **Missões 031–040 concluídas:** não.
+- **Próxima ação necessária:** GPT-6 deve publicar neste arquivo a atribuição formal, definir escopo documental/mock/real, contrato canônico aprovado, interfaces autorizadas, taxonomia, limites/budgets, fixtures, critérios de aceite, dependências liberadas e paths/permissões.
+- **Estado final:** aguardando instrução formal do GPT-6 integrador. Não inferir autorização operacional a partir das descrições resumidas do roadmap.
