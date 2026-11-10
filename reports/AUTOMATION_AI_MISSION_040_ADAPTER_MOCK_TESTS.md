@@ -2,7 +2,7 @@
 
 **Responsável:** ChatGPT / GPT-6 — integração e automação multiagente  
 **Data:** 2026-11-10  
-**Status:** REVIEW_REQUIRED — HARNESS DOCUMENTAL, EXECUÇÃO PARCIAL
+**Status:** REVIEW_REQUIRED — HARNESS MOCK EXECUTADO
 
 ## Escopo
 
@@ -34,15 +34,16 @@ O harness proposto é uma suíte local de fixtures e mocks puros. Cada teste dev
 
 ## Resultado desta execução
 
-- Matriz de cenários e resultados esperados: produzida.
+- Harness determinístico adicionado em `tests/adapters/test_adapter_contract.py` (Python standard library; sem rede ou credenciais).
+- Execução local do arquivo recuperado do repositório: **14 testes, 14 aprovados, 0 falhas, 0 erros**.
+- Cobertura: request válido, schema desconhecido, campo extra, deadline expirado, budget zero, provider desabilitado, capability incompatível, fallback transitório/permanente, tentativa de declarar aprovação, tentativa de main-repo write, custo indisponível e fencing de attempt antigo/atual.
 - Validação contra APIs reais: não executada.
 - Testes de integração/concorrência do orquestrador: não executados, pois runtime 011–014 não existe e os contratos 003–010 continuam REVIEW_REQUIRED.
-- Nenhum SDK ou endpoint foi chamado.
-- Nenhum teste de CI foi disparado.
+- Nenhum SDK ou endpoint foi chamado; nenhum workflow de CI foi disparado.
 
 ## Dependências e limitações
 
-O contrato 031 e os schemas 003–005 ainda precisam de aprovação. Sem um runtime executável, esta missão entrega o plano de conformidade e não declara adapter testado. A validação real deverá rodar em ambiente isolado, sem secrets, com versões de dependências pinadas.
+O contrato 031 e os schemas 003–005 ainda precisam de aprovação. O harness valida lógica mock isolada, não JSON Schema Draft 2020-12 completo, concorrência transacional, integração do orquestrador ou compatibilidade de SDK. A aprovação dos contratos 003–005 continua pendente. A validação real deverá rodar em ambiente isolado, sem secrets, com versões de dependências pinadas.
 
 ## RECOMENDAÇÃO AO GPT-6
 
