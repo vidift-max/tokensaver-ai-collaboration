@@ -1,0 +1,467 @@
+# PLANO MESTRE — MISSÕES 002 A 100
+
+## Objetivo
+
+Este documento transforma o trabalho da equipe em um backlog organizado de longo prazo. As missões ficam registradas desde já, mas **não significa que todas devem executar código ao mesmo tempo**.
+
+A regra é:
+- missões independentes podem trabalhar em paralelo;
+- missões com dependência aguardam os pré-requisitos;
+- nenhuma IA deve alterar o projeto principal sem autorização explícita do GPT-6;
+- cada missão produz seu próprio relatório/evidência;
+- o status é controlado no GitHub;
+- o trabalho deve ser entregue de forma incremental e verificável.
+
+## Papéis
+
+- GPT-6: arquitetura, integração, decisão final, aprovação de mudanças.
+- Claude: editorial, conteúdo, UX textual, SEO e estruturas de conteúdo quando autorizado.
+- Kimi: auditoria técnica, segurança, revisão e testes de riscos.
+- Automation AI: orquestração, automação, contratos, filas, eventos, observabilidade e infraestrutura multiagente.
+
+## Estados
+
+BACKLOG -> READY -> RUNNING -> REVIEW_REQUIRED -> APPROVED -> COMPLETED
+
+Alternativos: BLOCKED, FAILED, RETRY_PENDING, CANCELLED.
+
+## Missão 002
+
+**STATUS: CONCLUÍDA**
+
+Mapa de capacidades, roadmap e futuras missões registrados nos relatórios da Missão 002.
+
+---
+
+# FASE A — CONTRATOS E GOVERNANÇA
+
+### MISSÃO 003 — Contrato JSON Schema v1
+Definir e congelar o contrato de missão, resultado, evidência, erro e metadados.
+
+### MISSÃO 004 — Máquina de estados
+Definir transições válidas, invariantes e regras de concorrência.
+
+### MISSÃO 005 — Validação de entregas
+Criar especificação de validação automática de resultados, evidências e status.
+
+### MISSÃO 006 — Webhook seguro
+Especificar ingress assinado, replay protection e validação de origem.
+
+### MISSÃO 007 — Inbox idempotente
+Definir deduplicação de eventos e execução única.
+
+### MISSÃO 008 — Lease e fencing
+Definir lock distribuído, lease, renovação e fencing token.
+
+### MISSÃO 009 — Retry e timeout
+Definir políticas de retry, backoff, dead-letter e timeout.
+
+### MISSÃO 010 — Permissões
+Definir matriz de permissões por IA, repositório, operação e ambiente.
+
+---
+
+# FASE B — ORQUESTRADOR MVP
+
+### MISSÃO 011 — Modelo de dados
+Definir tabelas para missions, runs, events, leases, agents, evidence e costs.
+
+### MISSÃO 012 — Inbox/outbox
+Definir garantia de entrega e processamento de eventos.
+
+### MISSÃO 013 — Worker mock
+Criar especificação do primeiro worker sem provedor real.
+
+### MISSÃO 014 — Fluxo ponta a ponta
+Executar missão mock desde criação até REVIEW_REQUIRED.
+
+### MISSÃO 015 — Auditoria de concorrência
+Testar duplicidade, corrida, lease expirado e fencing.
+
+### MISSÃO 016 — Falhas e recuperação
+Testar crash, timeout, retry e retomada.
+
+### MISSÃO 017 — Ledger de custos
+Definir registro de tokens, chamadas, preço estimado e custo real.
+
+### MISSÃO 018 — Observabilidade MVP
+Definir logs estruturados, métricas e correlação por mission_id/run_id.
+
+### MISSÃO 019 — Dashboard operacional
+Especificar painel de fila, agentes, falhas, custos e missões.
+
+### MISSÃO 020 — Auditoria do MVP
+Kimi revisa todo o MVP antes de qualquer provedor real.
+
+---
+
+# FASE C — GITHUB AUTOMATION
+
+### MISSÃO 021 — Issues como fila
+Definir criação, atualização e fechamento automático de Issues.
+
+### MISSÃO 022 — Labels e prioridades
+Padronizar labels de missão, risco, agente e prioridade.
+
+### MISSÃO 023 — GitHub Actions
+Definir workflows de validação e automação.
+
+### MISSÃO 024 — Dispatch de eventos
+Definir repository_dispatch/workflow_dispatch quando aplicável.
+
+### MISSÃO 025 — Status checks
+Definir checks obrigatórios antes de aprovação.
+
+### MISSÃO 026 — Artefatos
+Padronizar relatórios, logs e evidências como artefatos.
+
+### MISSÃO 027 — PR gates
+Definir regras para impedir merge sem validação.
+
+### MISSÃO 028 — Rollback
+Definir recuperação de mudanças automatizadas.
+
+### MISSÃO 029 — Auditoria Git
+Rastrear autor, agente, commit, missão e evidência.
+
+### MISSÃO 030 — Teste de segurança GitHub
+Auditar secrets, tokens, permissões e eventos.
+
+---
+
+# FASE D — ADAPTADORES DE IA
+
+### MISSÃO 031 — Interface Agent Adapter
+Definir interface comum para provedores.
+
+### MISSÃO 032 — Adaptador GPT
+Especificar entrada, saída, limites e evidências.
+
+### MISSÃO 033 — Adaptador Claude
+Especificar tarefas editoriais e integração.
+
+### MISSÃO 034 — Adaptador Kimi
+Especificar auditoria e revisão.
+
+### MISSÃO 035 — Adaptador Automation AI
+Especificar tarefas de orquestração.
+
+### MISSÃO 036 — Provider registry
+Criar catálogo de agentes/provedores e capacidades.
+
+### MISSÃO 037 — Capability matching
+Definir seleção automática da IA mais adequada.
+
+### MISSÃO 038 — Fallback de provedor
+Definir substituição segura quando uma IA falhar.
+
+### MISSÃO 039 — Limites por provedor
+Definir quotas, tokens, tempo e custo.
+
+### MISSÃO 040 — Testes dos adapters
+Validar contratos usando mocks antes de APIs reais.
+
+---
+
+# FASE E — SEGURANÇA
+
+### MISSÃO 041 — Threat model
+Modelar ameaças de toda a arquitetura.
+
+### MISSÃO 042 — Prompt injection
+Criar defesa contra instruções maliciosas vindas de arquivos/issues.
+
+### MISSÃO 043 — Tool injection
+Restringir operações perigosas executadas por agentes.
+
+### MISSÃO 044 — Least privilege
+Aplicar menor privilégio por agente.
+
+### MISSÃO 045 — Secrets
+Definir armazenamento, rotação e exposição mínima.
+
+### MISSÃO 046 — Supply chain
+Auditar dependências e artefatos.
+
+### MISSÃO 047 — SSRF e endpoints
+Validar URLs e destinos externos.
+
+### MISSÃO 048 — Replay
+Testar replay de webhooks e eventos.
+
+### MISSÃO 049 — Data exfiltration
+Criar controles contra vazamento de contexto.
+
+### MISSÃO 050 — Security gate
+Criar checklist obrigatório antes de produção.
+
+---
+
+# FASE F — TOKEN SAVER: ESTABILIZAÇÃO
+
+### MISSÃO 051 — Smart Context
+Implementar limites globais de leitura/processamento após aprovação.
+
+### MISSÃO 052 — Project Memory
+Corrigir concorrência do limite de entradas.
+
+### MISSÃO 053 — Paginação
+Adicionar paginação/budgets em artigos, templates e links.
+
+### MISSÃO 054 — OneShot Capture
+Endurecer filesystem, crash recovery e concorrência.
+
+### MISSÃO 055 — Backup restore
+Adicionar limites de recursos e validação de manifest.
+
+### MISSÃO 056 — Restore destination
+Eliminar condições de corrida no destino de restauração.
+
+### MISSÃO 057 — Import roots
+Corrigir concorrência e limites de importação.
+
+### MISSÃO 058 — Limits audit
+Unificar e revisar limites de todos os módulos.
+
+### MISSÃO 059 — Long operations
+Aplicar timeout real onde atualmente só existe configuração.
+
+### MISSÃO 060 — Batch validation
+Integrar validação batch ao fluxo produtivo.
+
+### MISSÃO 061 — Database migrations
+Revisar e consolidar blocos duplicados de migração.
+
+### MISSÃO 062 — Error handling
+Padronizar erros e mensagens de fronteira.
+
+### MISSÃO 063 — Filesystem audit
+Auditar todos os caminhos, symlinks, junctions e TOCTOU.
+
+### MISSÃO 064 — Resource exhaustion
+Testar memória, CPU, disco e arquivos grandes.
+
+### MISSÃO 065 — Integration tests
+Criar suíte de integração dos módulos críticos.
+
+### MISSÃO 066 — Regression suite
+Transformar achados das auditorias em testes permanentes.
+
+### MISSÃO 067 — CI hardening
+Garantir build/test/lint e checks obrigatórios.
+
+### MISSÃO 068 — Tauri security
+Auditar comandos, permissões e fronteiras frontend/backend.
+
+### MISSÃO 069 — Frontend audit
+Auditar estado, erros, acessibilidade e consistência.
+
+### MISSÃO 070 — Release readiness
+Criar checklist técnico para versão candidata.
+
+---
+
+# FASE G — PRODUTO E EXPERIÊNCIA
+
+### MISSÃO 071 — UX audit
+Auditar fluxos principais do usuário.
+
+### MISSÃO 072 — Onboarding
+Definir onboarding simples e seguro.
+
+### MISSÃO 073 — Project workflow
+Revisar criação, abertura, edição e fechamento de projetos.
+
+### MISSÃO 074 — File Center
+Revisar UX e limites do File Center.
+
+### MISSÃO 075 — Smart Context UX
+Explicar ao usuário o que foi incluído/excluído do contexto.
+
+### MISSÃO 076 — Cost simulator
+Validar cálculos e apresentação de economia.
+
+### MISSÃO 077 — Project Memory UX
+Melhorar consulta, organização e proteção da memória.
+
+### MISSÃO 078 — Templates
+Auditar sistema de templates e versionamento.
+
+### MISSÃO 079 — Editorial engine
+Auditar fluxo editorial sem conectar publicação real.
+
+### MISSÃO 080 — Article library
+Auditar biblioteca e links internos.
+
+### MISSÃO 081 — Final page builder
+Auditar construção de páginas e limites.
+
+### MISSÃO 082 — OneShot UX
+Auditar captura e recuperação do usuário.
+
+### MISSÃO 083 — Settings
+Auditar configurações, histórico e segurança.
+
+### MISSÃO 084 — Accessibility
+Auditar navegação por teclado, contraste, foco e semântica.
+
+### MISSÃO 085 — Product documentation
+Criar documentação de uso baseada no produto real.
+
+---
+
+# FASE H — IA, SEO E CONTEÚDO
+
+### MISSÃO 086 — Context optimization
+Definir estratégias de redução de tokens sem perda de informação.
+
+### MISSÃO 087 — Prompt templates
+Criar biblioteca versionada de prompts seguros.
+
+### MISSÃO 088 — Editorial orchestration
+Definir como Claude e GPT colaboram em conteúdo.
+
+### MISSÃO 089 — SEO intelligence specification
+Especificar inteligência SEO sem implementar publicação.
+
+### MISSÃO 090 — Content quality gate
+Definir validação editorial, factual e estrutural.
+
+### MISSÃO 091 — Internal linking intelligence
+Melhorar recomendação de links internos com limites.
+
+### MISSÃO 092 — Content cost optimizer
+Otimizar custo por etapa editorial.
+
+### MISSÃO 093 — Provider comparison
+Comparar provedores por qualidade, custo, latência e adequação.
+
+### MISSÃO 094 — Local model strategy
+Avaliar tarefas que podem migrar para modelos locais/open source.
+
+---
+
+# FASE I — SAAS E PRODUÇÃO
+
+### MISSÃO 095 — SaaS architecture
+Definir arquitetura futura SaaS sem alterar ainda a aplicação desktop.
+
+### MISSÃO 096 — Multitenancy
+Definir isolamento de tenant, projeto, usuário e dados.
+
+### MISSÃO 097 — Authentication
+Definir autenticação e autorização futuras.
+
+### MISSÃO 098 — Billing and quotas
+Definir planos, quotas, medição e controle de custos.
+
+### MISSÃO 099 — Production readiness
+Auditar segurança, observabilidade, recuperação, custos e operação.
+
+### MISSÃO 100 — FINAL INTEGRATION AUDIT
+Fazer auditoria final de toda a arquitetura, TokenSaver, automação multiagente, segurança, testes, documentação e roadmap SaaS.
+
+Entregar:
+- matriz de requisitos;
+- itens concluídos;
+- itens pendentes;
+- riscos residuais;
+- evidências;
+- testes executados;
+- decisões que ainda dependem do GPT-6;
+- recomendação para release.
+
+---
+
+# REGRA DE EXECUÇÃO CONJUNTA
+
+As missões devem ser tratadas como um **programa contínuo**, não como 99 comandos independentes enviados ao usuário.
+
+## Podem executar em paralelo
+
+- documentação;
+- auditorias independentes;
+- análise de UX;
+- threat modeling;
+- análise de custos;
+- contratos;
+- testes que não alterem o mesmo componente;
+- tarefas editoriais sem dependência técnica.
+
+## Devem aguardar dependências
+
+Uma missão que modifica ou valida uma decisão anterior só pode começar quando o pré-requisito estiver APPROVED.
+
+Exemplo:
+
+003 -> 004 -> 007/008/009 -> 011/012 -> 013/014 -> 015/016 -> 020.
+
+A estabilização 051-070 deve usar os achados reais do código e não pode ser considerada concluída apenas por documentação.
+
+## Regra de entrega
+
+Cada missão deve produzir:
+1. status;
+2. relatório;
+3. evidências;
+4. testes realmente executados;
+5. limitações;
+6. arquivos alterados;
+7. dependências;
+8. recomendação da próxima etapa.
+
+## Regra de código
+
+Nenhuma missão deste plano autoriza automaticamente alteração no TokenSaver principal.
+
+Quando uma missão concluir que código deve ser alterado:
+- registrar proposta;
+- apontar arquivos;
+- explicar risco;
+- aguardar autorização do GPT-6;
+- depois implementar;
+- executar testes;
+- registrar evidências.
+
+## Regra contra trabalho duplicado
+
+Antes de iniciar uma missão, a IA deve verificar:
+- status atual;
+- relatórios existentes;
+- commits recentes;
+- Issues relacionadas;
+- se outra IA já resolveu o mesmo problema.
+
+Se já estiver resolvido, deve validar a solução em vez de duplicá-la.
+
+## Organização dos resultados
+
+Relatórios devem usar:
+
+reports/AUTOMATION_AI_MISSION_XXX_<TEMA>.md
+
+Para auditorias do produto:
+
+reports/TOKEN_SAVER_MISSION_XXX_<TEMA>.md
+
+Para segurança:
+
+reports/SECURITY_MISSION_XXX_<TEMA>.md
+
+Para decisões arquiteturais:
+
+reports/ADR_MISSION_XXX_<TEMA>.md
+
+## Objetivo final
+
+Chegar à Missão 100 com:
+- TokenSaver tecnicamente estabilizado;
+- automação multiagente verificável;
+- colaboração entre GPT-6, Claude, Kimi e Automation AI;
+- segurança e permissões controladas;
+- custos mensuráveis;
+- testes e evidências rastreáveis;
+- documentação consistente;
+- base preparada para evolução SaaS.
+
+**IMPORTANTE:** registrar o plano inteiro agora não significa executar cegamente 99 missões simultaneamente. A execução deve ser contínua, paralelizável onde seguro, mas sempre controlada por dependências, evidências e aprovação.
