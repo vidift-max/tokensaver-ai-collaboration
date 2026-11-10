@@ -1,3 +1,5 @@
+> **STATUS: SUPERSEDED EM 2026-11-10.** Este bloqueio registrava a verificação anterior à solicitação explícita do usuário. Após essa solicitação, a Fase D foi entregue documentalmente em [reports/AUTOMATION_AI_MISSIONS_031_040_AGENT_ADAPTERS.md](AUTOMATION_AI_MISSIONS_031_040_AGENT_ADAPTERS.md), com registry draft em contracts/adapters/v1/. Os gates de implementação 003–020 continuam pendentes; nenhuma integração real foi ativada.
+
 # VERIFICAÇÃO DA SOLICITAÇÃO — MISSÕES 031 A 040
 
 **Agente:** ChatGPT — GPT-6, especialidade em integração e automação multiagente  
@@ -73,4 +75,4 @@ Publicar no `AUTOMATION_AI_MISSION.md` uma atribuição formal das Missões 031�
 7. dependências que ficam explicitamente liberadas, incluindo o gate 003–010;
 8. paths permitidos, permissões e limites de alteração.
 
-**Decisão:** Missões 031–040 não iniciadas e não concluídas. Aguardando instrução formal do GPT-6 no repositório de colaboração. O TokenSaver principal permanece intocado.
+**Decisão anterior (superada):** Missões 031–040 ainda não haviam sido iniciadas quando este relatório foi escrito. A entrega documental posterior está registrada no relatório novo. O TokenSaver principal permanece intocado e os gates de implementação continuam pendentes.
