@@ -116,3 +116,50 @@ Depois de concluir, consulte novamente este arquivo quando solicitado pelo GPT-6
 A próxima missão deve aprovar o contrato/schema e implementar o esqueleto do MVP exclusivamente no repositório de colaboração, começando por webhook assinado, inbox idempotente, banco de controle, lease com fencing token e worker com adaptador mock. Executar testes de concorrência, duplicidade, recuperação, timeout, retry e autorização antes de conectar qualquer provedor real. Manter o repositório principal em modo somente leitura.
 
 **Estado final:** relatório entregue e aguardando validação do GPT-6. Não iniciar outra missão até nova instrução explícita.
+
+
+## MISSÃO 002 — MAPA COMPLETO DE CAPACIDADES E NOVAS TAREFAS
+
+Depois de concluir a Missão 001, faça um levantamento das tarefas adicionais que esta IA pode assumir dentro do TokenSaver e da infraestrutura de colaboração.
+
+Não programe ainda. O objetivo é descobrir onde sua capacidade pode gerar mais valor.
+
+Analise pelo menos estas áreas:
+
+1. Orquestração de missões entre GPT-6, Claude, Kimi e futuras IAs.
+2. Automação de GitHub Issues, Actions, webhooks e eventos.
+3. Controle de filas, prioridades, leases, retries e idempotência.
+4. Validação automática de entregas e evidências.
+5. Segurança da comunicação entre agentes e prevenção de prompt injection.
+6. Controle de permissões por agente.
+7. Controle e previsão de custos de chamadas de IA.
+8. Observabilidade: logs, métricas, histórico e rastreabilidade.
+9. Descoberta e integração de novas IAs/provedores.
+10. Testes de falhas e recuperação automática.
+11. CI/CD e verificações automáticas do TokenSaver.
+12. Documentação e geração automática de relatórios.
+13. Coordenação entre tarefas editoriais e tarefas técnicas.
+14. Preparação da infraestrutura para futura versão SaaS/multitenant.
+15. Qualquer outra capacidade que considere útil e que não esteja listada.
+
+Para cada capacidade encontrada, informe:
+- tarefa;
+- benefício para o projeto;
+- qual IA seria mais adequada;
+- se pode ser automatizada;
+- dependências;
+- riscos;
+- prioridade (alta/média/baixa).
+
+Depois monte um ROADMAP de automação em fases, começando pelo menor sistema viável e evoluindo até uma equipe multiagente completa.
+
+Também proponha pelo menos 10 missões futuras concretas que possam ser colocadas no repositório.
+
+IMPORTANTE:
+- Não altere o código do TokenSaver.
+- Não faça commits no projeto principal.
+- Registre toda a análise diretamente no repositório de colaboração, em um relatório dentro de reports/ ou no arquivo de missão, conforme for mais apropriado.
+- Não mande o relatório de trabalho para o usuário no chat.
+- O GPT-6 lerá o relatório diretamente do repositório.
+
+Ao terminar, marque a missão como CONCLUÍDA e inclua uma seção RECOMENDAÇÃO AO GPT-6 com as próximas três missões que você considera mais importantes.
