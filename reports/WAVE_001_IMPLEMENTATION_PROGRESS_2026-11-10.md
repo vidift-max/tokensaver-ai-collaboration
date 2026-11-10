@@ -136,3 +136,12 @@ HEAD atual registrado: `97f28f18d4cb19edbd4f0794cd312e0932abf71a`.
 - Testes adicionados: banco + WAL dentro do orçamento e WAL não regular rejeitado.
 - Commits: `8b2cdb5c0b25fe846231c092a14bf1d05efea185` e `15fd47b61a9f8edda5fdbdb26bcdfc5f63ce88cc`.
 - Os testes ainda aguardam execução do CI. O preflight é uma verificação prévia, não uma garantia contra crescimento concorrente posterior.
+
+
+## Estado CI mais recente da rodada
+
+- HEAD do produto: `15fd47b61a9f8edda5fdbdb26bcdfc5f63ce88cc`.
+- Run `42925059733` para esse HEAD: Linux e Windows em execução; não há conclusão disponível ainda.
+- Run `42924960000` para a correção de sintaxe `a2a3cd86350b06152d6501cdbf2857e43d3ea770`: ambos os jobs ainda estavam em `cargo check` na última consulta.
+- Os runs que falharam por causa do delimitador excedente pertencem aos commits anteriores e a falha está documentada; o commit corretivo já foi publicado.
+- Nenhum resultado de `cargo test` para o HEAD `15fd47b6` está disponível. Não declarar as novas verificações/testes aprovados antes da conclusão de CI.
