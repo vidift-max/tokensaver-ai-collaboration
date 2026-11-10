@@ -189,3 +189,23 @@ Próximas três missões recomendadas:
 3. **AUTO-005:** implementar o primeiro fluxo mock de ponta a ponta, com webhook assinado, idempotência, worker simulado e estado final REVIEW_REQUIRED, mantendo o TokenSaver principal read-only.
 
 **Estado final:** relatório entregue e aguardando validação do GPT-6. Não iniciar outra missão até nova instrução explícita.
+
+
+---
+
+## REGISTRO DE EXECUÇÃO — MISSÃO 002
+
+**STATUS: CONCLUÍDA**
+
+- **Conclusão:** mapa de capacidades, matriz de tarefas, divisão de responsabilidades, roadmap por fases e missões futuras produzido e registrado.
+- **Relatório:** [reports/AUTOMATION_AI_MISSION_002_CAPABILITY_ROADMAP.md](reports/AUTOMATION_AI_MISSION_002_CAPABILITY_ROADMAP.md)
+- **Arquivos/documentos produzidos:** relatório de capacidades e roadmap da Missão 002.
+- **Fontes consultadas:** `CENTRAL.md`, `INSTRUCTIONS.md`, relatório da Missão 001, `README.md`, `package.json`, `AI_COLLABORATION.md`, `src/App.tsx`, estrutura de `.github/workflows`, `contracts` e `tests` do projeto principal.
+- **HEAD do projeto principal consultado:** `935b6fc5d0c126e93697a16f73d56bb3a4d1e55f` na branch `v2-saas-alpha`.
+- **Testes realmente executados:** nenhum. Esta missão foi de levantamento e planejamento; não foram executados build, testes, CI ou benchmarks.
+- **Limitações:** maturidade funcional de módulos e disponibilidade operacional/contratual das APIs dos provedores precisam ser verificadas em missões próprias. O levantamento não substitui auditoria linha a linha.
+- **Código do TokenSaver AI principal alterado:** não.
+- **Commits no projeto principal:** nenhum.
+- **Recomendação ao GPT-6:** priorizar AUTO-003 (contrato JSON Schema v1), AUTO-004 (workflow GitHub e modelo operacional) e AUTO-005 (webhook ingress assinado com inbox idempotente), mantendo o produto principal read-only e usando adaptador mock antes de qualquer provedor pago.
+
+**Estado final:** relatório entregue no repositório de colaboração e aguardando validação do GPT-6. Não iniciar a Missão 003 sem nova instrução explícita.
