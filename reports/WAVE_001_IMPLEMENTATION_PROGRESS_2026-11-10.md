@@ -78,3 +78,12 @@ Hardening adicional: a cópia limitada só remove o temporário em caso de falha
 - **Ainda não há confirmação de aprovação do Windows no commit mais recente.** Nenhum `cargo test` foi executado ou aprovado nesta rodada; o CI atual executa `cargo check`, não a suíte completa.
 
 HEAD atual registrado: `97f28f18d4cb19edbd4f0794cd312e0932abf71a`.
+
+
+## Atualização — cobertura de filesystem, 10/11/2026
+
+- HEAD do produto avançou para `156d143b74e0a1a2902f76d7afacea306c8612b8`.
+- Em `src-tauri/src/filesystem.rs`, foram adicionados três testes determinísticos: cópia com orçamento exatamente igual ao tamanho do arquivo; hash SHA-256 com limite exato e digest conhecido; rejeição de hash quando o arquivo excede o orçamento.
+- Esses testes foram adicionados ao código, mas **ainda não foram executados**. O workflow vigente do projeto está configurado para `cargo check`; sua aprovação não substitui `cargo test`.
+- O run `42924285728` (commit anterior `97f28f18d4cb19edbd4f0794cd312e0932abf71a`) permanecia em execução na última consulta, com jobs Linux e Windows sem conclusão.
+- O novo commit dispara nova execução de CI; o resultado será acompanhado separadamente. Não declarar sucesso até obter conclusão explícita dos dois jobs.
