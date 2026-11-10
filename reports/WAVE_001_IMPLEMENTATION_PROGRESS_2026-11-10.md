@@ -54,3 +54,14 @@ A implementação autorizada da Wave 001 avançou no código principal. Os patch
 6. Reauditar 051/052/055/056/057/063 e só então avançar para regressão 065/066 e gate 070.
 
 **STATUS GERAL: IMPLEMENTAÇÃO PARCIAL — CI EM ANDAMENTO — TESTES E REAUDITORIA PENDENTES.**
+
+
+## Atualização de validação — correção identificada pelo CI
+
+Os runs Windows `42923097891` e `42923250586` falharam no `cargo check` com erro E0317 em `path_guard.rs`: o bloco condicional Windows de `save_roots_unlocked` terminava em `()`, enquanto a função exige `Result<(), AppError>`. A compilação Linux desses runs terminou com sucesso.
+
+Correção aplicada: o ramo Windows agora retorna explicitamente `Ok(())` após o `MoveFileExW` bem-sucedido; também foi removido `mut` desnecessário na leitura limitada. Commit: `a22fce19cbc3daab3e57a7e1877e13c588362787`.
+
+Hardening adicional: a cópia limitada só remove o temporário em caso de falha se esta própria operação conseguiu criá-lo com `create_new`; evita apagar um caminho temporário preexistente que não pertence à operação. Commit: `9976a32ff169fcc2a978636f50788204ded3a821`.
+
+**Validação posterior:** os workflows disparados pelos commits de correção estavam em andamento/na fila na última consulta. Portanto, a correção Windows ainda aguarda confirmação de `cargo check` e os testes continuam não aprovados até a conclusão dos runs.
