@@ -1,0 +1,368 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Collaboration Mission v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "mission_id",
+    "revision",
+    "title",
+    "created_at",
+    "created_by",
+    "assignee",
+    "priority",
+    "objective",
+    "repository",
+    "permissions",
+    "execution",
+    "deliverables",
+    "approval",
+    "status"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "mission_id": {
+      "type": "string",
+      "pattern": "^[A-Z0-9][A-Z0-9._-]{2,63}$"
+    },
+    "revision": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "created_by": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "assignee": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "agent_id",
+        "provider",
+        "capability_profile"
+      ],
+      "properties": {
+        "agent_id": {
+          "type": "string"
+        },
+        "provider": {
+          "enum": [
+            "openai",
+            "anthropic",
+            "kimi",
+            "manual",
+            "mock",
+            "other"
+          ]
+        },
+        "capability_profile": {
+          "type": "string"
+        }
+      }
+    },
+    "priority": {
+      "enum": [
+        "critical",
+        "high",
+        "medium",
+        "low"
+      ]
+    },
+    "objective": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 10000
+    },
+    "acceptance_criteria": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "repository": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "full_name",
+        "ref",
+        "scope"
+      ],
+      "properties": {
+        "full_name": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$"
+        },
+        "ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "scope": {
+          "enum": [
+            "read_only",
+            "collaboration_write",
+            "main_repo_write_explicit"
+          ]
+        },
+        "allowed_paths": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "inputs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "kind",
+          "locator",
+          "trust"
+        ],
+        "properties": {
+          "kind": {
+            "enum": [
+              "repository_file",
+              "issue",
+              "pull_request",
+              "artifact",
+              "url",
+              "text"
+            ]
+          },
+          "locator": {
+            "type": "string",
+            "minLength": 1
+          },
+          "ref": {
+            "type": "string"
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[a-fA-F0-9]{64}$"
+          },
+          "trust": {
+            "const": "untrusted_data"
+          }
+        }
+      }
+    },
+    "permissions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "repository_read",
+        "collaboration_repo_write",
+        "main_repo_write",
+        "execute_code",
+        "network_access",
+        "secrets_access"
+      ],
+      "properties": {
+        "repository_read": {
+          "type": "boolean"
+        },
+        "collaboration_repo_write": {
+          "type": "boolean"
+        },
+        "main_repo_write": {
+          "type": "boolean"
+        },
+        "execute_code": {
+          "type": "boolean"
+        },
+        "network_access": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string"
+          }
+        },
+        "secrets_access": {
+          "type": "array",
+          "maxItems": 0
+        },
+        "allowed_operations": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "read",
+              "create_report",
+              "update_collaboration_doc",
+              "create_issue",
+              "comment_issue",
+              "run_tests",
+              "create_branch",
+              "open_pull_request",
+              "write_main_repo",
+              "merge",
+              "deploy",
+              "delete"
+            ]
+          }
+        }
+      }
+    },
+    "execution": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "timeout_seconds",
+        "max_attempts",
+        "max_parallel_runs",
+        "retry_policy"
+      ],
+      "properties": {
+        "timeout_seconds": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 86400
+        },
+        "max_attempts": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 10
+        },
+        "max_parallel_runs": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 32
+        },
+        "retry_policy": {
+          "enum": [
+            "none",
+            "transient_only",
+            "provider_status_required"
+          ]
+        }
+      }
+    },
+    "budget": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "currency",
+        "max_cost"
+      ],
+      "properties": {
+        "currency": {
+          "const": "USD"
+        },
+        "max_cost": {
+          "type": "number",
+          "minimum": 0
+        },
+        "max_input_tokens": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "max_output_tokens": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "max_provider_calls": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "deliverables": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "type",
+          "required"
+        ],
+        "properties": {
+          "type": {
+            "enum": [
+              "markdown_report",
+              "json",
+              "patch",
+              "test_report",
+              "evidence_manifest",
+              "pull_request",
+              "other"
+            ]
+          },
+          "path": {
+            "type": "string"
+          },
+          "required": {
+            "type": "boolean"
+          },
+          "description": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "approval": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "required_before_execution",
+        "required_before_main_repo_write",
+        "approver"
+      ],
+      "properties": {
+        "required_before_execution": {
+          "type": "boolean"
+        },
+        "required_before_main_repo_write": {
+          "const": true
+        },
+        "approver": {
+          "const": "gpt6-integrator"
+        }
+      }
+    },
+    "status": {
+      "enum": [
+        "DRAFT",
+        "QUEUED",
+        "ASSIGNED",
+        "RUNNING",
+        "RETRY_PENDING",
+        "REVIEW_REQUIRED",
+        "APPROVED",
+        "COMPLETED",
+        "BLOCKED",
+        "FAILED",
+        "CANCELLED",
+        "EXPIRED"
+      ]
+    },
+    "depends_on": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string"
+      }
+    },
+    "correlation_id": {
+      "type": "string"
+    }
+  }
+}
