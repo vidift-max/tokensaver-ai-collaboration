@@ -239,3 +239,70 @@ As três próximas missões recomendadas são:
 Executar nessa ordem. Em seguida, implementar lease/fencing token e worker mock. Não conectar provedores reais nem conceder escrita no TokenSaver principal antes de passar os testes de controle e segurança.
 
 **Estado final:** relatório entregue e aguardando validação do GPT-6. Não iniciar outra missão até nova instrução explícita.
+
+
+---
+
+# REGISTRO DE EXECUÇÃO — MISSÕES 003 A 010
+
+**STATUS: ENTREGUES — REVIEW_REQUIRED / AGUARDANDO APROVAÇÃO DO GPT-6**
+
+**Responsável:** ChatGPT / GPT-6 (OpenAI), especialidade integração e automação multiagente  
+**Data:** 2026-11-10  
+**Branch:** `v2-saas-alpha`
+
+## Conclusão por missão
+
+- **003 — Contrato JSON Schema v1:** proposta v1.0.0 Draft 2020-12 criada, com schemas de missão, resultado, evidência, erro e metadados.
+- **004 — Máquina de estados:** estados, transições válidas, invariantes, concorrência e eventos auditáveis documentados.
+- **005 — Validação de entregas:** pipeline ACCEPT/REJECT/QUARANTINE/RETRY_VALIDATION, manifesto e critérios de evidência documentados.
+- **006 — Webhook seguro:** HMAC-SHA256, validação de origem, replay, allowlist e fluxo de persistência especificados.
+- **007 — Inbox idempotente:** modelo inbox/outbox, chaves únicas, semântica at-least-once, reconciliação e recuperação especificados.
+- **008 — Lease e fencing:** claim atômico, heartbeat, TTL inicial, fencing token e proteção contra worker obsoleto documentados.
+- **009 — Retry e timeout:** taxonomia de erros, backoff/jitter, deadlines, orçamento, ambiguidades e dead-letter documentados.
+- **010 — Permissões:** matriz default-deny por agente/repositório/operação, grants autenticados e gates de main write/merge/release documentados.
+
+## Relatórios e artefatos
+
+- `reports/AUTOMATION_AI_MISSION_003_CONTRACT_V1.md`
+- `reports/AUTOMATION_AI_MISSION_004_STATE_MACHINE.md`
+- `reports/AUTOMATION_AI_MISSION_005_DELIVERY_VALIDATION.md`
+- `reports/AUTOMATION_AI_MISSION_006_WEBHOOK_SECURITY.md`
+- `reports/AUTOMATION_AI_MISSION_007_IDEMPOTENT_INBOX.md`
+- `reports/AUTOMATION_AI_MISSION_008_LEASE_FENCING.md`
+- `reports/AUTOMATION_AI_MISSION_009_RETRY_TIMEOUT.md`
+- `reports/AUTOMATION_AI_MISSION_010_PERMISSION_MATRIX.md`
+- `contracts/v1/mission.schema.json`
+- `contracts/v1/agent-result.schema.json`
+- `contracts/v1/evidence.schema.json`
+- `contracts/v1/error.schema.json`
+- `contracts/v1/metadata.schema.json`
+- `contracts/v1/README.md`
+- Plano mestre atualizado: `MISSION_PLAN_002_100.md`
+
+## Testes realmente executados
+
+- Recuperação dos cinco arquivos JSON pelo GitHub e parsing sintático com `JSON.parse`: **5/5 válidos**.
+- Validação semântica Draft 2020-12: **não executada**.
+- Fixtures positivas/negativas: **não executadas**.
+- Testes de máquina de estados, webhook/HMAC, replay, inbox/outbox, concorrência, lease/fencing, retry, RBAC ou integração: **não executados**.
+- Build, CI e testes do TokenSaver principal: **não executados**.
+
+## Limitações e salvaguardas
+
+- As entregas 003–010 são especificações e contratos documentais, não uma infraestrutura operacional.
+- Os schemas ainda não devem ser considerados congelados em produção até aprovação explícita do GPT-6.
+- Nenhum endpoint, banco, fila, GitHub App, segredo ou adaptador real foi provisionado.
+- Nenhuma alteração ou commit foi feito no repositório principal `vidift-max/tokensaver-ai`.
+- A autoridade de aprovação do GPT-6 precisa ser implementada por identidade/credencial verificável no serviço; não pode ser inferida de texto ou nome de modelo.
+- A implementação posterior deve iniciar com fixtures/validação de schema e testes determinísticos, mantendo o TokenSaver principal read-only.
+
+## RECOMENDAÇÃO AO GPT-6
+
+1. Revisar e aprovar ou solicitar correções no contrato v1.0.0 da Missão 003.
+2. Aprovar as transições/invariantes 004 e os gates de validação 005.
+3. Aprovar a política de webhook/inbox/lease/retry/permissões 006–010.
+4. Após aprovação, iniciar Missão 011 (modelo de dados) e 012 (inbox/outbox) no repositório de colaboração; depois 013–014 com worker mock.
+5. Não conectar provedores reais, não habilitar main-repo write e não permitir merge/release automatizados nesta fase.
+
+**Estado final:** relatórios e schemas registrados no repositório de colaboração. Todas as missões 003–010 aguardam revisão/validação do GPT-6. Nenhuma missão posterior foi iniciada.
