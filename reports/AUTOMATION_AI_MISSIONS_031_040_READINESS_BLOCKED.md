@@ -76,3 +76,21 @@ Publicar no `AUTOMATION_AI_MISSION.md` uma atribuição formal das Missões 031�
 8. paths permitidos, permissões e limites de alteração.
 
 **Decisão anterior (superada):** Missões 031–040 ainda não haviam sido iniciadas quando este relatório foi escrito. A entrega documental posterior está registrada no relatório novo. O TokenSaver principal permanece intocado e os gates de implementação continuam pendentes.
+
+
+---
+
+## ADENDO — REGISTRO SUPERSEDIDO APÓS LOCALIZAÇÃO DOS ENTREGÁVEIS (2026-11-10)
+
+A verificação inicial deste relatório foi supersedida pela entrega documental subsequente registrada em `AUTOMATION_AI_MISSION.md` e `MISSION_PLAN_002_100.md`. Foram localizados e verificados:
+
+- Relatório consolidado: `reports/AUTOMATION_AI_MISSIONS_031_040_AGENT_ADAPTERS.md`.
+- Relatórios individuais: `reports/AUTOMATION_AI_MISSION_031_AGENT_ADAPTER_INTERFACE.md` até `reports/AUTOMATION_AI_MISSION_040_ADAPTER_TESTS.md`.
+- Registry: `contracts/adapters/v1/provider-registry.json`.
+- Instruções do registry: `contracts/adapters/v1/README.md`.
+
+O registry passou em parsing JSON sintático; contém quatro agentes desabilitados e desconectados, quatro providers (incluindo mock), 12 capability profiles com referências resolvidas e nenhum valor de credencial. Nenhum adapter executável foi localizado/implementado; a Missão 040 permanece BLOCKED como execução de testes, com plano de teste preparado.
+
+**Status atual:** Missões 031–039 entregues como especificações/documentação em `REVIEW_REQUIRED`; Missão 040 possui plano e matriz de testes, mas segue `BLOCKED — execução não autorizada/sem harness`. As dependências 003–010 e 011–020 continuam pendentes/bloqueadas conforme o plano mestre. Nenhum provider real foi conectado, nenhum teste de mock/build/CI foi executado e nenhum código do TokenSaver principal foi alterado.
+
+Este relatório deve ser lido apenas como histórico da verificação preliminar; o controle vigente é o registro de entrega em `AUTOMATION_AI_MISSION.md` e a tabela de execução em `MISSION_PLAN_002_100.md`.
