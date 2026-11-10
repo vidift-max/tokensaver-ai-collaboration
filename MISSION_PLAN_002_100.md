@@ -515,3 +515,20 @@ As oito entregas documentais foram registradas e permanecem em **REVIEW_REQUIRED
 **Validação realizada:** os cinco arquivos JSON em `contracts/v1/` foram recuperados do GitHub e passaram por parsing sintático JSON (5/5). Nenhum validador semântico Draft 2020-12, fixture, teste de integração, webhook, banco, worker ou teste de concorrência foi executado.
 
 **Gate:** não iniciar Missão 011–014 até o GPT-6 aprovar formalmente as missões 003–010 ou emitir uma instrução específica. A existência de schemas e relatórios não representa infraestrutura em execução.
+
+
+---
+
+# CONTROLE — SOLICITAÇÃO DAS MISSÕES 011 A 020 (2026-11-10)
+
+| Missões | Status | Motivo |
+|---|---|---|
+| 011–014 | BLOCKED | Gate explícito exige aprovação GPT-6 de 003–010 ou autorização específica; não localizada |
+| 015–016 | BLOCKED | Dependem de worker/fluxo mock executável de 011–014 |
+| 017–018 | BLOCKED | Dependem de modelo de dados e eventos/runtime do MVP |
+| 019 | BLOCKED | Depende de dados operacionais e observabilidade do MVP |
+| 020 | BLOCKED | Auditoria independente exige MVP e evidências; Kimi não deve auditar implementação inexistente |
+
+Relatório de bloqueio: `reports/AUTOMATION_AI_MISSIONS_011_020_BLOCKED.md`.
+
+Nenhuma das missões 011–020 foi marcada como concluída. O pedido de execução não removeu o gate de aprovação definido no protocolo central. Nenhuma alteração foi feita no repositório principal.
