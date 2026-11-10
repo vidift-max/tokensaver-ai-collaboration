@@ -641,3 +641,40 @@ Atualizado em 2026-11-10. As dez missões da Fase C foram entregues como **espec
 **Próximo gate:** GPT-6 deve publicar a atribuição formal, contrato canônico, interfaces autorizadas, taxonomia de capabilities, política de fallback, budgets, fixtures, critérios de aceite, dependências liberadas e paths/permissões permitidos.
 
 **Estado final:** aguardando instrução formal do GPT-6 integrador.
+
+
+---
+
+# CONTROLE DE EXECUÇÃO — MISSÕES 031 A 040
+
+**Atualizado:** 2026-11-10  
+**Resultado:** especificações preparadas para revisão; execução operacional de adapters/testes permanece bloqueada.
+
+| Missão | Entrega registrada | Relatório | Status |
+|---|---|---|---|
+| 031 | Interface lógica comum Agent Adapter, fronteiras, request/response e invariantes | `reports/AUTOMATION_AI_MISSION_031_AGENT_ADAPTER_INTERFACE.md` | REVIEW_REQUIRED |
+| 032 | Especificação de adapter GPT/OpenAI | `reports/AUTOMATION_AI_MISSION_032_GPT_ADAPTER.md` | REVIEW_REQUIRED |
+| 033 | Especificação de adapter Claude/Anthropic, alinhada ao estado real do produto | `reports/AUTOMATION_AI_MISSION_033_CLAUDE_ADAPTER.md` | REVIEW_REQUIRED |
+| 034 | Especificação de adapter Kimi/Moonshot e independência de auditoria | `reports/AUTOMATION_AI_MISSION_034_KIMI_ADAPTER.md` | REVIEW_REQUIRED |
+| 035 | Especificação de adapter Automation AI e limites de sessão/ferramentas | `reports/AUTOMATION_AI_MISSION_035_AUTOMATION_ADAPTER.md` | REVIEW_REQUIRED |
+| 036 | Modelo de Provider Registry, manifestos, capacidades e lifecycle | `reports/AUTOMATION_AI_MISSION_036_PROVIDER_REGISTRY.md` | REVIEW_REQUIRED |
+| 037 | Matching determinístico por hard filters e ranking explicável | `reports/AUTOMATION_AI_MISSION_037_CAPABILITY_MATCHING.md` | REVIEW_REQUIRED |
+| 038 | Política de fallback, timeout ambíguo e proteção contra duplicidade | `reports/AUTOMATION_AI_MISSION_038_PROVIDER_FALLBACK.md` | REVIEW_REQUIRED |
+| 039 | Quotas, budget, rate/concurrency limits e proveniência de preços | `reports/AUTOMATION_AI_MISSION_039_PROVIDER_LIMITS.md` | REVIEW_REQUIRED |
+| 040 | Matriz de 20 testes de contrato com mocks e harness proposto | `reports/AUTOMATION_AI_MISSION_040_ADAPTER_TESTS.md` | BLOCKED — plano apenas |
+
+## Evidências e limites
+
+- Fontes consultadas: `AUTOMATION_AI_MISSION.md`, `MISSION_PLAN_002_100.md`, `CENTRAL.md`, `INSTRUCTIONS.md`, contratos `contracts/v1/`, README e código real do TokenSaver na branch `v2-saas-alpha`.
+- Evidência do produto: README declara que chamadas reais a Claude ainda dependem de backend seguro de credenciais/HTTP; `src-tauri/src/advanced.rs` contém apenas `ClaudeConfig { enabled, endpoint, model }`; `src/api.ts` expõe leitura/gravação dessa configuração. Isso não comprova integração de inferência.
+- `package.json` não declara SDK OpenAI/Anthropic/Moonshot nem runner dedicado de testes frontend. Nenhum adapter executável foi localizado.
+- Nenhuma API real foi chamada; nenhuma credencial, quota, preço ou capacidade comercial foi consultada.
+- Nenhum harness, mock executável, fixture executada, build, teste de integração ou CI foi rodado.
+- Nenhum arquivo do TokenSaver principal foi alterado; nenhum provider foi habilitado.
+- Os documentos 031–039 são propostas de arquitetura, não adapters implementados. Missão 040 contém plano de teste, não evidência de aprovação/passagem.
+
+## Dependências e gate
+
+O protocolo central exige que missões dependentes aguardem decisões anteriores em estado APPROVED. As especificações 003–010 continuam registradas como REVIEW_REQUIRED; 011–020 não possuem implementação/MVP executável aprovada. Portanto, esta entrega prepara 031–039 para revisão, mas não declara as dependências aprovadas nem autoriza código/runtime. A Missão 040 permanece BLOCKED até existir interface aprovada, MockAdapter/harness autorizado e ambiente de teste.
+
+**Próxima ação:** GPT-6 revisar 031–039 e aprovar/revisar 003–010; depois autorizar implementação isolada do MockAdapter/harness no repositório de colaboração. Executar AD-001..020 antes de integrar qualquer API real.
