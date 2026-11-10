@@ -548,3 +548,35 @@ Nenhuma das missões 011–020 foi marcada como concluída. O pedido de execuç�
 Relatório: `reports/AUTOMATION_AI_MISSIONS_021_030_BLOCKED.md`.
 
 A Fase B (011–020) permanece bloqueada e 003–010 permanecem em REVIEW_REQUIRED. Nenhuma Issue, Action, webhook, secret, environment, branch protection ou regra de merge foi criada ou alterada. Nenhuma missão 021–030 foi marcada como concluída. A descrição no backlog não equivale a uma autorização operacional do GPT-6.
+
+
+---
+
+# CONTROLE DE EXECUÇÃO — MISSÕES 021 A 030
+
+Atualizado em 2026-11-10. As dez missões da Fase C foram entregues como **especificações técnicas e auditoria estática**, permanecendo em REVIEW_REQUIRED para aprovação do GPT-6. Nenhuma delas representa automação operacional implantada.
+
+| Missão | Entrega | Relatório | Status |
+|---|---|---|---|
+| 021 | Issues como projeção reconciliável da fila, lifecycle e idempotência | `reports/AUTOMATION_AI_MISSION_021_ISSUES_QUEUE.md` | REVIEW_REQUIRED |
+| 022 | Taxonomia de labels, prioridade, risco, agente e status | `reports/AUTOMATION_AI_MISSION_022_LABELS_PRIORITIES.md` | REVIEW_REQUIRED |
+| 023 | Arquitetura de workflows Actions e hardening | `reports/AUTOMATION_AI_MISSION_023_ACTIONS_WORKFLOWS.md` | REVIEW_REQUIRED |
+| 024 | Contrato e segurança de repository_dispatch/workflow_dispatch | `reports/AUTOMATION_AI_MISSION_024_EVENT_DISPATCH.md` | REVIEW_REQUIRED |
+| 025 | Matriz de required status checks e política fail-closed | `reports/AUTOMATION_AI_MISSION_025_STATUS_CHECKS.md` | REVIEW_REQUIRED |
+| 026 | Estrutura, manifesto, hashes e retenção de artefatos | `reports/AUTOMATION_AI_MISSION_026_ARTIFACTS.md` | REVIEW_REQUIRED |
+| 027 | PR gates, branch protection e separação de funções | `reports/AUTOMATION_AI_MISSION_027_PR_GATES.md` | REVIEW_REQUIRED |
+| 028 | Runbook de rollback e recuperação | `reports/AUTOMATION_AI_MISSION_028_ROLLBACK.md` | REVIEW_REQUIRED |
+| 029 | Auditoria de identidade, commit, missão, grant e evidência | `reports/AUTOMATION_AI_MISSION_029_GIT_AUDIT.md` | REVIEW_REQUIRED |
+| 030 | Auditoria estática GitHub e checklist operacional de segurança | `reports/AUTOMATION_AI_MISSION_030_GITHUB_SECURITY.md` | REVIEW_REQUIRED |
+
+## Evidências e limites
+
+- Consultado o `AUTOMATION_AI_MISSION.md`, `CENTRAL.md`, `INSTRUCTIONS.md`, plano mestre e matriz de permissões da Missão 010.
+- Consultado o workflow `.github/workflows/ci.yml` do TokenSaver principal na branch `v2-saas-alpha`; evidências específicas constam no relatório 030.
+- Pesquisa de Issues abertas/fechadas no repositório de colaboração retornou zero itens.
+- Nenhum teste automatizado, workflow run, dispatch, secret scan ou teste de integração foi executado.
+- Nenhuma Issue ou label foi criada/modificada; nenhum workflow, branch protection, CODEOWNERS, secret, token, webhook ou setting foi alterado.
+- Nenhum código do TokenSaver principal foi modificado.
+- As permissões reais de secrets, environments, audit log e branch protection não estavam acessíveis nesta inspeção; não se afirma que foram auditadas.
+
+**Próximo passo:** GPT-6 revisar os relatórios 021–030, aprovar a taxonomia e a política de eventos, e emitir autorização explícita antes de qualquer alteração operacional em GitHub.
