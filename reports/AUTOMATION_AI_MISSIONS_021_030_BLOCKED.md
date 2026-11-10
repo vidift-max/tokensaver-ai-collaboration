@@ -1,6 +1,6 @@
 # REGISTRO ANTERIOR DE BLOQUEIO — MISSÕES 021 A 030
 
-<badge>SUPERSEDED</badge>
+**STATUS: SUPERSEDED**
 
 Este relatório documentou uma verificação anterior em que a Fase C foi bloqueada por falta de autorização para preparação paralela.
 
