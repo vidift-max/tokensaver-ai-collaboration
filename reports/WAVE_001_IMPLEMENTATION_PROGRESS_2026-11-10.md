@@ -161,3 +161,22 @@ HEAD atual registrado: `97f28f18d4cb19edbd4f0794cd312e0932abf71a`.
 - Novo run de CI: `42925228309`; Linux e Windows permaneciam em execução na última consulta. Linux estava na instalação das dependências Tauri e Windows em `cargo check`.
 - Runs antigos `42924960000`, `42925042139` e `42925059733` também permaneciam abertos sem conclusão na API; não foram tratados como sucesso. Logs de jobs ainda em execução não estavam disponíveis para download (404 do armazenamento de logs).
 - A validação de teste e compilação do novo HEAD permanece pendente. O próximo passo é coletar conclusão e logs após finalização do run `42925228309`, corrigir falhas reais e só então avançar para reauditoria de regressão.
+
+
+## Missão 057 — validação adicional de caminhos persistidos
+
+- Acrescentados testes unitários para rejeitar raízes persistidas com caminho relativo, componente `..` e valor de caminho acima de 4096 bytes.
+- Commit: `86c7008e78d1a79e71b41c8ffeaf5e0b4772f83c`.
+- Os testes de parser anteriores permanecem: JSON excessivo, malformado, UTF-8 inválido e lista vazia.
+- A leitura continua limitada antes da desserialização; os testes ainda aguardam CI do HEAD mais recente.
+
+## Missão 055 — teste do orçamento combinado
+
+- Acrescentado teste com arquivo SQLite esparso no limite máximo e WAL de 1 byte para confirmar rejeição quando a soma ultrapassa 512 MiB sem alocar centenas de MiB físicos.
+- Commit: `5ae5bbce6293394f9083cd81aae0b77fa28086fb`.
+- Execução pendente no CI.
+
+## CI observado durante esta rodada
+
+- Para o commit `1b698767d4dd4c54f73663bef7d43b75940058d4`, os dois jobs completaram `cargo check` com sucesso e estavam executando `cargo test` na última consulta.
+- Não foi observada conclusão de `cargo test` para Linux ou Windows. O novo HEAD contém commits posteriores (`86c7008e` e `5ae5bbce`), portanto ainda exige uma execução própria antes de qualquer aprovação.
