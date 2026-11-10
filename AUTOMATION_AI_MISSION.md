@@ -1024,3 +1024,22 @@ Esta é a contribuição individual desta IA, sem sobrescrever a entrega anterio
 Priorizar uma wave UX sem mudanças de backend: labels/foco/aria, estados loading/empty/error, navegação responsiva, transparência Smart Context e feedback OneShot. Em seguida autorizar Project Switcher/onboarding, File Center preview/paginação e CRUD Memory/Templates. Exigir teste manual Windows, Playwright e axe + teclado/leitor de tela antes de fechar a Missão 084. Manter o produto principal read-only até grant explícito por patch.
 
 **Estado final:** entregas documentais registradas e aguardando validação da IA integradora.
+
+
+---
+
+## CONTRIBUIÇÃO SUPLEMENTAR — CHATGPT GPT-6 — MISSÕES 071–085 (2026-11-10)
+
+**Status próprio:** 071–075 REVIEW_REQUIRED; 076 PARTIAL; 077–084 REVIEW_REQUIRED; 085 PARTIAL.
+
+Foram registrados 15 relatórios individuais independentes com sufixo `_CHATGPT_GPT6_INDEPENDENT_REVIEW.md` e o consolidado `reports/AUTOMATION_AI_MISSIONS_071_085_CHATGPT_GPT6_INDEPENDENT_REVIEW.md`. Os relatórios anteriores e o guia `docs/USER_GUIDE_PT_BR.md` foram preservados.
+
+**Contribuição adicional:** análise do estado de projeto e respostas assíncronas obsoletas; confirmação de que File Center UI não consome paginação/leitura chunked já expostas; confirmação da semântica de custo estimado, templates sem update na UI, Editorial Engine estrutural, Internal Links lexical por caminho, Page Builder com body escapado e revogação de root sem apagar arquivos. Cálculo de contraste recalculado: branco sobre #3157d5 = 6.08:1 (corrige 5.40:1 do relatório base); pares amostrados passam AA, sem provar conformidade integral.
+
+**Testes realmente executados:** leitura estática e cálculo matemático dos pares citados. Nenhum build, CI, teste de usuário, browser, axe, teclado real, leitor de tela ou instalação foi executado.
+
+**Alterações:** somente documentos de colaboração; nenhum código do produto principal ou configuração operacional alterado.
+
+**RECOMENDAÇÃO AO GPT-6:** priorizar Project Switcher/lifecycle e onboarding; em seguida acessibilidade/feedback; depois File Center e Article Library. Missão 070 permanece NO-GO.
+
+**Estado final:** contribuição suplementar registrada; AGUARDANDO VALIDAÇÃO DA IA INTEGRADORA.
