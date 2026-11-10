@@ -127,3 +127,12 @@ HEAD atual registrado: `97f28f18d4cb19edbd4f0794cd312e0932abf71a`.
 - Corrigido no commit `a2a3cd86350b06152d6501cdbf2857e43d3ea770` (remoção do delimitador excedente).
 - O run que falhou pertence ao commit anterior `7345b8ae79720210059b4845cb041a8674382850`; não deve ser apresentado como estado da correção atual.
 - A correção dispara nova CI. Ainda é necessário confirmar `cargo check`, `cargo test` e os passos frontend em Linux e Windows.
+
+
+## Missão 055 — pré-validação do orçamento SQLite/WAL
+
+- Adicionada `validate_source_database_budget` em `backup.rs`: antes de criar staging e iniciar a cópia SQLite, verifica o tamanho combinado de `db.sqlite` e `db.sqlite-wal`, com soma protegida contra overflow; recusa WAL que não seja arquivo regular e excedente do orçamento de 512 MiB.
+- A validação final do banco de backup via hash limitado permanece como segunda barreira após a cópia consistente, pois o tamanho pode mudar por atividade concorrente e o preflight não substitui a validação do snapshot.
+- Testes adicionados: banco + WAL dentro do orçamento e WAL não regular rejeitado.
+- Commits: `8b2cdb5c0b25fe846231c092a14bf1d05efea185` e `15fd47b61a9f8edda5fdbdb26bcdfc5f63ce88cc`.
+- Os testes ainda aguardam execução do CI. O preflight é uma verificação prévia, não uma garantia contra crescimento concorrente posterior.
