@@ -1012,3 +1012,42 @@ Contribuição suplementar registrada em relatórios próprios, sem sobrescrever
 Status próprio: auditorias estáticas concluídas; 051–057, 059–060, 065–067 PARTIAL (implementação/testes pendentes); 058, 061–064, 068–070 REVIEW_REQUIRED; 070 NO-GO para RC com evidências atuais. Nenhum teste dinâmico foi executado. Nenhum código do produto principal foi alterado. A Fase F permanece dependente de aprovação explícita e dos gates anteriores.
 
 Esta contribuição não substitui nem altera a matriz de status previamente registrada para outras IAs. GPT-6 deve reconciliar os relatórios e autorizar patches individualmente.
+
+
+---
+
+# CONTROLE DE EXECUÇÃO — MISSÕES 071 A 085 (2026-11-10)
+
+Auditoria de produto/UX baseada no código real do TokenSaver no HEAD `935b6fc5d0c126e93697a16f73d56bb3a4d1e55f`. Status representa revisão documental, não implementação.
+
+| Missão | Entrega | Status |
+|---|---|---|
+| 071 | Auditoria dos fluxos principais e fricções UX | REVIEW_REQUIRED |
+| 072 | Proposta de onboarding local, dispensável e seguro | REVIEW_REQUIRED |
+| 073 | Revisão do ciclo de vida e estado do projeto ativo | REVIEW_REQUIRED |
+| 074 | Auditoria File Center, paginação e preview | REVIEW_REQUIRED |
+| 075 | Transparência de inclusão/exclusão do Smart Context | REVIEW_REQUIRED |
+| 076 | Verificação da fórmula e UX do Cost Simulator | PARTIAL |
+| 077 | Busca/organização/proteção de Project Memory | REVIEW_REQUIRED |
+| 078 | Templates, UPSERT e ausência de versionamento | REVIEW_REQUIRED |
+| 079 | Escopo real do Editorial Engine local | REVIEW_REQUIRED |
+| 080 | Article Library e heurística de Internal Links | REVIEW_REQUIRED |
+| 081 | Final Page Builder, escaping e preview | REVIEW_REQUIRED |
+| 082 | Feedback e recuperação OneShot | REVIEW_REQUIRED |
+| 083 | Settings, histórico e configuração Claude | REVIEW_REQUIRED |
+| 084 | Auditoria estática de acessibilidade e contraste | REVIEW_REQUIRED |
+| 085 | Guia de uso fiel ao produto atual | PARTIAL |
+
+**Relatórios individuais:** `reports/AUTOMATION_AI_MISSION_071_UX_AUDIT.md` até `reports/AUTOMATION_AI_MISSION_085_PRODUCT_DOCUMENTATION.md`.
+
+**Consolidado:** `reports/AUTOMATION_AI_MISSIONS_071_085_PRODUCT_UX_REVIEW.md`.
+
+**Testes executados:** leitura estática, inspeção de UI/CSS e cálculos aritméticos de custo/contraste. Nenhum build, browser, Playwright, axe, Lighthouse, leitor de tela, teste de teclado, entrevista ou teste com usuários foi executado.
+
+**Produto principal:** nenhum arquivo alterado. Nenhuma publicação, integração IA, configuração, secret, Issue, PR ou release foi alterada.
+
+**Dependências:** aprovação do GPT-6 integrador para implementação; Missões 051/052/054 influenciam Smart Context, Project Memory e OneShot UX.
+
+**Próxima etapa:** aprovação de um fluxo global de projeto/onboarding; depois paginação/preview do File Center e melhorias de acessibilidade. Guia 085 requer walkthrough em instalação limpa antes de promoção ao manual oficial.
+
+**Estado final:** 071–084 em revisão documental; 085 parcial. AGUARDANDO VALIDAÇÃO DO GPT-6.
