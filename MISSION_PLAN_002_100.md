@@ -797,3 +797,45 @@ A matriz de testes de referência é a versão consolidada com **35 casos AD-001
 - Nenhuma alteração no TokenSaver principal, workflow, settings, secrets, Issues ou PRs.
 
 **Próxima ação:** GPT-6/owner revisar os dez relatórios; priorizar hardening de CI, secret manager, egress/SSRF e policy-as-code. Não habilitar providers nem liberar produção até evidências reproduzíveis satisfazerem todos os itens do gate 050.
+
+
+---
+
+# CONTROLE DE EXECUÇÃO — MISSÕES 041 A 050 (2026-11-10)
+
+**Agente:** ChatGPT (GPT-6) — arquitetura, integração e segurança  
+**Status geral:** DOCUMENTAÇÃO ENTREGUE / REVIEW_REQUIRED; gates operacionais pendentes.  
+**Relatório consolidado:** `reports/AUTOMATION_AI_MISSIONS_041_050_THREAT_MODEL.md`.
+
+| Missão | Entrega | Relatório individual | Status |
+|---|---|---|---|
+| 041 | Threat model STRIDE, ativos e trust boundaries | `reports/AUTOMATION_AI_MISSION_041_CHATGPT_GPT6.md` | REVIEW_REQUIRED |
+| 042 | Defesa contra prompt injection | `reports/AUTOMATION_AI_MISSION_042_CHATGPT_GPT6.md` | REVIEW_REQUIRED |
+| 043 | Defesa contra tool injection | `reports/AUTOMATION_AI_MISSION_043_CHATGPT_GPT6.md` | REVIEW_REQUIRED |
+| 044 | Least privilege por agente/operação | `reports/AUTOMATION_AI_MISSION_044_CHATGPT_GPT6.md` | REVIEW_REQUIRED |
+| 045 | Secrets, rotação, redaction e auditoria | `reports/AUTOMATION_AI_MISSION_045_CHATGPT_GPT6.md` | BLOCKED — owner/admin audit |
+| 046 | Supply chain, Actions, lockfiles e artifacts | `reports/AUTOMATION_AI_MISSION_046_CHATGPT_GPT6.md` | REVIEW_REQUIRED |
+| 047 | SSRF e endpoint validation | `reports/AUTOMATION_AI_MISSION_047_CHATGPT_GPT6.md` | REVIEW_REQUIRED — risco latente |
+| 048 | Replay de webhooks/eventos | `reports/AUTOMATION_AI_MISSION_048_CHATGPT_GPT6.md` | BLOCKED — ingress/inbox ausentes |
+| 049 | Data exfiltration e egress control | `reports/AUTOMATION_AI_MISSION_049_CHATGPT_GPT6.md` | REVIEW_REQUIRED |
+| 050 | Security gate pré-produção | `reports/AUTOMATION_AI_MISSION_050_CHATGPT_GPT6.md` | REVIEW_REQUIRED — release NO-GO |
+
+## Evidências e achados prioritários
+- HEAD do repositório principal analisado em read-only: `935b6fc5d0c126e93697a16f73d56bb3a4d1e55f`.
+- SEC-01 ALTO: Smart Context sem orçamento global de arquivos/bytes/deadline.
+- SEC-02 MÉDIO latente: endpoint Claude usa validação por prefixo; nenhum cliente HTTP ativo identificado.
+- SEC-03/04/05 MÉDIO: CI usa Actions por tags, toolchain stable, npm install sem lockfile localizado, sem permissions explícitas e ZIP de source sem secret scan/allowlist demonstrados.
+- SEC-06/07 ALTO futuro: tool authorization e prompt-injection enforcement não existem como runtime multiagente demonstrado; contratos são documentos.
+- SEC-08: secrets/settings não acessíveis; nenhum vazamento foi confirmado.
+- SEC-09: replay só está especificado (Missão 006); webhook/inbox runtime não confirmado.
+- SEC-10: provider egress/data-loss controls ainda precisam ser implementados antes de conectar modelos externos.
+
+## Testes
+Leitura estática e busca no repositório. Nenhum build/test/CI/secret scan/dependency scan/SBOM/DAST/fuzz/SSRF/replay/prompt-injection/tool-injection/load test foi executado nesta missão. Nenhum código principal alterado.
+
+## Gates preservados
+003–010 REVIEW_REQUIRED; 011–020 BLOCKED; 031–040 REVIEW_REQUIRED com validação funcional pendente. Fase E documental não autoriza secrets, providers, webhooks, tools, main write, merge ou release.
+
+**Decisão de release:** NO-GO para produção, integração externa, webhooks e agentes/tools privilegiados até fechar o checklist da Missão 050 com evidências e aprovação autenticada do GPT-6/owner.
+
+**Próxima ação:** revisão dos relatórios individuais e consolidados; owner/admin deve fornecer auditoria autenticada de secrets/settings. Manter aguardando validação da IA integradora.
