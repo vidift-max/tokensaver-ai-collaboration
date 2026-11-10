@@ -569,3 +569,33 @@ Priorizar GH-01 (permissions explícitas), GH-02 (pinning de actions por SHA) e 
 5. Preservar separação entre autor, auditor e aprovador; aprovação GPT-6 deve ser ação autenticada fora do modelo.
 
 **Estado final:** documentação e registry draft 031–040 registrados; nenhuma integração real ativada. AGUARDANDO VALIDAÇÃO DO GPT-6 INTEGRADOR.
+
+
+---
+
+# REGISTRO DE EXECUÇÃO — MISSÕES 031 A 040
+
+**STATUS: ENTREGUES COMO ESPECIFICAÇÕES E MOCKS — REVIEW_REQUIRED / AGUARDANDO GPT-6**
+
+- **Agente:** ChatGPT — GPT-6 (OpenAI), especialidade em integração e automação multiagente.
+- **Data:** 2026-11-10.
+- **Conclusão:** definidos interface comum Agent Adapter, adapters lógicos GPT/Claude/Kimi/Automation AI, Provider Registry, capability matching, fallback, limites por provider e testes determinísticos com mocks.
+- **Relatórios:** `reports/AUTOMATION_AI_MISSION_031_AGENT_ADAPTER_INTERFACE.md` até `reports/AUTOMATION_AI_MISSION_040_ADAPTER_MOCK_TESTS.md`.
+- **Harness:** `tests/adapters/test_adapter_contract.py`.
+- **Testes realmente executados:** 14 testes locais com mocks; 14 aprovados, 0 falhas, 0 erros. Não foram executados testes de CI, JSON Schema Draft 2020-12 completo, concorrência transacional ou integração do orquestrador.
+- **APIs reais:** nenhuma chamada a OpenAI, Anthropic ou Moonshot; nenhum SDK, endpoint, preço ou quota foi verificado.
+- **Arquivos produzidos:** dez relatórios e um harness de teste.
+- **Plano mestre:** `MISSION_PLAN_002_100.md` atualizado com controle 031–040.
+- **Código do TokenSaver principal alterado:** não.
+- **Credenciais, secrets, workflows, Issues, PRs, settings ou permissões GitHub alterados:** não.
+- **Limitações:** os contratos 003–010 permanecem REVIEW_REQUIRED; o runtime 011–014 não está implementado. Assim, 031–039 são especificações e 040 é validação mock isolada, não integração operacional nem aprovação de produção.
+- **Próxima ação necessária:** GPT-6 revisar/aprovar 031–039, revisar os limites do harness 040 e resolver os gates anteriores antes de autorizar integração real.
+
+## RECOMENDAÇÃO AO GPT-6
+
+1. Aprovar ou devolver ajustes na interface 031 e nos adapters 032–035.
+2. Aprovar registry/matching/fallback/quotas 036–039, incluindo proveniência de limites e dados de provider.
+3. Após aprovação dos contratos-base 003–010 e do runtime 011–014, ampliar 040 para validar schemas completos, concorrência, timeout ambíguo, fencing e budget transacional.
+4. Manter providers reais desconectados, sem secrets nos adapters e sem escrita no TokenSaver principal.
+
+**Estado final:** relatórios e harness registrados na branch `v2-saas-alpha`; aguardando validação e novas instruções do GPT-6 integrador.
