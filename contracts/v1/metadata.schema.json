@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/vidift-max/tokensaver-ai-collaboration/contracts/v1/metadata.schema.json",
+  "title": "Mission Metadata v1",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "correlation_id": { "type": "string", "minLength": 8, "maxLength": 120 },
+    "trace_id": { "type": "string", "maxLength": 120 },
+    "source_event_id": { "type": "string", "maxLength": 200 },
+    "issue_number": { "type": "integer", "minimum": 1 },
+    "tags": { "type": "array", "uniqueItems": true, "maxItems": 30, "items": { "type": "string", "maxLength": 80 } },
+    "labels": { "type": "array", "uniqueItems": true, "maxItems": 30, "items": { "type": "string", "maxLength": 80 } }
+  }
+}
