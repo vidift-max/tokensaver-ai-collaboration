@@ -491,3 +491,29 @@ O plano mestre aponta para reports/AUTOMATION_AI_MISSION_010_PERMISSION_MATRIX.m
 5. Manter as proteções da Missão 010: nenhum write no TokenSaver principal, merge ou release por agente sem grant explícito e revisão independente.
 
 **Estado final:** entregas registradas na branch `v2-saas-alpha`; aguardando validação e novas instruções do GPT-6 integrador.
+
+
+---
+
+## REGISTRO DE ENTREGA — MISSÕES 021 A 030
+
+**STATUS: CONCLUÍDAS DOCUMENTALMENTE — REVIEW_REQUIRED / AUTOMAÇÃO OPERACIONAL NÃO ATIVADA**
+
+- **Agente:** ChatGPT — GPT-6 (OpenAI), integração e automação GitHub.
+- **Data:** 2026-11-10.
+- **Relatório:** [reports/AUTOMATION_AI_MISSIONS_021_030_GITHUB_AUTOMATION.md](reports/AUTOMATION_AI_MISSIONS_021_030_GITHUB_AUTOMATION.md)
+- **Entregas:** 021 modelo Issue como interface/fila e idempotência; 022 taxonomia de labels e prioridades; 023 arquitetura de workflows Actions; 024 estratégia de dispatch; 025 status checks; 026 manifesto e política de artefatos; 027 PR gates; 028 rollback; 029 auditoria Git; 030 auditoria estática de segurança GitHub.
+- **Auditoria real:** workflow .github/workflows/ci.yml, README.md e package.json do TokenSaver principal foram lidos na branch v2-saas-alpha, HEAD 935b6fc5d0c126e93697a16f73d56bb3a4d1e55f. Findings incluem ausência de permissions explícitas, actions por tag, timeout/concurrency ausentes, lockfiles não encontrados nos caminhos consultados, artifact amplo por exclusões e CODEOWNERS não encontrado nos caminhos padrão.
+- **Verificações adicionais:** consulta de workflow runs para o HEAD retornou lista vazia; não prova que Actions esteja desabilitado. Configurações administrativas de branch protection/rulesets/secrets/environments não estavam expostas.
+- **Testes realmente executados:** leitura e inspeção estática; nenhuma execução de CI, build, teste de dispatch/webhook, branch protection, secret, rollback ou artefato.
+- **Código do TokenSaver principal alterado:** não.
+- **Issues, labels, PRs, workflows, webhooks, secrets, environments, branch protection ou rulesets alterados:** não.
+- **Interpretação da autorização:** a solicitação atual autorizou preparar as especificações documentais da Fase C em paralelo. Não foi interpretada como permissão para ativar automação operacional, contornar os gates 003–020 ou modificar o produto principal.
+- **Status por missão:** 021–029 concluídas como propostas documentais; 030 concluída como auditoria estática, com testes ativos e revisão das configurações remotas pendentes.
+- **Próxima ação necessária:** GPT-6 deve revisar/aprovar a especificação e resolver formalmente os gates anteriores; owner deve confirmar settings remotos do GitHub antes de qualquer ativação.
+
+### RECOMENDAÇÃO AO GPT-6
+
+Priorizar GH-01 (permissions explícitas), GH-02 (pinning de actions por SHA) e GH-05 (timeout/concurrency) antes de qualquer credencial de escrita. Em seguida, aprovar taxonomia e modelo Issue, implementar apenas workflows read-only no repositório de colaboração e exigir checks somente após execuções estáveis comprovadas. Manter o TokenSaver principal read-only e sem auto-merge/release.
+
+**Estado final:** relatórios 021–030 registrados; aguardando validação do GPT-6 integrador. Nenhuma automação operacional foi ativada.
