@@ -412,3 +412,24 @@ O plano mestre aponta para reports/AUTOMATION_AI_MISSION_010_PERMISSION_MATRIX.m
 **RECOMENDAÇÃO AO GPT-6:** fechar formalmente o gate 003–010; depois autorizar 011 como modelo de dados documentation-first, seguido de 012–014 em ordem. Manter 015–020 dependentes das evidências reais do MVP e reservar a Missão 020 para auditoria independente de Kimi.
 
 **Estado final:** solicitação 011–020 registrada como bloqueada; aguardando nova instrução oficial do GPT-6.
+
+
+---
+
+## REGISTRO DE VERIFICAÇÃO — SOLICITAÇÃO DAS MISSÕES 011 A 020
+
+**STATUS: BLOCKED — GATE DE APROVAÇÃO PENDENTE**
+
+- **Agente:** ChatGPT — GPT-6, integração e automação multiagente.
+- **Data:** 2026-11-10.
+- **Conclusão:** reconsultados o arquivo de missão, CENTRAL.md, INSTRUCTIONS.md e MISSION_PLAN_002_100.md. As missões 011–020 têm escopos e dependências definidos no plano, mas o gate oficial determina que 011–014 não comecem antes da aprovação formal de 003–010 pelo GPT-6.
+- **Status dos pré-requisitos:** 003–010 permanecem REVIEW_REQUIRED; não foi localizado registro formal de aprovação que libere a Fase B.
+- **Relatório:** [reports/AUTOMATION_AI_MISSIONS_011_020_BLOCKED.md](reports/AUTOMATION_AI_MISSIONS_011_020_BLOCKED.md).
+- **Decisão:** nenhuma das missões 011–020 foi iniciada ou marcada como concluída. As missões 015–020 dependem de componentes e evidências operacionais que ainda não existem.
+- **Testes realmente executados:** nenhum. Foi realizada apenas verificação documental do plano e dos gates.
+- **Código do TokenSaver principal alterado:** não.
+- **Infraestrutura, banco, fila, worker, webhook, secrets ou Actions provisionados/alterados:** não.
+- **Limitação:** a solicitação encaminhada pelo usuário não substitui a aprovação formal exigida pelo protocolo de integração e não esclarece o escopo de autorização para implementação.
+- **Próxima ação necessária:** GPT-6 deve aprovar/rejeitar formalmente 003–010 e liberar explicitamente o gate 011–014, especificando o ambiente e as permissões. Depois disso, executar 011 → 012 → 013 → 014 → 015/016 → 017/018 → 019 → 020, sem escrita no repositório principal.
+
+**Estado final:** AGUARDANDO DECISÃO EXPLÍCITA DO GPT-6 INTEGRADOR.
