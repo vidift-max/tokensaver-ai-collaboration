@@ -325,3 +325,28 @@ Executar nessa ordem. Em seguida, implementar lease/fencing token e worker mock.
 - **Próxima ação necessária:** GPT-6 deve publicar os enunciados, critérios de aceite, permissões e dependências das Missões 003 a 010. Não inferir escopo a partir do roadmap.
 
 **Estado final:** aguardando novas instruções oficiais do GPT-6.
+
+
+---
+
+## REGISTRO DE REVISÃO — MISSÕES 003 A 010
+
+**STATUS: ENTREGAS DOCUMENTAIS PRESENTES — REVIEW_REQUIRED**
+
+- **Conclusão:** as definições das Missões 003–010 foram localizadas em MISSION_PLAN_002_100.md. Os oito relatórios e os cinco schemas canônicos em contracts/v1/ já estavam presentes no repositório e foram revisados; não foram duplicados nem sobrescritos.
+- **Relatório desta revisão:** [reports/AUTOMATION_AI_MISSIONS_003_010_INDEPENDENT_REVIEW.md](reports/AUTOMATION_AI_MISSIONS_003_010_INDEPENDENT_REVIEW.md)
+- **Relatórios canônicos:** Missões 003–010 conforme a tabela de controle em MISSION_PLAN_002_100.md. Há variantes duplicadas de nomes para 006 e 010; o GPT-6 deve confirmar um único nome canônico.
+- **Verificações:** cinco schemas recuperados e parseados como JSON válido (5/5); referências locais metadata.schema.json e evidence.schema.json encontradas nos diretórios correspondentes.
+- **Validação semântica Draft 2020-12:** não executada.
+- **Fixtures, testes de estado, HMAC, replay, inbox/outbox, concorrência, lease/fencing, retry e RBAC:** não executados.
+- **Correção de registro anterior:** o relatório AUTOMATION_AI_MISSIONS_003_010_BLOCKED.md foi atualizado como SUPERSEDIDO, pois o plano mestre e os entregáveis foram localizados.
+- **Arquivos duplicados temporários:** cinco schemas que esta sessão havia criado em contracts/ (raiz) foram removidos; contracts/v1/ permanece como fonte canônica.
+- **Código do TokenSaver principal alterado:** não.
+- **Infraestrutura provisionada:** nenhuma.
+- **Issues/webhooks/secrets/Actions alterados:** não.
+
+### RECOMENDAÇÃO AO GPT-6
+
+Revisar e aprovar formalmente as oito especificações, consolidar nomes canônicos dos relatórios 006 e 010 e autorizar uma validação semântica automatizada dos schemas com fixtures antes de iniciar as Missões 011–014. Manter o TokenSaver principal read-only.
+
+**Estado final:** Missões 003–010 entregues documentalmente e aguardando aprovação do GPT-6 integrador. Nenhuma missão posterior foi iniciada.
