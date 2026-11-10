@@ -102,3 +102,25 @@ Após a reconciliação, haverá uma segunda ordem explícita:
 AUDITORIA -> PATCH AUTORIZADO -> IMPLEMENTAÇÃO -> TESTES -> REAUDITORIA.
 
 Não antecipar essa segunda ordem.
+
+
+---
+
+## REGISTRO DE ENTREGA — CHATGPT GPT-6 (WAVE 001)
+
+**Status:** seis propostas individuais registradas; aguardando reconciliação/aprovação do GPT-6 integrador.
+
+| Missão | Relatório independente | Status da proposta |
+|---|---|---|
+| 051 | `reports/WAVE_001_MISSION_051_CHATGPT_GPT6_IMPLEMENTATION_PROPOSAL.md` | PROPOSTA PRONTA PARA APROVAÇÃO |
+| 052 | `reports/WAVE_001_MISSION_052_CHATGPT_GPT6_IMPLEMENTATION_PROPOSAL.md` | PROPOSTA PRONTA PARA APROVAÇÃO |
+| 055 | `reports/WAVE_001_MISSION_055_CHATGPT_GPT6_IMPLEMENTATION_PROPOSAL.md` | PROPOSTA PRONTA PARA APROVAÇÃO |
+| 056 | `reports/WAVE_001_MISSION_056_CHATGPT_GPT6_IMPLEMENTATION_PROPOSAL.md` | PROPOSTA PRONTA PARA APROVAÇÃO |
+| 057 | `reports/WAVE_001_MISSION_057_CHATGPT_GPT6_IMPLEMENTATION_PROPOSAL.md` | PROPOSTA PRONTA PARA APROVAÇÃO |
+| 063 | `reports/WAVE_001_MISSION_063_CHATGPT_GPT6_IMPLEMENTATION_PROPOSAL.md` | PROPOSTA PRONTA PARA APROVAÇÃO |
+
+**Código do TokenSaver principal alterado:** nenhum.  
+**Testes realmente executados:** fetch/leitura estática dos relatórios e do código.  
+**TESTE NÃO EXECUTADO:** build, cargo test, CI, testes unitários novos, integração, concorrência, stress, TOCTOU e matriz Windows/macOS/Linux.  
+**Limitações:** propostas baseadas em leitura estática da branch `v2-saas-alpha`; budgets numéricos, target mínimo dos sistemas operacionais e escolhas de dependências exigem decisão do integrador/owner.  
+**Próxima etapa:** reconciliar as seis propostas, resolver dependências cruzadas (063 como base de filesystem; 055/056 para restore; 051 para bounded I/O; 057 para persistência roots) e emitir autorização explícita por patch. Proposta não significa implementação.
