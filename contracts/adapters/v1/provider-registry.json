@@ -1,0 +1,301 @@
+{
+  "registry_version": "1.0.0-draft",
+  "status": "review_required",
+  "generated_at": "2026-11-10",
+  "policy": {
+    "default_enabled": false,
+    "execution_mode_default": "manual_assisted",
+    "require_authenticated_grant": true,
+    "require_contract_compatibility": true,
+    "secrets_stored_in_registry": false,
+    "no_automatic_main_repository_write": true,
+    "no_self_approval": true
+  },
+  "providers": [
+    {
+      "provider_id": "openai",
+      "display_name": "OpenAI",
+      "api_integration_status": "not_configured",
+      "model_ids": []
+    },
+    {
+      "provider_id": "anthropic",
+      "display_name": "Anthropic",
+      "api_integration_status": "not_configured",
+      "model_ids": []
+    },
+    {
+      "provider_id": "kimi",
+      "display_name": "Kimi (external provider mapping requires confirmation)",
+      "api_integration_status": "not_configured",
+      "model_ids": []
+    },
+    {
+      "provider_id": "mock",
+      "display_name": "Deterministic Mock Provider",
+      "api_integration_status": "not_implemented",
+      "model_ids": [
+        "mock-deterministic-v1"
+      ]
+    }
+  ],
+  "agents": [
+    {
+      "agent_id": "gpt6-integrator",
+      "display_name": "GPT-6",
+      "role": "integration_and_final_decision",
+      "provider_id": "openai",
+      "adapter_id": "openai-adapter",
+      "execution_mode": "manual_assisted",
+      "enabled": false,
+      "operational_status": "not_connected",
+      "capability_profile_ids": [
+        "integration.review",
+        "architecture.decision",
+        "mission.approval"
+      ],
+      "supported_contract_versions": [
+        "1.0.0"
+      ],
+      "model_id": null,
+      "deployment_ref": null,
+      "credential_ref": null,
+      "limits_ref": null,
+      "approval_authority": "external_authenticated_identity_required"
+    },
+    {
+      "agent_id": "claude-editorial",
+      "display_name": "Claude",
+      "role": "editorial",
+      "provider_id": "anthropic",
+      "adapter_id": "anthropic-adapter",
+      "execution_mode": "manual_assisted",
+      "enabled": false,
+      "operational_status": "not_connected",
+      "capability_profile_ids": [
+        "editorial.analysis",
+        "editorial.drafting",
+        "source.synthesis"
+      ],
+      "supported_contract_versions": [
+        "1.0.0"
+      ],
+      "model_id": null,
+      "deployment_ref": null,
+      "credential_ref": null,
+      "limits_ref": null,
+      "approval_authority": "none"
+    },
+    {
+      "agent_id": "kimi-auditor",
+      "display_name": "Kimi",
+      "role": "technical_audit",
+      "provider_id": "kimi",
+      "adapter_id": "kimi-adapter",
+      "execution_mode": "manual_assisted",
+      "enabled": false,
+      "operational_status": "not_connected",
+      "capability_profile_ids": [
+        "technical.audit",
+        "security.review",
+        "independent.review"
+      ],
+      "supported_contract_versions": [
+        "1.0.0"
+      ],
+      "model_id": null,
+      "deployment_ref": null,
+      "credential_ref": null,
+      "limits_ref": null,
+      "approval_authority": "none"
+    },
+    {
+      "agent_id": "automation-ai",
+      "display_name": "Automation AI",
+      "role": "integration_and_automation",
+      "provider_id": "openai",
+      "adapter_id": "automation-ai-adapter",
+      "execution_mode": "manual_assisted",
+      "enabled": false,
+      "operational_status": "not_connected",
+      "capability_profile_ids": [
+        "orchestration.design",
+        "github.automation.specification",
+        "adapter.integration"
+      ],
+      "supported_contract_versions": [
+        "1.0.0"
+      ],
+      "model_id": null,
+      "deployment_ref": null,
+      "credential_ref": null,
+      "limits_ref": null,
+      "approval_authority": "none"
+    }
+  ],
+  "capability_profiles": [
+    {
+      "profile_id": "integration.review",
+      "version": "1.0.0",
+      "capabilities": [
+        "architecture.review",
+        "integration.review"
+      ],
+      "risk_classes": [
+        "low",
+        "medium"
+      ],
+      "data_classification_max": "internal",
+      "execution_mode": "manual_assisted"
+    },
+    {
+      "profile_id": "architecture.decision",
+      "version": "1.0.0",
+      "capabilities": [
+        "architecture.design",
+        "integration.decision"
+      ],
+      "risk_classes": [
+        "low",
+        "medium",
+        "high"
+      ],
+      "data_classification_max": "internal",
+      "execution_mode": "manual_assisted"
+    },
+    {
+      "profile_id": "mission.approval",
+      "version": "1.0.0",
+      "capabilities": [
+        "mission.approval"
+      ],
+      "risk_classes": [],
+      "data_classification_max": "public",
+      "execution_mode": "manual_only",
+      "requires_external_authenticated_action": true
+    },
+    {
+      "profile_id": "editorial.analysis",
+      "version": "1.0.0",
+      "capabilities": [
+        "editorial.analysis"
+      ],
+      "risk_classes": [
+        "low",
+        "medium"
+      ],
+      "data_classification_max": "internal",
+      "execution_mode": "manual_assisted"
+    },
+    {
+      "profile_id": "editorial.drafting",
+      "version": "1.0.0",
+      "capabilities": [
+        "editorial.drafting"
+      ],
+      "risk_classes": [
+        "low",
+        "medium"
+      ],
+      "data_classification_max": "internal",
+      "execution_mode": "manual_assisted"
+    },
+    {
+      "profile_id": "source.synthesis",
+      "version": "1.0.0",
+      "capabilities": [
+        "source.synthesis"
+      ],
+      "risk_classes": [
+        "low",
+        "medium"
+      ],
+      "data_classification_max": "internal",
+      "execution_mode": "manual_assisted"
+    },
+    {
+      "profile_id": "technical.audit",
+      "version": "1.0.0",
+      "capabilities": [
+        "technical.audit"
+      ],
+      "risk_classes": [
+        "low",
+        "medium",
+        "high"
+      ],
+      "data_classification_max": "internal",
+      "execution_mode": "manual_assisted"
+    },
+    {
+      "profile_id": "security.review",
+      "version": "1.0.0",
+      "capabilities": [
+        "security.review"
+      ],
+      "risk_classes": [
+        "medium",
+        "high"
+      ],
+      "data_classification_max": "internal",
+      "execution_mode": "manual_assisted"
+    },
+    {
+      "profile_id": "independent.review",
+      "version": "1.0.0",
+      "capabilities": [
+        "independent.review"
+      ],
+      "risk_classes": [
+        "low",
+        "medium",
+        "high"
+      ],
+      "data_classification_max": "internal",
+      "execution_mode": "manual_assisted",
+      "conflicts_with": [
+        "author_of_current_delivery"
+      ]
+    },
+    {
+      "profile_id": "orchestration.design",
+      "version": "1.0.0",
+      "capabilities": [
+        "orchestration.design"
+      ],
+      "risk_classes": [
+        "low",
+        "medium"
+      ],
+      "data_classification_max": "internal",
+      "execution_mode": "manual_assisted"
+    },
+    {
+      "profile_id": "github.automation.specification",
+      "version": "1.0.0",
+      "capabilities": [
+        "github.automation.specification"
+      ],
+      "risk_classes": [
+        "low",
+        "medium"
+      ],
+      "data_classification_max": "internal",
+      "execution_mode": "manual_assisted"
+    },
+    {
+      "profile_id": "adapter.integration",
+      "version": "1.0.0",
+      "capabilities": [
+        "adapter.integration"
+      ],
+      "risk_classes": [
+        "low",
+        "medium"
+      ],
+      "data_classification_max": "internal",
+      "execution_mode": "manual_assisted"
+    }
+  ],
+  "note": "Draft catalog only. Role capability declarations are proposals, not proof of provider API availability, authenticated identity, permissions, measured quality, cost or production readiness."
+}
