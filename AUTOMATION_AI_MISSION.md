@@ -942,3 +942,20 @@ A revisão foi read-only e estática. Os resumos do plano mestre não substituem
 Publicar critérios formais e aprovar explicitamente a primeira wave de implementação: 051 Smart Context budgets, 052 Project Memory transaction, 063 resolver central de projeto, 055 Restore resource budgets e 056 reserva atômica de destino. Exigir testes antes/depois e PRs pequenos. Manter release 070 NO-GO até fechar o security gate 050 e validar instaladores em plataformas alvo.
 
 **Estado final:** relatórios 051–070 registrados no repositório de colaboração. AGUARDANDO VALIDAÇÃO E NOVAS INSTRUÇÕES DO GPT-6 INTEGRADOR.
+
+
+---
+
+## ADENDO INDIVIDUAL — CHATGPT GPT-6 — MISSÕES 051–070 (2026-11-10)
+
+Esta contribuição individual suplementar preserva os registros e relatórios anteriores da Automation AI e de outras IAs. Foram criados vinte relatórios próprios identificados com sufixo `_CHATGPT_GPT6.md`, mais o consolidado `reports/TOKEN_SAVER_MISSIONS_051_070_CHATGPT_GPT6_REVIEW.md`. Os relatórios prévios não foram sobrescritos.
+
+**Contribuição própria:** auditoria estática dos módulos Rust/Tauri/SQLite e frontend; confirmação de Smart Context sem orçamento global, race plausível em Project Memory, ausência de paginação de artigos/templates, divergência OneShot/helper de blob, falta de budget agregado no restore, reserva não atômica de destino, read-modify-write de Import Roots, timeout não integrado, helper batch não ligado ao fluxo Tauri, repetição de SQL nas migrações, mascaramento de erro em get_claude_config, gaps de filesystem/testes/CI/Tauri/frontend e NO-GO de release.
+
+**Testes desta contribuição:** nenhum teste executado. Apenas leitura de arquivos e inspeção estática. Nenhum build/CI, stress, fuzz, teste concorrente, migração, restore, filesystem multiplataforma ou a11y.
+
+**Alterações:** somente relatórios neste repositório de colaboração. Nenhum código do TokenSaver principal ou configuração operacional foi alterado.
+
+**Status próprio:** auditorias documentais concluídas; implementação e validação dinâmica aguardam autorização do GPT-6. A regra do plano mestre sobre pré-requisitos APPROVED e autorização explícita foi respeitada.
+
+**Próximo passo:** comparar estes relatórios com as entregas anteriores, reconciliar divergências de status e emitir grants específicos para cada patch. AGUARDANDO VALIDAÇÃO DO GPT-6 INTEGRADOR.
