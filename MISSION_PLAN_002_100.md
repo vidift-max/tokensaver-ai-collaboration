@@ -765,3 +765,35 @@ A matriz de testes de referência é a versão consolidada com **35 casos AD-001
 - Nenhum MockAdapter, teste funcional, build ou CI executado.
 
 **Status:** entregas documentais REVIEW_REQUIRED; execução funcional da Missão 040 permanece bloqueada até aprovação das dependências 003–020 e autorização do harness mock. Nenhum provider real foi ativado.
+
+
+---
+
+# CONTROLE DE EXECUÇÃO — MISSÕES 041 A 050 (2026-11-10)
+
+**Responsável:** ChatGPT — GPT-6 (OpenAI), integração multiagente e revisão de segurança.  
+**Resultado:** avaliações documentais 041–049 concluídas; gate 050 bloqueado para produção por ausência de evidências operacionais.
+
+| Missão | Entrega | Relatório individual | Status |
+|---|---|---|---|
+| 041 | Threat model STRIDE, ativos, fronteiras e riscos | `reports/SECURITY_MISSION_041_THREAT_MODEL.md` | REVIEW_REQUIRED |
+| 042 | Defesa contra prompt injection e casos PI-01..PI-10 | `reports/SECURITY_MISSION_042_PROMPT_INJECTION.md` | REVIEW_REQUIRED |
+| 043 | Tool broker, default-deny e casos TI-01..TI-10 | `reports/SECURITY_MISSION_043_TOOL_INJECTION.md` | REVIEW_REQUIRED |
+| 044 | Matriz least privilege/grants por agente | `reports/SECURITY_MISSION_044_LEAST_PRIVILEGE.md` | REVIEW_REQUIRED |
+| 045 | Secret lifecycle, storage, rotação e redaction | `reports/SECURITY_MISSION_045_SECRETS.md` | REVIEW_REQUIRED |
+| 046 | Auditoria estática supply chain/CI | `reports/SECURITY_MISSION_046_SUPPLY_CHAIN.md` | REVIEW_REQUIRED |
+| 047 | SSRF/endpoints e política de egress | `reports/SECURITY_MISSION_047_SSRF_ENDPOINTS.md` | REVIEW_REQUIRED |
+| 048 | HMAC, replay protection e dedupe | `reports/SECURITY_MISSION_048_REPLAY.md` | REVIEW_REQUIRED |
+| 049 | Data classification, minimização, DLP e egress | `reports/SECURITY_MISSION_049_DATA_EXFILTRATION.md` | REVIEW_REQUIRED |
+| 050 | Checklist obrigatório pré-produção | `reports/SECURITY_MISSION_050_SECURITY_GATE.md` | BLOCKED_FOR_PRODUCTION |
+
+**Relatório consolidado:** `reports/AUTOMATION_AI_MISSIONS_041_050_SECURITY_REVIEW.md`.
+
+## Evidência e limites
+- Inspecionados README, package.json, Cargo.toml, CI workflow, Tauri config/capabilities e módulos Rust/TypeScript selecionados do projeto principal na branch `v2-saas-alpha`.
+- Achados incluem Actions referenciadas por tags, ausência de permissions/timeouts/concurrency explícitos no workflow consultado, lockfiles não encontrados nos paths consultados, configuração Claude sem credencial e validação sintática de endpoint sem cliente HTTP real localizado.
+- Nenhum secret/settings administrativo foi acessado.
+- Nenhum build, CI, SAST/DAST, scanner, pentest, fuzzing, replay/SSRF/RBAC/DLP test foi executado.
+- Nenhuma alteração no TokenSaver principal, workflow, settings, secrets, Issues ou PRs.
+
+**Próxima ação:** GPT-6/owner revisar os dez relatórios; priorizar hardening de CI, secret manager, egress/SSRF e policy-as-code. Não habilitar providers nem liberar produção até evidências reproduzíveis satisfazerem todos os itens do gate 050.
