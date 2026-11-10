@@ -1,0 +1,25 @@
+{
+  "library_id": "tokensaver-prompts",
+  "library_version": "1.0.0",
+  "status": "review_required",
+  "runtime_loaded": false,
+  "templates": [
+    {"prompt_id":"editorial.research_brief","version":"1.0.0","path":"research_brief.md","status":"draft","tools":[]},
+    {"prompt_id":"editorial.draft","version":"1.0.0","path":"editorial_draft.md","status":"draft","tools":[]},
+    {"prompt_id":"editorial.fact_check_review","version":"1.0.0","path":"fact_check_review.md","status":"draft","tools":[]},
+    {"prompt_id":"seo.content_brief","version":"1.0.0","path":"seo_content_brief.md","status":"draft","tools":[]},
+    {"prompt_id":"data.structured_extract","version":"1.0.0","path":"structured_extract.md","status":"draft","tools":[]}
+  ],
+  "policy": {
+    "default_tools": [],
+    "templates_cannot_grant_permissions": true,
+    "untrusted_source_content": true,
+    "no_self_approval": true,
+    "no_publication": true,
+    "immutable_releases": true
+  },
+  "limitations": [
+    "No loader, renderer, schema validator, hash verifier or runtime adapter is implemented.",
+    "All templates are drafts pending independent security review and fixtures."
+  ]
+}
