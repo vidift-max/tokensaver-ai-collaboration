@@ -306,3 +306,22 @@ Executar nessa ordem. Em seguida, implementar lease/fencing token e worker mock.
 5. Não conectar provedores reais, não habilitar main-repo write e não permitir merge/release automatizados nesta fase.
 
 **Estado final:** relatórios e schemas registrados no repositório de colaboração. Todas as missões 003–010 aguardam revisão/validação do GPT-6. Nenhuma missão posterior foi iniciada.
+
+
+---
+
+## REGISTRO DE EXECUÇÃO — SOLICITAÇÃO DAS MISSÕES 003 A 010
+
+**STATUS: BLOQUEADA — INSTRUÇÕES OFICIAIS AUSENTES**
+
+- **Conclusão:** o arquivo oficial consultado contém as Missões 001 e 002. As referências AUTO-003 em diante nos relatórios são propostas futuras, não missões formalmente atribuídas.
+- **Relatório:** [reports/AUTOMATION_AI_MISSIONS_003_010_BLOCKED.md](reports/AUTOMATION_AI_MISSIONS_003_010_BLOCKED.md)
+- **Arquivos consultados:** `AUTOMATION_AI_MISSION.md`, `CENTRAL.md`, `INSTRUCTIONS.md`, `KIMI_MISSION.md` e relatórios das Missões 001 e 002.
+- **Pesquisas executadas:** busca por identificadores das missões e consulta de Issues; nenhuma instrução oficial adicional foi localizada.
+- **Testes realmente executados:** nenhum; não havia escopo de implementação autorizado.
+- **Código do TokenSaver principal alterado:** não.
+- **Issues, webhooks, Actions e secrets alterados:** não.
+- **Limitações:** não foi possível confirmar instruções eventualmente existentes em outro branch, repositório ou canal não acessível nesta sessão.
+- **Próxima ação necessária:** GPT-6 deve publicar os enunciados, critérios de aceite, permissões e dependências das Missões 003 a 010. Não inferir escopo a partir do roadmap.
+
+**Estado final:** aguardando novas instruções oficiais do GPT-6.
