@@ -691,3 +691,61 @@ A sessão de revisão complementar da Automation AI leu os dez relatórios SECUR
 **Status e limites:** documentação própria registrada. Nenhum código do TokenSaver principal, workflow, secret, Issue, PR, branch protection, ruleset ou setting foi alterado. Nenhum provider, webhook receiver, tool broker, DLP ou security gate foi ativado. O gate 050 permanece BLOCKED_FOR_PRODUCTION até evidência operacional reproduzível e aprovação independente.
 
 **Próxima ação:** GPT-6 integrador deve comparar os relatórios individuais de cada IA, resolver divergências e solicitar revisão independente Kimi/owner. AGUARDANDO VALIDAÇÃO DA IA INTEGRADORA.
+
+
+---
+
+# ENTREGA — FASE E / MISSÕES 041–050 (2026-11-10)
+
+**IA:** ChatGPT (GPT-6) — arquitetura, integração e segurança  
+**Status geral:** `REVIEW_REQUIRED`; controles operacionais e aprovação de produção pendentes.  
+**Relatório consolidado:** `reports/AUTOMATION_AI_MISSIONS_041_050_THREAT_MODEL.md`.
+
+## Relatórios individuais
+- 041 — `reports/AUTOMATION_AI_MISSION_041_CHATGPT_GPT6.md` — Threat Model.
+- 042 — `reports/AUTOMATION_AI_MISSION_042_CHATGPT_GPT6.md` — Prompt Injection.
+- 043 — `reports/AUTOMATION_AI_MISSION_043_CHATGPT_GPT6.md` — Tool Injection.
+- 044 — `reports/AUTOMATION_AI_MISSION_044_CHATGPT_GPT6.md` — Least Privilege.
+- 045 — `reports/AUTOMATION_AI_MISSION_045_CHATGPT_GPT6.md` — Secrets.
+- 046 — `reports/AUTOMATION_AI_MISSION_046_CHATGPT_GPT6.md` — Supply Chain.
+- 047 — `reports/AUTOMATION_AI_MISSION_047_CHATGPT_GPT6.md` — SSRF e Endpoints.
+- 048 — `reports/AUTOMATION_AI_MISSION_048_CHATGPT_GPT6.md` — Replay.
+- 049 — `reports/AUTOMATION_AI_MISSION_049_CHATGPT_GPT6.md` — Data Exfiltration.
+- 050 — `reports/AUTOMATION_AI_MISSION_050_CHATGPT_GPT6.md` — Security Gate.
+
+## Evidências principais
+- HEAD do TokenSaver principal observado: `935b6fc5d0c126e93697a16f73d56bb3a4d1e55f`; somente leitura.
+- Superfície Tauri registrada em `src-tauri/src/lib.rs`: 29 comandos customizados no invoke handler.
+- `src-tauri/src/smart_context.rs`: varredura integral de blobs sem budget global de arquivos/bytes/deadline (SEC-01, ALTO).
+- `.github/workflows/ci.yml`: Actions por tags, toolchain Rust stable, npm install, ausência de permissions explícitas e upload de ZIP de fonte (SEC-03/04/05, MÉDIO).
+- `package.json` e `src-tauri/Cargo.toml`: ranges de dependências; não localizados package-lock.json nem src-tauri/Cargo.lock nos paths consultados.
+- `src-tauri/src/advanced.rs`: endpoint Claude validado por prefixo/parsing manual e persistido; nenhum cliente HTTP Claude ativo foi identificado nos arquivos/dependências consultados (SSRF latente, não demonstrado como explorável hoje).
+- `src-tauri/tauri.conf.json` e `src-tauri/capabilities/default.json`: CSP restritiva, uma janela main e core:default.
+- Contrato de missão v1 marca inputs como `untrusted_data`; a especificação 021 proíbe comandos livres em Issues; runtime de agent tools não foi confirmado.
+- Missão 006 define HMAC/raw body/delivery ID/inbox; webhook e inbox operacionais não foram confirmados.
+- Provider registry 031–040 permanece draft; agentes desabilitados e providers reais desconectados.
+
+## Status por missão
+| Missão | Status | Resultado |
+|---|---|---|
+| 041 | REVIEW_REQUIRED | Threat model STRIDE, ativos, fronteiras e riscos documentados |
+| 042 | REVIEW_REQUIRED | Controles de prompt injection especificados; runtime de agente não ativo |
+| 043 | REVIEW_REQUIRED | Allowlist e autorização host-side especificadas; sem tool runtime |
+| 044 | REVIEW_REQUIRED | Matriz least-privilege proposta; enforcement não demonstrado |
+| 045 | BLOCKED | Auditoria operacional de secrets depende de acesso owner/admin; nenhum valor foi lido |
+| 046 | REVIEW_REQUIRED | CI/dependencies/actions/artifacts auditados estaticamente |
+| 047 | REVIEW_REQUIRED | Validação endpoint superficial; SSRF ativa não demonstrada sem cliente HTTP |
+| 048 | BLOCKED | Sem ingress/inbox operacional para testes de replay |
+| 049 | REVIEW_REQUIRED | Controles de egress/exfiltration propostos; providers desconectados |
+| 050 | REVIEW_REQUIRED | Security gate definido; produção permanece NO-GO |
+
+## Testes e limites
+- Executado: leitura estática de arquivos/contratos, consultas de busca e verificação do HEAD.
+- Não executado: build, Rust/TS tests, CI, secret scan, dependency scan, SBOM, DAST, fuzzing, SSRF tests, replay harness, prompt/tool injection tests ou load tests.
+- Nenhum código do TokenSaver principal foi alterado. Nenhum secret foi lido, criado ou rotacionado. Nenhum provider, webhook, worker ou tool foi ativado.
+
+**Dependências:** 003–010 seguem REVIEW_REQUIRED; 011–020 seguem BLOCKED; 031–040 seguem REVIEW_REQUIRED, com validação funcional pendente conforme registros vigentes. A documentação da Fase E não remove esses gates.
+
+**Decisão:** manter providers, webhooks, agent tools privilegiadas, main write, merge, release e deploy desabilitados. Solicitar revisão do GPT-6/owner e auditoria autenticada de settings antes de qualquer integração real.
+
+**Estado final:** documentação das Missões 041–050 registrada; segurança de produção não aprovada. AGUARDANDO VALIDAÇÃO DA IA INTEGRADORA.
