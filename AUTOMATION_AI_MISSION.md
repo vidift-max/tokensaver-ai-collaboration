@@ -271,7 +271,7 @@ Executar nessa ordem. Em seguida, implementar lease/fencing token e worker mock.
 - `reports/AUTOMATION_AI_MISSION_007_IDEMPOTENT_INBOX.md`
 - `reports/AUTOMATION_AI_MISSION_008_LEASE_FENCING.md`
 - `reports/AUTOMATION_AI_MISSION_009_RETRY_TIMEOUT.md`
-- `reports/AUTOMATION_AI_MISSION_010_PERMISSION_MATRIX.md`
+- `reports/AUTOMATION_AI_MISSION_010_AGENT_PERMISSIONS.md`
 - `contracts/v1/mission.schema.json`
 - `contracts/v1/agent-result.schema.json`
 - `contracts/v1/evidence.schema.json`
