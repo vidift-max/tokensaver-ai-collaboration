@@ -65,3 +65,16 @@ Correção aplicada: o ramo Windows agora retorna explicitamente `Ok(())` após 
 Hardening adicional: a cópia limitada só remove o temporário em caso de falha se esta própria operação conseguiu criá-lo com `create_new`; evita apagar um caminho temporário preexistente que não pertence à operação. Commit: `9976a32ff169fcc2a978636f50788204ded3a821`.
 
 **Validação posterior:** os workflows disparados pelos commits de correção estavam em andamento/na fila na última consulta. Portanto, a correção Windows ainda aguarda confirmação de `cargo check` e os testes continuam não aprovados até a conclusão dos runs.
+
+
+## Rodada adicional — 10/11/2026
+
+- Inspecionados os logs de CI dos commits anteriores. O erro E0317 foi reproduzido no Windows porque o bloco `#[cfg(windows)]` de `save_roots_unlocked` não retornava `Result<(), AppError>`. O arquivo atual contém `Ok(())` após o `MoveFileExW` bem-sucedido, commit `a22fce19cbc3daab3e57a7e1877e13c588362787`.
+- A compilação Linux já terminou com sucesso no run `42923788523`; o job Windows ainda estava em execução na última consulta.
+- O run `42923854848` (commit `9976a32ff169fcc2a978636f50788204ded3a821`) também tinha Linux concluído com sucesso e Windows em execução.
+- Removido aviso de mutabilidade desnecessária do leitor de manifest em `backup.rs`, commit `97f28f18d4cb19edbd4f0794cd312e0932abf71a`.
+- O novo run do commit `97f28f18d4cb19edbd4f0794cd312e0932abf71a` é `42924285728`, ainda em execução na última consulta.
+- Os runs mais antigos falharam devido ao E0317 no código anterior à correção; não devem ser confundidos com o resultado dos commits posteriores.
+- **Ainda não há confirmação de aprovação do Windows no commit mais recente.** Nenhum `cargo test` foi executado ou aprovado nesta rodada; o CI atual executa `cargo check`, não a suíte completa.
+
+HEAD atual registrado: `97f28f18d4cb19edbd4f0794cd312e0932abf71a`.
