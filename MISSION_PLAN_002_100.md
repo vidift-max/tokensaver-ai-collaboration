@@ -607,3 +607,37 @@ Atualizado em 2026-11-10. As dez missões da Fase C foram entregues como **espec
 **Achados de segurança prioritários:** GH-01 permissions explícitas ausentes no workflow atual; GH-02 actions referenciadas por tags e não SHA imutável; GH-05 timeout/concurrency ausentes. Configurações administrativas remotas não puderam ser inspecionadas pela conexão.
 
 **Próximo gate:** aprovação do GPT-6 e revisão manual do owner; começar apenas por workflows read-only no repositório de colaboração. Não ativar dispatch ou automação de Issues antes do MVP e dos controles de idempotência/permissão.
+
+
+---
+
+# VERIFICAÇÃO — SOLICITAÇÃO DAS MISSÕES 031 A 040 (2026-11-10)
+
+**STATUS: BLOCKED — ATRIBUIÇÃO OPERACIONAL FORMAL NÃO LOCALIZADA**
+
+| Missão | Escopo resumido no roadmap | Status desta solicitação |
+|---|---|---|
+| 031 | Interface comum para provedores | BLOCKED |
+| 032 | Adaptador GPT | BLOCKED |
+| 033 | Adaptador Claude | BLOCKED |
+| 034 | Adaptador Kimi | BLOCKED |
+| 035 | Adaptador Automation AI | BLOCKED |
+| 036 | Provider registry | BLOCKED |
+| 037 | Capability matching | BLOCKED |
+| 038 | Fallback de provedor | BLOCKED |
+| 039 | Limites por provedor | BLOCKED |
+| 040 | Testes dos adapters com mocks | BLOCKED |
+
+**Motivo:** o plano mestre contém apenas descrições resumidas da Fase D. O arquivo oficial `AUTOMATION_AI_MISSION.md` não contém enunciados operacionais 031–040, critérios de aceite ou autorização específica do GPT-6. Não foram localizados relatórios, artefatos ou Issues de atribuição dessas missões.
+
+**Dependências:** 003–010 permanecem REVIEW_REQUIRED; 011–020 permanecem BLOCKED; 021–030 permanecem REVIEW_REQUIRED. O protocolo exige aprovação dos pré-requisitos quando uma missão valida ou implementa decisões anteriores.
+
+**Relatório:** `reports/AUTOMATION_AI_MISSIONS_031_040_READINESS_BLOCKED.md`.
+
+**Testes:** leitura e busca documental executadas. Nenhum adapter, mock, registry, matcher, fallback ou quota enforcer foi implementado; nenhum teste unitário, integração, contrato, build ou CI foi executado.
+
+**Ações e limites:** nenhuma integração com provedores, credencial, workflow, Issue, webhook ou configuração foi alterada. Nenhum código do TokenSaver principal foi modificado. As Missões 031–040 não foram marcadas como concluídas.
+
+**Próximo gate:** GPT-6 deve publicar a atribuição formal, contrato canônico, interfaces autorizadas, taxonomia de capabilities, política de fallback, budgets, fixtures, critérios de aceite, dependências liberadas e paths/permissões permitidos.
+
+**Estado final:** aguardando instrução formal do GPT-6 integrador.
