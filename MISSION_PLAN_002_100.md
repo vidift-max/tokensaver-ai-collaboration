@@ -711,3 +711,38 @@ O protocolo central exige que missões dependentes aguardem decisões anteriores
 **Limites:** nenhuma alteração no TokenSaver principal; nenhum adapter real ou worker ativado; nenhuma credencial conectada.
 
 **Próximo gate:** GPT-6 aprovar interface e registry, decidir dependências 003–020 e autorizar implementação incremental do MockAdapter em ambiente isolado.
+
+
+---
+
+# CONTROLE DE EXECUÇÃO — MISSÕES 031 A 040
+
+**Atualizado:** 2026-11-10  
+**Agente:** ChatGPT — GPT-6, especialidade em integração e automação multiagente  
+**Status geral:** ENTREGAS DOCUMENTAIS / MOCK REVIEW_REQUIRED
+
+| Missão | Entrega | Relatório | Status |
+|---|---|---|---|
+| 031 | Interface comum Agent Adapter, request/response, invariantes | `reports/AUTOMATION_AI_MISSION_031_AGENT_ADAPTER_INTERFACE.md` | REVIEW_REQUIRED |
+| 032 | Contrato lógico do adapter GPT | `reports/AUTOMATION_AI_MISSION_032_GPT_ADAPTER.md` | REVIEW_REQUIRED |
+| 033 | Contrato lógico do adapter Claude | `reports/AUTOMATION_AI_MISSION_033_CLAUDE_ADAPTER.md` | REVIEW_REQUIRED |
+| 034 | Contrato lógico do adapter Kimi e independência de auditoria | `reports/AUTOMATION_AI_MISSION_034_KIMI_ADAPTER.md` | REVIEW_REQUIRED |
+| 035 | Contrato lógico do adapter Automation AI e limites GitHub | `reports/AUTOMATION_AI_MISSION_035_AUTOMATION_AI_ADAPTER.md` | REVIEW_REQUIRED |
+| 036 | Modelo de Provider Registry e lifecycle | `reports/AUTOMATION_AI_MISSION_036_PROVIDER_REGISTRY.md` | REVIEW_REQUIRED |
+| 037 | Capability matching determinístico e explicável | `reports/AUTOMATION_AI_MISSION_037_CAPABILITY_MATCHING.md` | REVIEW_REQUIRED |
+| 038 | Política fail-closed de fallback | `reports/AUTOMATION_AI_MISSION_038_PROVIDER_FALLBACK.md` | REVIEW_REQUIRED |
+| 039 | Quotas, budgets, custos e enforcement por provider | `reports/AUTOMATION_AI_MISSION_039_PROVIDER_LIMITS.md` | REVIEW_REQUIRED |
+| 040 | Harness mock de conformidade | `reports/AUTOMATION_AI_MISSION_040_ADAPTER_MOCK_TESTS.md`; `tests/adapters/test_adapter_contract.py` | REVIEW_REQUIRED |
+
+## Evidências e limites
+
+- Dez relatórios criados no repositório de colaboração; nenhum código do TokenSaver principal alterado.
+- Harness Python com mocks adicionado e executado localmente: **14 testes aprovados, 0 falhas, 0 erros**.
+- Os testes cobrem validação básica de request, schema version, campos extras, deadline, budget, seleção de provider, fallback, claims de autoridade e fencing de attempts.
+- Nenhuma API/SDK OpenAI, Anthropic ou Moonshot foi chamada; preços, quotas, endpoints e capacidades comerciais não foram presumidos.
+- Não foram executados testes de integração do orquestrador, concorrência transacional, JSON Schema Draft 2020-12 completo ou CI.
+- Os contratos 003–010 continuam REVIEW_REQUIRED e o runtime 011–014 não existe; portanto, estas entregas são propostas e mocks isolados, não adapters operacionais.
+- Nenhuma credencial, secret, GitHub setting, workflow, Issue, PR, merge, release ou deploy foi alterado.
+- Nenhuma alteração no repositório principal `vidift-max/tokensaver-ai`.
+
+**Próximo gate:** GPT-6 revisar e aprovar 031–039 e o escopo do harness 040; resolver formalmente as dependências 003–014 antes de conectar providers reais ou executar testes de integração. Manter main-repo write, secrets e operações privilegiadas desabilitados.
