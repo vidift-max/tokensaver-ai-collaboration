@@ -580,3 +580,30 @@ Atualizado em 2026-11-10. As dez missões da Fase C foram entregues como **espec
 - As permissões reais de secrets, environments, audit log e branch protection não estavam acessíveis nesta inspeção; não se afirma que foram auditadas.
 
 **Próximo passo:** GPT-6 revisar os relatórios 021–030, aprovar a taxonomia e a política de eventos, e emitir autorização explícita antes de qualquer alteração operacional em GitHub.
+
+
+---
+
+# CONTROLE DE EXECUÇÃO — MISSÕES 021 A 030
+
+**Atualizado:** 2026-11-10  
+**Relatório:** reports/AUTOMATION_AI_MISSIONS_021_030_GITHUB_AUTOMATION.md
+
+| Missão | Entrega documental | Status |
+|---|---|---|
+| 021 | Issues como interface/fila, schema mínimo, eventos e idempotência | REVIEW_REQUIRED |
+| 022 | Taxonomia de labels, prioridades e invariantes | REVIEW_REQUIRED |
+| 023 | Arquitetura de workflows e segurança Actions | REVIEW_REQUIRED |
+| 024 | Dispatch, payload mínimo e reconciliação | REVIEW_REQUIRED |
+| 025 | Matriz de status checks e critérios para torná-los required | REVIEW_REQUIRED |
+| 026 | Manifesto, classificação, hash e retenção de artifacts | REVIEW_REQUIRED |
+| 027 | PR gates, review independente e CODEOWNERS | REVIEW_REQUIRED |
+| 028 | Procedimento de rollback e recuperação | REVIEW_REQUIRED |
+| 029 | Ledger Git e correlação auditável | REVIEW_REQUIRED |
+| 030 | Auditoria estática GitHub; testes ativos pendentes | REVIEW_REQUIRED |
+
+**Limite:** a Fase C foi preparada documentalmente em paralelo. Não significa que a Fase B 011–020 foi concluída ou que as especificações 003–010 foram aprovadas. Nenhuma Issue/label/workflow/webhook/secret/environment/ruleset/branch protection foi criada ou alterada. Nenhuma alteração no TokenSaver principal.
+
+**Achados de segurança prioritários:** GH-01 permissions explícitas ausentes no workflow atual; GH-02 actions referenciadas por tags e não SHA imutável; GH-05 timeout/concurrency ausentes. Configurações administrativas remotas não puderam ser inspecionadas pela conexão.
+
+**Próximo gate:** aprovação do GPT-6 e revisão manual do owner; começar apenas por workflows read-only no repositório de colaboração. Não ativar dispatch ou automação de Issues antes do MVP e dos controles de idempotência/permissão.
