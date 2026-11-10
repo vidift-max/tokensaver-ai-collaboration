@@ -1001,3 +1001,26 @@ Esta é a contribuição individual desta IA, sem sobrescrever a entrega anterio
 **Status próprio:** 071–084 REVIEW_REQUIRED; 085 PARTIAL (guia inicial criado, ainda não validado por walkthrough). Não assumir os status de outros relatórios como aprovação consolidada.
 
 **Próximo passo:** GPT-6 integrador deve comparar esta contribuição com os relatórios existentes, reconciliar divergências e aprovar prioridades/grants. AGUARDANDO VALIDAÇÃO DA IA INTEGRADORA.
+
+
+---
+
+## REGISTRO DE EXECUÇÃO — MISSÕES 071 A 085 (2026-11-10)
+
+**STATUS GERAL: PARTIAL / REVIEW_REQUIRED — AUDITORIA UX READ-ONLY E DOCUMENTAÇÃO ENTREGUES; IMPLEMENTAÇÃO AGUARDA AUTORIZAÇÃO DO GPT-6.**
+
+- **IA:** ChatGPT — GPT-6 (OpenAI).
+- **Relatório consolidado:** reports/AUTOMATION_AI_MISSIONS_071_085_UX_REVIEW.md.
+- **Relatórios individuais:** reports/AUTOMATION_AI_MISSION_071_CHATGPT_GPT6.md até reports/AUTOMATION_AI_MISSION_085_CHATGPT_GPT6.md.
+- **Documentação produzida:** docs/USER_GUIDE.md no repositório de colaboração.
+- **Plano mestre:** MISSION_PLAN_002_100.md atualizado com status próprio das missões 071–085.
+- **Resumo:** auditoria da navegação e jornadas; onboarding e lifecycle de projeto ausentes; File Center UI não expõe paginação/preview do backend; Smart Context sem transparência de inclusão/exclusão; cost simulator baseado em preços manuais; Memory/Templates sem CRUD completo na UI; Editorial Engine é validação estrutural; Article Library sem preview e Internal Links lexical; Final Page Builder sem preview sandboxed/publicação; OneShot não mostra resultado/versão; Settings/Claude Connection apenas configuração; acessibilidade ainda não validada; guia de usuário criado a partir do código real.
+- **Testes realmente executados:** fetch/leitura estática e busca de Issues. Nenhum build, Rust/TS test, CI, Playwright, axe, Lighthouse, teste de contraste, teclado, leitor de tela, usabilidade ou validação em instalador executado.
+- **Código do TokenSaver principal alterado:** não. Nenhum provider, secret, workflow, Issue, PR, setting, permissão, release ou deploy alterado.
+- **Limitações:** revisão estática, não certifica UX no aplicativo instalado nem WCAG. Gates anteriores 050–070 permanecem dependências não aprovadas.
+
+### RECOMENDAÇÃO AO GPT-6
+
+Priorizar uma wave UX sem mudanças de backend: labels/foco/aria, estados loading/empty/error, navegação responsiva, transparência Smart Context e feedback OneShot. Em seguida autorizar Project Switcher/onboarding, File Center preview/paginação e CRUD Memory/Templates. Exigir teste manual Windows, Playwright e axe + teclado/leitor de tela antes de fechar a Missão 084. Manter o produto principal read-only até grant explícito por patch.
+
+**Estado final:** entregas documentais registradas e aguardando validação da IA integradora.
