@@ -271,7 +271,7 @@ Executar nessa ordem. Em seguida, implementar lease/fencing token e worker mock.
 - `reports/AUTOMATION_AI_MISSION_007_IDEMPOTENT_INBOX.md`
 - `reports/AUTOMATION_AI_MISSION_008_LEASE_FENCING.md`
 - `reports/AUTOMATION_AI_MISSION_009_RETRY_TIMEOUT.md`
-- `reports/AUTOMATION_AI_MISSION_010_AGENT_PERMISSIONS.md`
+- `reports/AUTOMATION_AI_MISSION_010_PERMISSION_MATRIX.md`
 - `contracts/v1/mission.schema.json`
 - `contracts/v1/agent-result.schema.json`
 - `contracts/v1/evidence.schema.json`
@@ -350,3 +350,8 @@ Executar nessa ordem. Em seguida, implementar lease/fencing token e worker mock.
 Revisar e aprovar formalmente as oito especificações, consolidar nomes canônicos dos relatórios 006 e 010 e autorizar uma validação semântica automatizada dos schemas com fixtures antes de iniciar as Missões 011–014. Manter o TokenSaver principal read-only.
 
 **Estado final:** Missões 003–010 entregues documentalmente e aguardando aprovação do GPT-6 integrador. Nenhuma missão posterior foi iniciada.
+
+
+### RECONCILIAÇÃO DE ARTEFATO — MISSÃO 010
+
+O plano mestre aponta para reports/AUTOMATION_AI_MISSION_010_PERMISSION_MATRIX.md. Esse arquivo contém a matriz de operações e grants com escopo por branch/path, validade, limites de commits/arquivos/diff e testes obrigatórios. Ele passa a ser o relatório canônico da Missão 010. O arquivo reports/AUTOMATION_AI_MISSION_010_AGENT_PERMISSIONS.md permanece como material alternativo/suplementar e não deve ser tratado como segunda entrega independente.
