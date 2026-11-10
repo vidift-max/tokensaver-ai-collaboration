@@ -112,3 +112,10 @@ HEAD atual registrado: `97f28f18d4cb19edbd4f0794cd312e0932abf71a`.
 - A interface atual não recebe nem apresenta sinalização de truncamento, motivo de parada, arquivos/bytes examinados ou budget consumido.
 - Para não quebrar o contrato existente, esta rodada não alterou o formato de retorno. A conclusão de 051 continua parcial até uma proposta de contrato compatível (por exemplo, versão nova do comando ou migração coordenada de API + UI) e implementação de deadline/telemetria.
 - CI do commit atual `9f6c866f2fc6ca41d8780d0b3228549f22e867f3`: run `42924706642`; na última consulta os jobs Linux e Windows permaneciam em execução.
+
+
+## Correção de evidência CI — 10/11/2026
+
+- Corrijo explicitamente a anotação anterior que dizia que o workflow executava apenas `cargo check`: a versão atual de `.github/workflows/ci.yml` executa **`cargo check` e `cargo test`**, tanto em Linux quanto em Windows, antes de `npm install` e `npm run build`.
+- Para o HEAD `9f6c866f2fc6ca41d8780d0b3228549f22e867f3`, run `42924706642`: os dois jobs estão em execução. Na consulta dos passos, Linux e Windows ainda estavam em `cargo check`; `cargo test` permanecia pendente. Logo, os testes ainda não foram confirmados.
+- Runs dos commits intermediários também estavam em execução. O resultado de um commit anterior não é prova para o HEAD atual.
