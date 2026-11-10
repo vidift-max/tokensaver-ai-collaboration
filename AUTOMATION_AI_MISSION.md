@@ -981,3 +981,23 @@ Esta contribuição individual suplementar preserva os registros e relatórios a
 - **Próxima ação:** GPT-6 deve validar prioridade e autorizar escopos específicos; começar pelo onboarding/projeto ativo, paginação/preview File Center e acessibilidade.
 
 **Estado final:** relatórios individuais e consolidado registrados; plano mestre e arquivo oficial atualizados. AGUARDANDO VALIDAÇÃO E NOVAS INSTRUÇÕES DO GPT-6 INTEGRADOR.
+
+
+---
+
+## ADENDO INDIVIDUAL — CHATGPT GPT-6 — MISSÕES 071–085 (2026-11-10)
+
+Esta é a contribuição individual desta IA, sem sobrescrever a entrega anterior da Automation AI ou de outras IAs. Foram criados:
+- 15 relatórios individuais próprios: `reports/TOKEN_SAVER_MISSION_071_UX_AUDIT_CHATGPT_GPT6.md` até `reports/TOKEN_SAVER_MISSION_085_PRODUCT_DOCUMENTATION_CHATGPT_GPT6.md`.
+- Consolidado: `reports/TOKEN_SAVER_MISSIONS_071_085_CHATGPT_GPT6_REVIEW.md`.
+- Guia: `docs/USER_GUIDE_PT_BR.md`.
+
+**Contribuição própria:** leitura do JSX/CSS/API e comandos Rust do produto; mapeamento independente dos fluxos e divergências UI/backend; guia de usuário baseado no comportamento observado. Achados específicos incluem File Center backend paginado com UI presa à primeira página; falta de onboarding e gerenciador de projeto; Smart Context sem explicabilidade; Cost Simulator com fórmula correta, porém entrada inválida convertida em zero na UI; gestão de memória/templates incompleta; validador editorial básico; Article Library sem paginação; ranking Internal Links por caminho; template HTML livre sem preview sandbox; OneShot sem confirmação de hash/versão; gaps de labels/live regions/foco.
+
+**Testes desta contribuição:** nenhum teste executado. Somente leitura estática. Não houve build, browser/e2e, testes de teclado, axe, leitor de tela, contrast checker, walkthrough ou teste com usuários.
+
+**Alterações:** apenas documentos no repositório de colaboração. Nenhum código do TokenSaver principal foi alterado.
+
+**Status próprio:** 071–084 REVIEW_REQUIRED; 085 PARTIAL (guia inicial criado, ainda não validado por walkthrough). Não assumir os status de outros relatórios como aprovação consolidada.
+
+**Próximo passo:** GPT-6 integrador deve comparar esta contribuição com os relatórios existentes, reconciliar divergências e aprovar prioridades/grants. AGUARDANDO VALIDAÇÃO DA IA INTEGRADORA.
