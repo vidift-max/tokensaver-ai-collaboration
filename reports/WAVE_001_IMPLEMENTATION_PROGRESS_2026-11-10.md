@@ -87,3 +87,12 @@ HEAD atual registrado: `97f28f18d4cb19edbd4f0794cd312e0932abf71a`.
 - Esses testes foram adicionados ao código, mas **ainda não foram executados**. O workflow vigente do projeto está configurado para `cargo check`; sua aprovação não substitui `cargo test`.
 - O run `42924285728` (commit anterior `97f28f18d4cb19edbd4f0794cd312e0932abf71a`) permanecia em execução na última consulta, com jobs Linux e Windows sem conclusão.
 - O novo commit dispara nova execução de CI; o resultado será acompanhado separadamente. Não declarar sucesso até obter conclusão explícita dos dois jobs.
+
+
+## Atualização — concorrência no-replace e validação por plataforma
+
+- Novos testes adicionados em `src-tauri/src/filesystem.rs`: disputa concorrente entre duas publicações para o mesmo destino (exatamente um vencedor), cópia que recusa substituir destino preexistente preservando o conteúdo original.
+- Commits de cobertura desta rodada: `156d143b74e0a1a2902f76d7afacea306c8612b8`, `8077b8b3b5cc7754544df7d1921e6183486c9b06` e ajuste de compatibilidade do teste `7e334222f182966aff65c29edfdb58ffc0001226`.
+- Confirmação retrospectiva importante: o run `42923788523`, para o commit `a22fce19cbc3daab3e57a7e1877e13c588362787`, concluiu com sucesso nos dois jobs: `foundation` (Linux) e `foundation-windows` (Windows). Isso confirma o `cargo check` daquele commit corrigido, não dos commits posteriores nem a execução dos testes unitários.
+- No momento da consulta, o run `42924526640` para o commit `156d143b74e0a1a2902f76d7afacea306c8612b8` ainda estava em execução em Linux e Windows. Os commits subsequentes de testes geraram execuções ainda mais recentes, que precisam ser acompanhadas.
+- **Nenhum `cargo test` foi executado nesta rodada.** Testes novos são cobertura adicionada, ainda não evidência de aprovação.
