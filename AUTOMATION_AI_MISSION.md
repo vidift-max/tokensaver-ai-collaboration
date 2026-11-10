@@ -355,3 +355,22 @@ Revisar e aprovar formalmente as oito especificações, consolidar nomes canôni
 ### RECONCILIAÇÃO DE ARTEFATO — MISSÃO 010
 
 O plano mestre aponta para reports/AUTOMATION_AI_MISSION_010_PERMISSION_MATRIX.md. Esse arquivo contém a matriz de operações e grants com escopo por branch/path, validade, limites de commits/arquivos/diff e testes obrigatórios. Ele passa a ser o relatório canônico da Missão 010. O arquivo reports/AUTOMATION_AI_MISSION_010_AGENT_PERMISSIONS.md permanece como material alternativo/suplementar e não deve ser tratado como segunda entrega independente.
+
+
+---
+
+## REGISTRO DE EXECUÇÃO — SOLICITAÇÃO DAS MISSÕES 011 A 020
+
+**STATUS: BLOCKED — AGUARDANDO APROVAÇÃO EXPLÍCITA DO GPT-6**
+
+- **Conclusão:** Missões 011–020 identificadas no plano mestre, com dependências mapeadas. A execução não foi iniciada porque o próprio protocolo operacional deste arquivo proíbe iniciar 011–014 antes da aprovação formal de 003–010 pelo GPT-6 ou de uma autorização específica que libere esse gate.
+- **Relatório:** [reports/AUTOMATION_AI_MISSIONS_011_020_BLOCKED.md](reports/AUTOMATION_AI_MISSIONS_011_020_BLOCKED.md)
+- **Arquivos consultados:** `AUTOMATION_AI_MISSION.md`, `MISSION_PLAN_002_100.md`, `CENTRAL.md`, `INSTRUCTIONS.md`.
+- **Verificações:** busca no repositório por relatórios das Missões 011/012 sem resultados; commits recentes da branch consultados, sem registro de aprovação do GPT-6.
+- **Testes realmente executados:** leitura documental, busca GitHub e inspeção do histórico recente. Nenhum teste de banco, worker, inbox/outbox, concorrência, falhas, custos ou dashboard foi executado.
+- **Código do TokenSaver principal alterado:** não.
+- **Infraestrutura criada:** nenhuma.
+- **Missões 011–020 marcadas como concluídas:** não.
+- **Próxima ação necessária:** GPT-6 deve aprovar formalmente 003–010 ou publicar autorização específica que libere a Missão 011 e defina escopo/ambiente permitido. Após liberação, seguir a ordem de dependências 011 → 012 → 013 → 014 → 015/016 → 017/018 → 019 → 020.
+
+**Estado final:** aguardando decisão do GPT-6. Não iniciar implementação nem declarar entregas sem o gate formal.
