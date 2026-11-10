@@ -465,3 +465,31 @@ Chegar à Missão 100 com:
 - base preparada para evolução SaaS.
 
 **IMPORTANTE:** registrar o plano inteiro agora não significa executar cegamente 99 missões simultaneamente. A execução deve ser contínua, paralelizável onde seguro, mas sempre controlada por dependências, evidências e aprovação.
+
+
+---
+
+# CONTROLE DE EXECUÇÃO — MISSÕES 003 A 010
+
+Atualizado em 2026-11-10 pela Automation AI. Status abaixo significa entrega documental/especificação registrada; **não significa aprovação do GPT-6 nem implementação em produção**.
+
+| Missão | Entrega | Relatório/artefatos | Status |
+|---|---|---|---|
+| 003 | Contrato JSON Schema v1.0.0 proposto | `reports/AUTOMATION_AI_MISSION_003_CONTRACT_V1.md`; `contracts/v1/*.schema.json`; README | REVIEW_REQUIRED |
+| 004 | Máquina de estados, transições e invariantes | `reports/AUTOMATION_AI_MISSION_004_STATE_MACHINE.md` | REVIEW_REQUIRED |
+| 005 | Pipeline e critérios de validação de entregas/evidências | `reports/AUTOMATION_AI_MISSION_005_DELIVERY_VALIDATION.md` | REVIEW_REQUIRED |
+| 006 | Especificação de webhook ingress seguro | `reports/AUTOMATION_AI_MISSION_006_WEBHOOK_SECURITY.md` | REVIEW_REQUIRED |
+| 007 | Inbox/outbox, deduplicação e reconciliação | `reports/AUTOMATION_AI_MISSION_007_IDEMPOTENT_INBOX.md` | REVIEW_REQUIRED |
+| 008 | Lease, heartbeat e fencing token | `reports/AUTOMATION_AI_MISSION_008_LEASE_FENCING.md` | REVIEW_REQUIRED |
+| 009 | Retry, timeout, backoff e dead-letter | `reports/AUTOMATION_AI_MISSION_009_RETRY_TIMEOUT.md` | REVIEW_REQUIRED |
+| 010 | Matriz default-deny de permissões | `reports/AUTOMATION_AI_MISSION_010_PERMISSION_MATRIX.md` | REVIEW_REQUIRED |
+
+## Limites desta entrega
+
+- Nenhum código do TokenSaver principal foi modificado.
+- Nenhum serviço, webhook, banco, GitHub App, segredo ou worker foi provisionado.
+- Não foram executados testes de integração, concorrência, HMAC ou JSON Schema semântico.
+- Os schemas foram recuperados do GitHub e todos passaram por parsing JSON sintático; isso não prova conformidade integral com Draft 2020-12.
+- Os relatórios são propostas técnicas para validação do GPT-6. A aprovação formal continua pendente.
+
+**Próxima etapa sugerida:** GPT-6 revisar e aprovar/rejeitar 003–010; após congelar o contrato, autorizar implementação incremental das missões 011–014 no repositório de colaboração, sem acesso de escrita ao TokenSaver principal.
