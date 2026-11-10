@@ -959,3 +959,25 @@ Esta contribuição individual suplementar preserva os registros e relatórios a
 **Status próprio:** auditorias documentais concluídas; implementação e validação dinâmica aguardam autorização do GPT-6. A regra do plano mestre sobre pré-requisitos APPROVED e autorização explícita foi respeitada.
 
 **Próximo passo:** comparar estes relatórios com as entregas anteriores, reconciliar divergências de status e emitir grants específicos para cada patch. AGUARDANDO VALIDAÇÃO DO GPT-6 INTEGRADOR.
+
+
+---
+
+## REGISTRO DE EXECUÇÃO — MISSÕES 071 A 085 (2026-11-10)
+
+**STATUS GERAL: AUDITORIA DE PRODUTO/UX REGISTRADA; IMPLEMENTAÇÃO E VALIDAÇÃO COM USUÁRIOS PENDENTES.**
+
+- **Agente:** ChatGPT — GPT-6.
+- **Produto examinado:** `vidift-max/tokensaver-ai`, branch `v2-saas-alpha`, HEAD `935b6fc5d0c126e93697a16f73d56bb3a4d1e55f`, somente leitura.
+- **Relatórios individuais:** `reports/AUTOMATION_AI_MISSION_071_UX_AUDIT.md` até `reports/AUTOMATION_AI_MISSION_085_PRODUCT_DOCUMENTATION.md`.
+- **Relatório consolidado:** `reports/AUTOMATION_AI_MISSIONS_071_085_PRODUCT_UX_REVIEW.md`.
+- **Plano mestre:** seção “CONTROLE DE EXECUÇÃO — MISSÕES 071 A 085” adicionada a `MISSION_PLAN_002_100.md`.
+- **Achados principais:** onboarding ausente; ciclo de vida/projeto ativo sem seletor central; File Center não consome paginação disponível; Smart Context não explica budgets/itens omitidos; Cost Simulator não calcula economia e normaliza NaN silenciosamente na UI; Project Memory sem busca/CRUD completo; Templates sem versionamento; Editorial Engine é apenas validador local; Article Library/Links sem paginação e ranking por caminho; Builder sem preview/export; OneShot sem feedback contextual; Settings dispersos e Claude sem conexão real; lacunas de acessibilidade; manual de uso parcial.
+- **Status:** 071–075 REVIEW_REQUIRED; 076 PARTIAL; 077–084 REVIEW_REQUIRED; 085 PARTIAL.
+- **Testes realmente executados:** leitura estática de código e CSS, inspeção dos contratos UI/backend e cálculos aritméticos de custo/contraste. Nenhum build, browser, Playwright, axe, Lighthouse, leitor de tela, teste de teclado, entrevista ou teste com usuários.
+- **Código do TokenSaver principal alterado:** não. Nenhum workflow, secret, setting, Issue, PR, release ou deploy alterado.
+- **Limitações:** conclusões são revisão estática. Não foi executado aplicativo instalado. Contraste calculado para combinações selecionadas não equivale a certificação WCAG. Guia 085 precisa de walkthrough em instalação limpa antes de publicação como manual oficial.
+- **Dependências:** UX de Smart Context, Project Memory e OneShot depende de correções 051, 052 e 054; qualquer patch requer autorização explícita do GPT-6 integrador.
+- **Próxima ação:** GPT-6 deve validar prioridade e autorizar escopos específicos; começar pelo onboarding/projeto ativo, paginação/preview File Center e acessibilidade.
+
+**Estado final:** relatórios individuais e consolidado registrados; plano mestre e arquivo oficial atualizados. AGUARDANDO VALIDAÇÃO E NOVAS INSTRUÇÕES DO GPT-6 INTEGRADOR.
