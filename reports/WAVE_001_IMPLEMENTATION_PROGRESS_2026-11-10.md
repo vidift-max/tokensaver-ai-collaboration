@@ -96,3 +96,11 @@ HEAD atual registrado: `97f28f18d4cb19edbd4f0794cd312e0932abf71a`.
 - Confirmação retrospectiva importante: o run `42923788523`, para o commit `a22fce19cbc3daab3e57a7e1877e13c588362787`, concluiu com sucesso nos dois jobs: `foundation` (Linux) e `foundation-windows` (Windows). Isso confirma o `cargo check` daquele commit corrigido, não dos commits posteriores nem a execução dos testes unitários.
 - No momento da consulta, o run `42924526640` para o commit `156d143b74e0a1a2902f76d7afacea306c8612b8` ainda estava em execução em Linux e Windows. Os commits subsequentes de testes geraram execuções ainda mais recentes, que precisam ser acompanhadas.
 - **Nenhum `cargo test` foi executado nesta rodada.** Testes novos são cobertura adicionada, ainda não evidência de aprovação.
+
+
+## Missão 052 — extração testável e testes de concorrência
+
+- O bloco transacional foi extraído para `set_project_memory_in_db`, mantendo o comando Tauri como camada de validação/caminho e preservando a transação `IMMEDIATE`.
+- Foram adicionados testes para: atualizar uma chave quando o projeto já atingiu 1000 entradas; recusar nova chave no limite; manter limite isolado por projeto; e dois escritores em conexões SQLite independentes disputando a última vaga, verificando que apenas um grava e a contagem final permanece em 1000.
+- Commits: `7345b8ae79720210059b4845cb041a8674382850` e `9f6c866f2fc6ca41d8780d0b3228549f22e867f3`.
+- **Testes ainda não executados**; os testes adicionados exigem confirmação por `cargo test` em CI/ambiente local. O workflow atual executa `cargo check`, portanto não é evidência suficiente para esses casos.
