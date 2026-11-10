@@ -145,3 +145,11 @@ HEAD atual registrado: `97f28f18d4cb19edbd4f0794cd312e0932abf71a`.
 - Run `42924960000` para a correção de sintaxe `a2a3cd86350b06152d6501cdbf2857e43d3ea770`: ambos os jobs ainda estavam em `cargo check` na última consulta.
 - Os runs que falharam por causa do delimitador excedente pertencem aos commits anteriores e a falha está documentada; o commit corretivo já foi publicado.
 - Nenhum resultado de `cargo test` para o HEAD `15fd47b6` está disponível. Não declarar as novas verificações/testes aprovados antes da conclusão de CI.
+
+
+## Missão 057 — testes do parser limitado de Import Roots
+
+- Extraído `parse_roots_json` para uma função pura, mantendo em `load_roots` a leitura limitada por `take(MAX_IMPORT_ROOTS_JSON_BYTES + 1)`.
+- Adicionados testes para rejeição de JSON acima de 160 KiB antes do parse, JSON malformado, UTF-8 inválido e aceitação de lista vazia.
+- Commit: `1b698767d4dd4c54f73663bef7d43b75940058d4`.
+- A função continua validando quantidade máxima de raízes, caminhos absolutos e ausência de componentes relativos. Os testes ainda não foram executados em CI no novo HEAD.
