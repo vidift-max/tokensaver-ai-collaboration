@@ -24,7 +24,7 @@ A solicitação explícita do usuário autorizou a execução das Missões 003 a
 | 007 | Inbox/outbox, deduplicação e reconciliação | reports/AUTOMATION_AI_MISSION_007_IDEMPOTENT_INBOX.md | Entregue documentalmente |
 | 008 | Lease, heartbeat e fencing token | reports/AUTOMATION_AI_MISSION_008_LEASE_FENCING.md | Entregue documentalmente |
 | 009 | Retry, timeout, backoff e dead-letter | reports/AUTOMATION_AI_MISSION_009_RETRY_TIMEOUT.md | Entregue documentalmente |
-| 010 | Matriz default-deny de permissões | reports/AUTOMATION_AI_MISSION_010_AGENT_PERMISSIONS.md e relatório alternativo de matriz | Entregue documentalmente; nome canônico precisa ser reconciliado |
+| 010 | Matriz default-deny de permissões | reports/AUTOMATION_AI_MISSION_010_PERMISSION_MATRIX.md | Entregue documentalmente; nome canônico precisa ser reconciliado |
 
 ## 3. Verificações realizadas
 
@@ -57,7 +57,7 @@ Parsing JSON confirma sintaxe, não conformidade Draft 2020-12. Próximo passo t
 
 ### 4.5 Nomes de relatórios duplicados
 
-Há variantes de nomes para a Missão 006 (WEBHOOK_SECURITY / SECURE_WEBHOOK) e Missão 010 (AGENT_PERMISSIONS / PERMISSION_MATRIX), além de duplicatas históricas de Missão 002. O registro oficial e a tabela de controle devem apontar para um único arquivo canônico por missão. Não removi relatórios alternativos de terceiros sem autorização.
+Há duas versões documentais da Missão 010: AGENT_PERMISSIONS e PERMISSION_MATRIX. A tabela do plano mestre aponta para PERMISSION_MATRIX, que inclui campos adicionais de grant e limites operacionais; o registro oficial foi alinhado a esse caminho. AGENT_PERMISSIONS permanece como material suplementar, sem remoção. Não foi confirmada duplicata equivalente para a Missão 006.
 
 ### 4.6 Limites do MVP
 
