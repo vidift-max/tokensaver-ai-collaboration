@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/vidift-max/tokensaver-ai-collaboration/contracts/v1/evidence.schema.json",
+  "title": "Mission Evidence v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["evidence_id", "kind", "observed_at", "source", "trust"],
+  "properties": {
+    "evidence_id": { "type": "string", "minLength": 1, "maxLength": 120 },
+    "kind": { "enum": ["repository_file", "commit", "pull_request", "workflow_run", "test_log", "artifact", "api_response", "manual_observation"] },
+    "observed_at": { "type": "string", "format": "date-time" },
+    "source": { "type": "object", "additionalProperties": false, "required": ["repository"], "properties": {
+      "repository": { "type": "string", "pattern": "^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$" },
+      "ref": { "type": "string", "maxLength": 255 },
+      "path": { "type": "string", "maxLength": 500 },
+      "url": { "type": "string", "format": "uri", "maxLength": 2048 },
+      "commit_sha": { "type": "string", "pattern": "^[a-fA-F0-9]{7,64}$" },
+      "workflow_run_id": { "type": "string", "maxLength": 100 }
+    }},
+    "sha256": { "type": "string", "pattern": "^[a-fA-F0-9]{64}$" },
+    "summary": { "type": "string", "maxLength": 2000 },
+    "trust": { "const": "untrusted_data" }
+  },
+  "anyOf": [{ "required": ["sha256"] }, { "required": ["summary"] }, { "required": ["source"] }]
+}
