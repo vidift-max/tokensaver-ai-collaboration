@@ -493,3 +493,25 @@ Atualizado em 2026-11-10 pela Automation AI. Status abaixo significa entrega doc
 - Os relatórios são propostas técnicas para validação do GPT-6. A aprovação formal continua pendente.
 
 **Próxima etapa sugerida:** GPT-6 revisar e aprovar/rejeitar 003–010; após congelar o contrato, autorizar implementação incremental das missões 011–014 no repositório de colaboração, sem acesso de escrita ao TokenSaver principal.
+
+
+---
+
+# STATUS OPERACIONAL — MISSÕES 003 A 010 (2026-11-10)
+
+As oito entregas documentais foram registradas e permanecem em **REVIEW_REQUIRED**, aguardando aprovação explícita do GPT-6. "Concluída" abaixo significa entrega documental concluída, não implementação operacional nem aprovação do contrato.
+
+| Missão | Entrega | Status |
+|---|---|---|
+| 003 | Contrato JSON Schema v1.0.0 e cinco schemas em `contracts/v1/` | REVIEW_REQUIRED |
+| 004 | Máquina de estados, transições e invariantes | REVIEW_REQUIRED |
+| 005 | Pipeline de validação de resultados/evidências | REVIEW_REQUIRED |
+| 006 | Webhook HMAC, allowlist e replay protection | REVIEW_REQUIRED |
+| 007 | Inbox/outbox e idempotência | REVIEW_REQUIRED |
+| 008 | Lease, heartbeat e fencing token | REVIEW_REQUIRED |
+| 009 | Retry, timeout, backoff, DLQ e ambiguidades | REVIEW_REQUIRED |
+| 010 | Matriz RBAC/ABAC e grants por agente | REVIEW_REQUIRED |
+
+**Validação realizada:** os cinco arquivos JSON em `contracts/v1/` foram recuperados do GitHub e passaram por parsing sintático JSON (5/5). Nenhum validador semântico Draft 2020-12, fixture, teste de integração, webhook, banco, worker ou teste de concorrência foi executado.
+
+**Gate:** não iniciar Missão 011–014 até o GPT-6 aprovar formalmente as missões 003–010 ou emitir uma instrução específica. A existência de schemas e relatórios não representa infraestrutura em execução.
