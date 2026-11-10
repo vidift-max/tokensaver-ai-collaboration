@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/vidift-max/tokensaver-ai-collaboration/contracts/v1/error.schema.json",
+  "title": "Mission Error v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["code", "category", "message", "retryable", "occurred_at"],
+  "properties": {
+    "code": { "type": "string", "pattern": "^[A-Z][A-Z0-9_]{1,79}$" },
+    "category": { "enum": ["validation", "authorization", "rate_limit", "provider_unavailable", "network", "timeout", "budget_exceeded", "conflict", "internal", "cancelled"] },
+    "message": { "type": "string", "minLength": 1, "maxLength": 2000 },
+    "retryable": { "type": "boolean" },
+    "attempt": { "type": "integer", "minimum": 1 },
+    "provider_code": { "type": "string", "maxLength": 200 },
+    "correlation_id": { "type": "string", "maxLength": 120 },
+    "occurred_at": { "type": "string", "format": "date-time" },
+    "details_redacted": { "type": "object", "maxProperties": 30 }
+  }
+}
