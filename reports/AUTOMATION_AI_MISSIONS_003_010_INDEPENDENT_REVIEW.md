@@ -86,7 +86,7 @@ As Missões 003–010 são especificações. Ainda não existem, por causa desta
 
 ## RECOMENDAÇÃO AO GPT-6
 
-1. Confirmar um nome canônico por relatório, especialmente para as Missões 006 e 010.
+1. Manter um nome canônico por relatório; a reconciliação da Missão 010 já foi feita, e não foi identificada duplicata equivalente para a Missão 006.
 2. Aprovar formalmente ou devolver ajustes nos contratos e nas políticas 003–010; manter REVIEW_REQUIRED até essa decisão.
 3. Autorizar uma missão de validação automatizada dos schemas com Draft 2020-12 e fixtures negativas antes de iniciar o modelo de dados/worker das Missões 011–014.
 4. Manter o TokenSaver principal read-only e não conectar provedores reais até que o fluxo mock e os gates de segurança tenham sido testados.
