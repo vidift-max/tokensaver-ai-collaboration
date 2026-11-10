@@ -124,3 +124,41 @@ Não antecipar essa segunda ordem.
 **TESTE NÃO EXECUTADO:** build, cargo test, CI, testes unitários novos, integração, concorrência, stress, TOCTOU e matriz Windows/macOS/Linux.  
 **Limitações:** propostas baseadas em leitura estática da branch `v2-saas-alpha`; budgets numéricos, target mínimo dos sistemas operacionais e escolhas de dependências exigem decisão do integrador/owner.  
 **Próxima etapa:** reconciliar as seis propostas, resolver dependências cruzadas (063 como base de filesystem; 055/056 para restore; 051 para bounded I/O; 057 para persistência roots) e emitir autorização explícita por patch. Proposta não significa implementação.
+
+
+---
+
+## REGISTRO DE ENTREGA INDIVIDUAL — CHATGPT GPT-6 — WAVE 001
+
+**Data:** 2026-11-10  
+**Status:** PROPOSTAS TÉCNICAS ENTREGUES — AGUARDANDO RECONCILIAÇÃO/APROVAÇÃO  
+**Produto consultado:** `vidift-max/tokensaver-ai`, branch `v2-saas-alpha`, HEAD de referência `935b6fc5d0c126e93697a16f73d56bb3a4d1e55f`.
+
+### Relatórios individuais criados e verificados
+
+- 051 — [Smart Context](reports/WAVE_001_MISSION_051_CHATGPT_GPT6_PROPOSAL.md) — commit `4260278abe8344eb10c623204c91ad67d3d3d411`.
+- 052 — [Project Memory](reports/WAVE_001_MISSION_052_CHATGPT_GPT6_PROPOSAL.md) — commit `2c75e62889ca9714c592e0b6e2a22c1ff5e4004a`.
+- 055 — [Backup/Restore budgets e manifest](reports/WAVE_001_MISSION_055_CHATGPT_GPT6_PROPOSAL.md) — commit `92a24b69273dbbfdc6c5a13523684c42f0ed8dda`.
+- 056 — [Restore Destination](reports/WAVE_001_MISSION_056_CHATGPT_GPT6_PROPOSAL.md) — commit `d6110f3547e7fe3d116eb40342143bcc3e62d711`.
+- 057 — [Import Roots](reports/WAVE_001_MISSION_057_CHATGPT_GPT6_PROPOSAL.md) — commit `2f2fccbe0bf0ed1c552eec2c8b9ab1d7f6116a25`.
+- 063 — [Filesystem Audit](reports/WAVE_001_MISSION_063_CHATGPT_GPT6_PROPOSAL.md) — commit `21a5bb8ab24087b24126c41e5b87a959a62334d8`.
+
+Cada relatório contém identificação, análise independente, evidências, solução proposta, arquivos e funções, invariantes, riscos, dependências, testes necessários, critérios de aceite, limitações e PATCH PLAN.
+
+### Evidências e testes
+
+- Relatórios recuperados novamente por `fetch_file`; os seis arquivos existem e terminam com `STATUS: PROPOSTA PRONTA PARA APROVAÇÃO` e PATCH PLAN.
+- Fontes de código examinadas em modo read-only: `smart_context.rs`, `project_memory.rs`, `backup.rs`, `path_guard.rs`, `limits.rs`, `db.rs`, `lib.rs`, `src/api.ts`, `src/App.tsx`, além dos relatórios anteriores e documentos centrais.
+- **TESTE NÃO EXECUTADO:** nenhum build, cargo test, npm build, CI, benchmark, teste de concorrência, stress, symlink/junction ou fault injection foi executado nesta entrega.
+- Nenhum arquivo do TokenSaver principal foi alterado. Nenhuma implementação foi realizada. Nenhuma dependência foi adicionada.
+- Os valores candidatos de budget propostos nas missões 051, 055 e 057 estão identificados como não validados e dependem de aprovação/benchmark.
+
+### Dependências e recomendações ao GPT-6
+
+1. Reconciliar 063 como fundação transversal de filesystem, mas não bloquear a definição de budgets e transações independentes.
+2. Aprovar separadamente os valores de limites de 051/055/057 antes de patch.
+3. Autorizar 056 junto com ajuste de `initialize_project`, para impedir corrida entre restore e criação de projeto.
+4. Exigir testes Linux/Windows e, quando suportado, macOS; especialmente no-replace, locking cross-process e junction/reparse points.
+5. Não interpretar proposta como patch autorizado, implementação, teste aprovado ou conclusão de release.
+
+**Estado final:** seis propostas independentes registradas e verificadas no repositório de colaboração. Aguardando reconciliação e novas instruções do GPT-6 integrador.
