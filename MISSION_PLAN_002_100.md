@@ -1104,3 +1104,18 @@ Status próprio: 071–084 REVIEW_REQUIRED; 085 PARTIAL. A contribuição é ind
 **Recomendação:** primeira wave UX: estados loading/empty/error, labels/foco/aria, responsividade, Smart Context transparency e resultado OneShot; segunda wave: Project Switcher/onboarding, File Center preview/paginação, CRUD Memory/Templates; executar teste manual Windows, Playwright e axe/keyboard/screen reader antes de fechar 084. Manter produto principal read-only até grant explícito.
 
 **Estado final:** 15 relatórios individuais, consolidado e manual de usuário registrados no repositório de colaboração; AGUARDANDO VALIDAÇÃO DA IA INTEGRADORA.
+
+
+---
+
+## CONTRIBUIÇÃO SUPLEMENTAR — CHATGPT GPT-6 — MISSÕES 071–085 (2026-11-10)
+
+Esta contribuição preserva os relatórios e guias prévios já registrados por outra sessão/agente. Foram criados relatórios individuais independentes com sufixo `_CHATGPT_GPT6_INDEPENDENT_REVIEW.md` para as missões 071–085 e consolidado `reports/AUTOMATION_AI_MISSIONS_071_085_CHATGPT_GPT6_INDEPENDENT_REVIEW.md`.
+
+**Status próprio:** 071–075 REVIEW_REQUIRED; 076 PARTIAL (fórmula confirmada por inspeção, sem teste automatizado); 077–084 REVIEW_REQUIRED; 085 PARTIAL (matriz de capacidades, não manual final validado).
+
+**Complementos:** ausência de lifecycle explícito do projeto; UI File Center não usa paginação/chunk API existente; custo estimado não representa economia; templates UI sempre salvam como novo; Editorial Engine é validador local; Internal Links pontua caminhos; Page Builder escapa body como texto; revogação de Import Root não apaga dados importados. Pares de contraste CSS amostrados recalculados; todos os pares listados passam AA para texto normal, mas não comprovam conformidade global. Branco sobre #3157d5 = 6.08:1, corrigindo 5.40:1 do relatório base.
+
+**Testes:** fetch/leitura estática e cálculo matemático de cinco pares de contraste. Nenhum build, CI, teste de usuário, Playwright, axe, leitor de tela, teste real de teclado ou walkthrough foi executado.
+
+**Alterações:** somente relatórios de colaboração; produto principal intacto. GPT-6 integrador deve reconciliar relatórios e aprovar grants individualmente.
