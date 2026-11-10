@@ -678,3 +678,36 @@ Atualizado em 2026-11-10. As dez missões da Fase C foram entregues como **espec
 O protocolo central exige que missões dependentes aguardem decisões anteriores em estado APPROVED. As especificações 003–010 continuam registradas como REVIEW_REQUIRED; 011–020 não possuem implementação/MVP executável aprovada. Portanto, esta entrega prepara 031–039 para revisão, mas não declara as dependências aprovadas nem autoriza código/runtime. A Missão 040 permanece BLOCKED até existir interface aprovada, MockAdapter/harness autorizado e ambiente de teste.
 
 **Próxima ação:** GPT-6 revisar 031–039 e aprovar/revisar 003–010; depois autorizar implementação isolada do MockAdapter/harness no repositório de colaboração. Executar AD-001..020 antes de integrar qualquer API real.
+
+
+---
+
+# CONTROLE DE EXECUÇÃO — MISSÕES 031 A 040 (2026-11-10)
+
+**Relatório:** reports/AUTOMATION_AI_MISSIONS_031_040_AGENT_ADAPTERS.md  
+**Status geral:** ENTREGUES DOCUMENTALMENTE — REVIEW_REQUIRED; implementação operacional depende dos gates 003–020.
+
+| Missão | Entrega | Status |
+|---|---|---|
+| 031 | Interface comum AgentAdapter, envelopes e ciclo de vida | REVIEW_REQUIRED |
+| 032 | Contrato específico GPT/OpenAI, manual-assisted | REVIEW_REQUIRED |
+| 033 | Contrato Claude/Anthropic, manual-assisted | REVIEW_REQUIRED |
+| 034 | Contrato Kimi e provider mapping a confirmar | REVIEW_REQUIRED |
+| 035 | Contrato Automation AI e separação de permissões | REVIEW_REQUIRED |
+| 036 | Provider registry draft, manual-only/desabilitado | REVIEW_REQUIRED |
+| 037 | Capability matching determinístico e fail-closed | REVIEW_REQUIRED |
+| 038 | Fallback rastreável, budget-aware e seguro para timeout ambíguo | REVIEW_REQUIRED |
+| 039 | Quotas em camadas, reservas e ledger de custo | REVIEW_REQUIRED |
+| 040 | Matriz de 35 testes de contrato/falha/segurança com mocks | REVIEW_REQUIRED — testes não executados |
+
+**Artefatos:** contracts/adapters/v1/provider-registry.json; contracts/adapters/v1/README.md.
+
+**Validação realmente executada:** JSON.parse do registry passou; 4 agentes, 4 providers, 12 profiles; referências de profiles resolvidas; todos os agentes desabilitados; nenhum segredo/valor de credencial.
+
+**Não executado:** MockAdapter, testes AD-001–AD-035, CI/build, integração com providers reais, testes de quotas/billing ou benchmarks. Nenhum endpoint, model ID, preço ou limite real foi presumido.
+
+**Dependências:** contratos 003–010 seguem REVIEW_REQUIRED; 011–020 seguem BLOCKED no registro vigente. A documentação da Fase D não remove esses gates.
+
+**Limites:** nenhuma alteração no TokenSaver principal; nenhum adapter real ou worker ativado; nenhuma credencial conectada.
+
+**Próximo gate:** GPT-6 aprovar interface e registry, decidir dependências 003–020 e autorizar implementação incremental do MockAdapter em ambiente isolado.
