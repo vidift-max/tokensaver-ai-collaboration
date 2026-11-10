@@ -1063,3 +1063,44 @@ Relatórios individuais próprios:
 - Guia de uso PT-BR: `docs/USER_GUIDE_PT_BR.md`.
 
 Status próprio: 071–084 REVIEW_REQUIRED; 085 PARTIAL. A contribuição é independente dos relatórios anteriores da Automation AI e não substitui a matriz consolidada. Nenhum teste dinâmico foi executado e nenhum código do produto principal foi alterado. GPT-6 integrador deve comparar achados e autorizar patches individualmente.
+
+
+---
+
+# REGISTRO DE EXECUÇÃO — MISSÕES 071 A 085 (2026-11-10)
+
+**Contribuição:** ChatGPT — GPT-6 (OpenAI). **Status geral:** PARTIAL / REVIEW_REQUIRED; auditoria UX read-only e documentação de usuário entregues. Nenhum código do produto principal foi alterado.
+
+| Missão | Tema | Status próprio | Relatório |
+|---|---|---|---|
+| 071 | UX audit | PARTIAL | reports/AUTOMATION_AI_MISSION_071_CHATGPT_GPT6.md |
+| 072 | Onboarding | PARTIAL | reports/AUTOMATION_AI_MISSION_072_CHATGPT_GPT6.md |
+| 073 | Project workflow | REVIEW_REQUIRED | reports/AUTOMATION_AI_MISSION_073_CHATGPT_GPT6.md |
+| 074 | File Center | PARTIAL | reports/AUTOMATION_AI_MISSION_074_CHATGPT_GPT6.md |
+| 075 | Smart Context UX | PARTIAL | reports/AUTOMATION_AI_MISSION_075_CHATGPT_GPT6.md |
+| 076 | Cost simulator | REVIEW_REQUIRED | reports/AUTOMATION_AI_MISSION_076_CHATGPT_GPT6.md |
+| 077 | Project Memory UX | PARTIAL | reports/AUTOMATION_AI_MISSION_077_CHATGPT_GPT6.md |
+| 078 | Templates | PARTIAL | reports/AUTOMATION_AI_MISSION_078_CHATGPT_GPT6.md |
+| 079 | Editorial engine | PARTIAL | reports/AUTOMATION_AI_MISSION_079_CHATGPT_GPT6.md |
+| 080 | Article library | PARTIAL | reports/AUTOMATION_AI_MISSION_080_CHATGPT_GPT6.md |
+| 081 | Final page builder | REVIEW_REQUIRED | reports/AUTOMATION_AI_MISSION_081_CHATGPT_GPT6.md |
+| 082 | OneShot UX | PARTIAL | reports/AUTOMATION_AI_MISSION_082_CHATGPT_GPT6.md |
+| 083 | Settings | PARTIAL | reports/AUTOMATION_AI_MISSION_083_CHATGPT_GPT6.md |
+| 084 | Accessibility | REVIEW_REQUIRED | reports/AUTOMATION_AI_MISSION_084_CHATGPT_GPT6.md |
+| 085 | Product documentation | PARTIAL | reports/AUTOMATION_AI_MISSION_085_CHATGPT_GPT6.md |
+
+**Consolidado:** reports/AUTOMATION_AI_MISSIONS_071_085_UX_REVIEW.md. **Manual criado:** docs/USER_GUIDE.md (repositório de colaboração; baseado em leitura estática do produto).
+
+**Evidências:** inspeção de src/App.tsx, src/api.ts, src/styles.css, README.md, src-tauri/src/lib.rs, advanced.rs, file_center.rs, smart_context.rs, project_memory.rs, history.rs, limits.rs, path_guard.rs, db.rs e tauri.conf.json/capabilities. Busca de Issues por UX audit/Mission 071/Onboarding sem resultados.
+
+**Testes realmente executados:** fetch/leitura estática e busca de Issues. Nenhum build, cargo test, npm build, CI, Playwright, axe, Lighthouse, contraste, teste de teclado/leitor de tela, usability test ou validação em instalador foi executado.
+
+**Achados prioritários:** ausência de onboarding e Project Switcher; File Center backend paginado mas UI só mostra primeira página sem preview; Smart Context não explica omissões/budget; Cost Simulator é preço manual USD/1M; Project Memory sem gestão; Templates UI cria/lista mas não edita/exclui; Editorial Engine é validador estrutural; Article Library sem preview e Internal Links lexical; Page Builder gera HTML sem preview sandboxed/publicação; OneShot não mostra hash/versão; Claude Connection persiste configuração mas não conecta; labels/foco/aria/contraste precisam auditoria.
+
+**Arquivos do TokenSaver principal alterados:** nenhum. Nenhum provider, secret, workflow, Issue, PR, setting, permissão, release ou deploy alterado.
+
+**Limitações:** análise estática; nenhum procedimento foi executado em aplicativo instalado. Missões 051–070 e security gate 050 continuam dependências não aprovadas. Os relatórios próprios não marcam implementação como concluída.
+
+**Recomendação:** primeira wave UX: estados loading/empty/error, labels/foco/aria, responsividade, Smart Context transparency e resultado OneShot; segunda wave: Project Switcher/onboarding, File Center preview/paginação, CRUD Memory/Templates; executar teste manual Windows, Playwright e axe/keyboard/screen reader antes de fechar 084. Manter produto principal read-only até grant explícito.
+
+**Estado final:** 15 relatórios individuais, consolidado e manual de usuário registrados no repositório de colaboração; AGUARDANDO VALIDAÇÃO DA IA INTEGRADORA.
