@@ -119,3 +119,11 @@ HEAD atual registrado: `97f28f18d4cb19edbd4f0794cd312e0932abf71a`.
 - Corrijo explicitamente a anotação anterior que dizia que o workflow executava apenas `cargo check`: a versão atual de `.github/workflows/ci.yml` executa **`cargo check` e `cargo test`**, tanto em Linux quanto em Windows, antes de `npm install` e `npm run build`.
 - Para o HEAD `9f6c866f2fc6ca41d8780d0b3228549f22e867f3`, run `42924706642`: os dois jobs estão em execução. Na consulta dos passos, Linux e Windows ainda estavam em `cargo check`; `cargo test` permanecia pendente. Logo, os testes ainda não foram confirmados.
 - Runs dos commits intermediários também estavam em execução. O resultado de um commit anterior não é prova para o HEAD atual.
+
+
+## Correção de compilação — Project Memory
+
+- A consulta aos logs do run `42924680721` identificou falha real de sintaxe: delimitador `}` excedente em `src-tauri/src/project_memory.rs:64`, introduzido durante a extração do helper testável.
+- Corrigido no commit `a2a3cd86350b06152d6501cdbf2857e43d3ea770` (remoção do delimitador excedente).
+- O run que falhou pertence ao commit anterior `7345b8ae79720210059b4845cb041a8674382850`; não deve ser apresentado como estado da correção atual.
+- A correção dispara nova CI. Ainda é necessário confirmar `cargo check`, `cargo test` e os passos frontend em Linux e Windows.
