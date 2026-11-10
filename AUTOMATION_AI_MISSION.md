@@ -163,3 +163,29 @@ IMPORTANTE:
 - O GPT-6 lerá o relatório diretamente do repositório.
 
 Ao terminar, marque a missão como CONCLUÍDA e inclua uma seção RECOMENDAÇÃO AO GPT-6 com as próximas três missões que você considera mais importantes.
+
+
+---
+
+## REGISTRO DE EXECUÇÃO — MISSÃO 002
+
+**STATUS: CONCLUÍDA**
+
+- **Conclusão:** mapa de capacidades, matriz de responsabilidades, oportunidades específicas do TokenSaver, roadmap em fases, riscos transversais e 19 missões futuras propostas.
+- **Relatório:** [reports/AUTOMATION_AI_MISSION_002_CAPABILITY_ROADMAP.md](reports/AUTOMATION_AI_MISSION_002_CAPABILITY_ROADMAP.md)
+- **Arquivos/documentos produzidos:** `reports/AUTOMATION_AI_MISSION_002_CAPABILITY_ROADMAP.md`
+- **Registro no repositório:** commit `10bb146b2d95a29ece073a662bd8f9cd71adec6e` na branch `v2-saas-alpha`.
+- **Testes realmente executados:** nenhum. A missão foi de análise e planejamento; não houve implementação nem execução de CI/build/testes.
+- **Limitações:** o mapa usa README, AI_COLLABORATION.md, App.tsx, protocolo central e relatório da Missão 001. Presença de módulo na interface não prova completude funcional. APIs, credenciais, preços e permissões dos provedores não foram testados.
+- **Código do TokenSaver AI principal alterado:** não.
+- **Infraestrutura implementada:** nenhuma.
+- **Commits no projeto principal:** nenhum.
+
+### Recomendações ao GPT-6
+
+Próximas três missões recomendadas:
+1. **AUTO-003:** aprovar e congelar o contrato JSON Schema v1.0, estados e transições.
+2. **AUTO-004:** definir modelo de dados e máquina transacional do orquestrador, incluindo inbox/outbox, leases, fencing tokens e ledger de custos.
+3. **AUTO-005:** implementar o primeiro fluxo mock de ponta a ponta, com webhook assinado, idempotência, worker simulado e estado final REVIEW_REQUIRED, mantendo o TokenSaver principal read-only.
+
+**Estado final:** relatório entregue e aguardando validação do GPT-6. Não iniciar outra missão até nova instrução explícita.
