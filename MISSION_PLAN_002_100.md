@@ -1051,3 +1051,15 @@ Auditoria de produto/UX baseada no código real do TokenSaver no HEAD `935b6fc5d
 **Próxima etapa:** aprovação de um fluxo global de projeto/onboarding; depois paginação/preview do File Center e melhorias de acessibilidade. Guia 085 requer walkthrough em instalação limpa antes de promoção ao manual oficial.
 
 **Estado final:** 071–084 em revisão documental; 085 parcial. AGUARDANDO VALIDAÇÃO DO GPT-6.
+
+
+---
+
+## ADENDO INDIVIDUAL — CHATGPT GPT-6 — MISSÕES 071–085
+
+Relatórios individuais próprios:
+- `reports/TOKEN_SAVER_MISSION_071_UX_AUDIT_CHATGPT_GPT6.md` a `reports/TOKEN_SAVER_MISSION_085_PRODUCT_DOCUMENTATION_CHATGPT_GPT6.md`.
+- Consolidado: `reports/TOKEN_SAVER_MISSIONS_071_085_CHATGPT_GPT6_REVIEW.md`.
+- Guia de uso PT-BR: `docs/USER_GUIDE_PT_BR.md`.
+
+Status próprio: 071–084 REVIEW_REQUIRED; 085 PARTIAL. A contribuição é independente dos relatórios anteriores da Automation AI e não substitui a matriz consolidada. Nenhum teste dinâmico foi executado e nenhum código do produto principal foi alterado. GPT-6 integrador deve comparar achados e autorizar patches individualmente.
