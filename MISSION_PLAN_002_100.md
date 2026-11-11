@@ -1400,3 +1400,12 @@ HEAD atual do produto: `5221c589c08c71e284fa9aa216f8500302a5f0ed`. O workflow CI
 - `backup.rs` agora aplica canonicalização SHA-256 no manifesto antes de ler blobs, evitando trabalho desnecessário com identificadores inválidos; teste unitário adicionado.
 - Produto commit `f2341302`.
 - Harness concorrente de restore também adicionado nos commits `79f3de4` e `00263b2`; CI ainda pendente.
+
+
+## CI e progresso consolidado — 2026-11-11
+- Produto HEAD `f234130237844d2da758d646bf9703840668e08a`.
+- Linux/Windows SUCCESS: `dcfca211`, `0b78a4c1`, `88102dc7`.
+- Falhas antigas `d13078b4`, `8a06c4bf`, `b75ba685`, `df522503` ocorreram antes da correção final do teste Smart Context; commits corrigidos posteriores passaram.
+- CI pendente: `79f3de42` (restore race helper), `00263b27` (cleanup assertion), `f2341302` (manifest SHA canonicalization).
+- Testes locais não executados. Missões 051/055/056 continuam VERIFICATION REQUIRED.
+- Relatório consolidado: `reports/TOKENSAVER_10_ROUNDS_EXECUTION_2026-11-11_BACKUP_SMART_CONTEXT.md`.
