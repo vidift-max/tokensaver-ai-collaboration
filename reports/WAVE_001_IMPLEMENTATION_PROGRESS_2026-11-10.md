@@ -290,3 +290,53 @@ HEAD atual registrado: `97f28f18d4cb19edbd4f0794cd312e0932abf71a`.
 6. Wave 001 permanece parcial; não avançar gate 070 como concluído.
 
 **Resumo:** rodada 1 validada por CI integral no HEAD `fdf2017`; rodada 2 contém hardening adicional publicado em `29deca8`, com CI ainda em execução. Nenhum teste do segundo commit foi declarado aprovado.
+
+
+---
+
+# Execução em cinco rodadas consecutivas — 11/11/2026
+
+## Rodada 1 — auditoria dos repositórios e estado inicial
+- Produto: `vidift-max/tokensaver-ai`, branch `v2-saas-alpha`.
+- Colaboração: `vidift-max/tokensaver-ai-collaboration`, branch `v2-saas-alpha`.
+- HEAD do produto no início: `29deca8886b74019326cd24feb7af6318d19fdda`.
+- HEAD da colaboração consultado: `be3f8647638374f1959b334d589603542016e999`.
+- Repositórios, branch, árvore de relatórios e API do GitHub acessíveis. Nenhuma falha de autenticação/token observada.
+- Branch do produto aparece sem proteção e sem required status checks no endpoint consultado. Registrar como risco de governança, não alterar configuração nesta execução.
+
+## Rodada 2 — verificação de CI e validação da última implementação
+- Run do HEAD `29deca8886b74019326cd24feb7af6318d19fdda`: `42929383805`.
+- Conclusão formal: `success`.
+- Job Linux `foundation`: `cargo check`, `cargo test`, `npm install` e `npm run build` concluídos com sucesso.
+- Job Windows `foundation-windows`: `cargo check`, `cargo test`, `npm install` e `npm run build` concluídos com sucesso.
+- Portanto, o hardening de `project_storage.rs` e o teste Unix de rejeição de symlink intermediário passaram na suíte executada no Linux; a suíte geral também passou no Windows. O teste específico condicionado a Unix não roda no Windows.
+- Run anterior do commit `fdf2017` também consta como `success`; não foi usado como substituto da evidência do HEAD atual.
+
+## Rodada 3 — revisão do pipeline CI (Missão 067)
+- Workflow atual executa cargo check/test e build frontend em Linux e Windows.
+- Revisão estática confirmou lacunas: ausência de `permissions` explícitas por job, actions referenciadas por tags (`@v4`, `@stable`), ausência de `timeout-minutes` e `concurrency`, `npm install` sem lockfile versionado encontrado e sem `Cargo.lock` encontrado em `src-tauri/` ou na raiz.
+- `package.json` declara somente `dev`, `build`, `preview` e `tauri`; não há scripts de teste frontend, lint ou typecheck separado (o build inclui `tsc`).
+- Recomendações registradas para próxima autorização: permissões mínimas, pin SHA de actions, timeout/concurrency, lockfiles e instalação determinística, fmt/clippy e workflow separado para build/installer. Nenhuma alteração de workflow ou lockfile foi feita nesta execução.
+
+## Rodada 4 — integração, Tauri e Smart Context
+- Tauri: CSP restringe default/script/connect, mas mantém `style-src 'unsafe-inline'`; capability consultada lista `core:default`. Não foi demonstrada vulnerabilidade explorável nesta leitura estática. Próximo passo é revisar permissões geradas e testar runtime/IPC em build real.
+- Smart Context: backend mantém retorno legado `Vec<ContextHit>`; frontend `api.smartContext` depende de `ContextHit[]`. O backend aplica limites agregados de candidatos/bytes, mas não expõe truncamento, motivo de parada, telemetria nem deadline cooperativo.
+- A proposta `proposals/MISSION_051_SMART_CONTEXT_V2_API_PROPOSAL.md` continua como proposta para reconciliação. Não implementar mudança de contrato sem aprovação explícita.
+- Missões 056 e 057 continuam com relatórios marcados IMPLEMENTED — TESTS PENDING quanto a testes de integração específicos: restore×restore, restore×initialize, concorrência cross-process e runtime Windows para Import Roots. O CI verde confirma a suíte existente, mas não prova que esses cenários de integração foram cobertos.
+
+## Rodada 5 — consolidação e próximos gates
+- Relatórios de revisão das missões 067, 068 e 069 consultados; permanecem REVIEW_REQUIRED, com achados estáticos consistentes com esta verificação.
+- Commits de produto relevantes: `29deca8886b74019326cd24feb7af6318d19fdda`; CI verde no run `42929383805`.
+- Nenhum novo commit de produto foi necessário nesta execução: a prioridade foi confirmar evidência e evitar alterações fora da autorização.
+- Este registro é a consolidação documental das cinco rodadas.
+
+### Pendências priorizadas
+1. Missão 056: criar/executar testes concorrentes restore×restore e restore×initialize, além de verificar cleanup em falhas.
+2. Missão 057: testes cross-process de add/remove, falha/interrupção durante escrita e validação runtime Windows.
+3. Missão 051: reconciliar semântica e budgets da API v2; manter comando legado intacto até aprovação.
+4. Missão 055: benchmark dos limites e cobertura de operações longas.
+5. Missão 067: propor hardening CI com permissões mínimas, pinning, timeouts, concurrency e lockfiles.
+6. Missões 068/069: testes IPC/runtime e testes de interação/acessibilidade; build atual não substitui essas verificações.
+7. Branch protection/status checks: avaliar ativação após definir checks obrigatórios e acesso administrativo apropriado.
+
+**Conclusão:** cinco rodadas de auditoria, validação, revisão técnica e consolidação executadas. O último commit do produto está validado pelo CI Linux/Windows; a Wave 001 permanece PARCIAL, pois cenários de integração e gates específicos ainda não têm evidência suficiente.
