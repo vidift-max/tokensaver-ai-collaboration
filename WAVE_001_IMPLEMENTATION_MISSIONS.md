@@ -301,3 +301,10 @@ Foi identificado risco de efeito colateral: `create_dir_all(projects_root)` pode
 - Mission 056: helper de publicação concorrente de restore e teste com dois stages concorrendo pelo mesmo destino (`79f3de4`, `00263b2`).
 - Mission 055: validação antecipada de SHA canônico no manifesto e teste de lowercase hex (`f2341302`).
 - Nenhum teste local executado; CI dos novos commits pendente.
+
+
+## Status atualizado — 2026-11-11
+- Corrigida a falha de compilação da suíte Smart Context: `dcfca211` SUCCESS Linux/Windows; `88102dc7` e `0b78a4c1` também SUCCESS.
+- Restore concorrente: commits `79f3de42` e `00263b27` aguardam CI.
+- Backup manifest SHA canonical: `f2341302` aguarda CI.
+- Missões 051/055/056 ainda não estão concluídas; nenhum teste local executado e restore E2E do comando Tauri permanece pendente.
