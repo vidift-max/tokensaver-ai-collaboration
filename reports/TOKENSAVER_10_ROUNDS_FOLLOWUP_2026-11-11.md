@@ -203,3 +203,86 @@ Esta sequência partiu do produto HEAD `9df4bf40085a7ea836c42a402f713accc595481d
 6. Manter release/SaaS em NO-GO até autenticação, isolamento, infraestrutura e gates de produção terem evidência executável.
 
 **Conclusão:** as dez frentes foram percorridas, uma nova cobertura de regressão foi adicionada e o CI da base foi aprovado nos dois sistemas. O novo teste de Import Roots ainda aguarda validação do CI; as missões de integração, frontend, automação e SaaS não foram falsamente declaradas concluídas.
+
+
+---
+
+# Nova sequência de continuidade — 10 rodadas (2026-11-11)
+
+## Base e auditoria (Rodada 1)
+- Branches consultados: `v2-saas-alpha` nos dois repositórios.
+- HEAD de produto na retomada: `f82061d3daa1ad04839a83ebb2b01388fb8137fd`; HEAD de colaboração na retomada: `cf936fa7995bab3fd0e19adc723cfa0ef7531dfc`.
+- CI run `42931876958` para o commit de teste de Import Roots `c668d644f15d0d40f0b05b93e2da106104ce93ee`: Linux e Windows SUCCESS; cargo check/test e npm install/build aprovados.
+- Relidos plano mestre, Wave 001, proposta Smart Context v2 e relatórios de Automation AI para fases 003–040 e 086–100. Os relatórios BLOCKED antigos de 003–010, 021–030 e 031–040 contêm adendos SUPERSEDED; prevalecem as entregas documentais atuais em REVIEW_REQUIRED. Não confundir documentação com runtime.
+- Branch protection permanece desativada; sem alteração administrativa.
+
+## Rodada 2 — segurança do backend (052/056/063)
+- Revisitados filesystem, path guard, Project Memory, project storage e restore.
+- Achado corrigido: leitura do arquivo persistido `import_roots.json` verificava symlink antes da abertura, mas a abertura poderia seguir link/reparse point em uma corrida local.
+- Alterado `read_roots_file`: valida metadados sem seguir links, usa `O_NOFOLLOW` em Unix, `FILE_FLAG_OPEN_REPARSE_POINT` em Windows e valida o metadata do handle aberto.
+- Arquivo alterado: `src-tauri/src/path_guard.rs`.
+- Commits: `ab2878cd157e1c6a5b7eb84dbe22b6684e8b96d6`, `f5aa9d633dc07debad97e6eb518800fbcde16c84`, `5f66e3db049430098d86963df3e51e5ea573d12e`.
+- Teste Unix novo: arquivo de configuração que é symlink deve ser rejeitado. Teste aguarda CI do SHA mais recente; não houve execução local.
+- Limitação: o teste dedicado de symlink é `cfg(unix)`; Windows valida compilação/execução geral e usa flag de reparse point, mas falta teste runtime Windows dedicado para junction/reparse.
+
+## Rodada 3 — backup, restauração e importação (055/056/057)
+- Reconfirmados budgets/validação de manifesto, DB/WAL, blobs e publicação no-replace.
+- Teste de fronteira de Import Roots (`MAX_IMPORT_ROOTS` versus +1) passou no CI run `42931876958` em Linux e Windows.
+- Não foi criado harness restore×restore ou restore×initialize nesta sequência; missão 056 permanece com teste de integração pendente.
+- Não foi criado harness cross-process de add/remove; missão 057 permanece parcial quanto à evidência multiplataforma.
+
+## Rodada 4 — Smart Context e memória (051/052)
+- Reconfirmados budgets agregados de arquivos/bytes e transação imediata de Project Memory com teste de corrida existente.
+- Contrato legado `Vec<ContextHit>` preservado. Proposta `smart_context_v2` não implementada, aguardando aprovação/reconciliação.
+- Deadline/cancelamento, telemetria e indicadores de truncamento continuam pendentes.
+
+## Rodada 5 — desempenho e SQLite
+- Inspecionados schema, índices, paginação e consulta do File Center.
+- Índices únicos existentes cobrem `(project_id, logical_path)` e `(file_id, version_no)`; índices auxiliares de token counts e Project Memory também estão presentes.
+- Não foi observada evidência suficiente para adicionar índice especulativo. Nenhum benchmark foi executado ou inventado.
+- Consulta do File Center busca `limit + 1` e retorna `has_more`; a limitação está na UX, não na ausência do sinal no backend.
+
+## Rodada 6 — frontend e UX
+- Confirmado que `Page<T>` está tipado em `src/api.ts`, mas a tela File Center ainda não oferece navegação/continuação com `has_more`.
+- Sem patch frontend: autorização de UX/paginação continua pendente conforme reconciliação do plano. Preservado contrato do backend.
+
+## Rodada 7 — integração e automação
+- Consultados entregáveis Automation AI 003–010, 021–030, 031–040 e reconciliação 086–100.
+- Fases 003–040 possuem entregas documentais, porém REVIEW_REQUIRED; relatórios antigos de bloqueio estão marcados SUPERSEDED por adendos posteriores.
+- Não foram ativados Issues/dispatch/webhooks/secrets/worker ou APIs reais de IA. Não foi alegada conexão de provedor.
+
+## Rodada 8 — segurança e qualidade final
+- Revisados Tauri CSP/capability e workflow CI.
+- CI continua sem permissões explícitas mínimas, pinning imutável de actions, timeout/concurrency e instalação frontend reproduzível por lockfile; capability atual é `core:default`; CSP inclui `style-src 'unsafe-inline'`.
+- Hardening de workflow e mudança de capability/CSP aguardam autorização específica; nenhuma alteração administrativa ou de política foi feita.
+
+## Rodada 9 — SaaS
+- Produto permanece desktop/local-first. Não há evidência de auth SaaS, autorização de tenant, isolamento multitenant, backend remoto, sincronização, billing ou infraestrutura de produção.
+- 095–098 permanecem especificações/documentos parciais; 099–100 BLOCKED/NO-GO.
+
+## Rodada 10 — consolidação e CI
+- Atualizados relatório, progresso e plano mestre no repositório de colaboração.
+- CI do teste de limite `42931876958`: SUCCESS Linux/Windows.
+- CI para correção de symlink/reparse: runs `42932569134` (SHA `ab2878c`), `42932590812` (SHA `f5aa9d6`) e `42932633992` (SHA `5f66e3d`) ainda estavam IN_PROGRESS na última consulta; cargo check ainda em execução ou dependências em instalação. Não declarar aprovação/reprovação até conclusão.
+- HEAD de produto esperado após os três patches: `5f66e3db049430098d86963df3e51e5ea573d12e`.
+
+## Contagem desta sequência
+- Rodadas executadas: 10.
+- Commits de produto com alterações efetivas: 3.
+- Arquivos de produto alterados: 1 (`src-tauri/src/path_guard.rs`).
+- Novos testes: 1 teste de symlink Unix; o teste de limite de contagem foi publicado na sequência anterior e validado aqui.
+- Correções de comportamento: 1 endurecimento da abertura do arquivo de configuração contra symlink/reparse point.
+- CI aprovado nesta sequência: run `42931876958` para teste de limite; CI do novo hardening pendente.
+- Testes locais: não executados; runner local sem toolchain/rede disponível nesta sessão.
+- Missões formalmente concluídas nesta sequência: 0; as missões 057/063 receberam avanço, mas ainda não têm evidência completa de integração/cross-process.
+
+## Próximos passos
+1. Aguardar CI do SHA `5f66e3d`; corrigir qualquer falha reproduzida antes de seguir.
+2. Criar teste runtime Windows dedicado para reparse point/junction.
+3. Construir harness restore×restore e restore×initialize para 056.
+4. Construir harness cross-process para 057 em Linux e Windows.
+5. Obter aprovação do contrato Smart Context v2.
+6. Obter autorização para paginação do File Center e hardening CI/Tauri.
+7. Manter release e SaaS em NO-GO até gates de autenticação, isolamento, segurança e operação.
+
+**Conclusão:** dez rodadas percorridas; foi corrigida uma superfície real de leitura de configuração e adicionado teste de regressão. A validação Linux/Windows desse patch ainda está em andamento, portanto o trabalho permanece parcialmente validado.
