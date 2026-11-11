@@ -1269,7 +1269,7 @@ Não interpretar dez rodadas como dez missões concluídas; esta sequência adic
 ## Atualização de execução — 10 rodadas / hardening Import Roots (2026-11-11)
 
 - Nova correção 063: abertura segura do arquivo `import_roots.lock` com rejeição de symlink/reparse point e validação do handle. Produto commit `3caf529759a39989a9bec8c87263bbdce8092386`.
-- Testes adicionados para arquivo regular, diretório e symlink Unix. Produto commit `92564af1267002529cb7685ae194af2b37383791`.
+- Três testes adicionados: arquivo regular, diretório e symlink Unix. Produto commit `92564af1267002529cb7685ae194af2b37383791`.
 - Relatório: `reports/TOKENSAVER_10_ROUNDS_EXECUTION_2026-11-11_LOCKFILE_HARDENING.md`.
 - CI novo pendente na última consulta: runs `42933260337` e `42933341382`. Não considerar a missão validada até conclusão dos dois jobs Linux/Windows.
 - Status: 063 PARTIAL; 056 e 057 ainda precisam de testes de integração/cross-process; 051 v2 e 071–085 seguem condicionados a aprovação de contrato/escopo; 070 e 099–100 NO-GO.
