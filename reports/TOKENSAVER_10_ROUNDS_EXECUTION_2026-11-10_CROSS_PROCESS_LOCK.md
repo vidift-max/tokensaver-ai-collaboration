@@ -9,13 +9,13 @@ Branches verificadas: `v2-saas-alpha`
 Esta sequência retomou o estado real do GitHub, confirmou o CI dos patches anteriores e acrescentou um teste automatizado de exclusão de lock entre processos para a Missão 057.
 
 - Produto HEAD no início: `7be9db9b9ac939c48cdfdc06ffc2f157fdd359e9`.
-- Produto HEAD após a alteração: `5221?` (sequência final: `907d6dd` → `a96c5c6` → `5221?`).
+- Produto HEAD após a alteração: `5221c589c08c71e284fa9aa216f8500302a5f0ed`.
 - Colaboração HEAD inicial: `b075cfd8a523d11c90d522dec5870c3e626a8caa`.
 - Arquivo do produto alterado: `src-tauri/src/path_guard.rs`.
-- Commit de produto: `907d6ddf6376cbc73a2a32ca6fbc7fdbc92a9406`.
+- Commits de produto nesta sequência: `907d6dd` (teste cross-process), `a96c5c6` (assert de erro específico) e `5221c58` (corrige bound de compilação no teste).
 - Alterações de comportamento em produção: 0.
 - Testes novos adicionados: 1 teste de integração cross-process (com subprocesso do próprio test harness).
-- Testes novos executados nesta sequência: ainda não; aguardando CI do commit `907d6dd`.
+- Testes novos executados nesta sequência: ainda não; aguardando CI do HEAD final `5221c58`.
 - Missões formalmente concluídas nesta sequência: 0.
 
 ## Rodada 1 — Auditoria completa
@@ -42,7 +42,7 @@ Esta sequência retomou o estado real do GitHub, confirmou o CI dos patches ante
 - Para Import Roots, extraída a aquisição de lock para `acquire_roots_lock(file, timeout)`, preservando timeout de cinco segundos no caminho de produção.
 - Adicionado `roots_lock_is_exclusive_across_processes`: o processo de teste pai mantém o lock e inicia um subprocesso do test harness, que tenta adquirir o mesmo lock com timeout curto e deve falhar.
 - Adicionado teste auxiliar `roots_lock_cross_process_child`, ativado por variável de ambiente apenas no subprocesso.
-- Commit: `907d6ddf6376cbc73a2a32ca6fbc7fdbc92a9406`.
+- Commits: `907d6dd` → `a96c5c6` → `5221c58`.
 - O teste é adicionado, mas ainda NÃO foi executado/validado pelo CI no momento deste registro.
 
 ## Rodada 4 — Smart Context e memória
@@ -93,7 +93,7 @@ Esta sequência retomou o estado real do GitHub, confirmou o CI dos patches ante
 
 ## Rodada 10 — Consolidação
 
-- Conferido o diff do commit `907d6dd`: somente `src-tauri/src/path_guard.rs` foi alterado.
+- Conferidos os diffs: os três commits alteraram somente `src-tauri/src/path_guard.rs`.
 - Nenhuma alteração no frontend, schema, workflows, secrets, permissões, Tauri config ou deploy.
 - O teste cross-process usa o mesmo test executable em subprocesso e o mesmo arquivo de lock; o resultado real depende da execução em Linux e Windows pelo CI.
 - Testes locais: NÃO EXECUTADOS nesta sessão.
@@ -105,7 +105,7 @@ Esta sequência retomou o estado real do GitHub, confirmou o CI dos patches ante
 | Item | Quantidade/status |
 |---|---:|
 | Rodadas/frentes percorridas | 10 |
-| Commits novos no produto | 1 |
+| Commits novos no produto | 3 |
 | Arquivos de produto alterados | 1 |
 | Correções de comportamento de produção | 0 |
 | Testes novos adicionados | 1 |
@@ -117,7 +117,7 @@ Esta sequência retomou o estado real do GitHub, confirmou o CI dos patches ante
 
 ## Pendências prioritárias
 
-1. Validar o teste cross-process em Linux e Windows no CI do commit `907d6dd`; corrigir falhas reais se surgirem.
+1. Validar o teste cross-process em Linux e Windows no CI do HEAD final `5221c58`; corrigir falhas reais se surgirem.
 2. Adicionar testes de concorrência restore×restore e restore×initialize e fault cleanup (056).
 3. Completar testes de concorrência add/add e add/remove, interrupção durante replace e reparse/junction Windows (057/063).
 4. Reauditar consumidores restantes de filesystem (063).
