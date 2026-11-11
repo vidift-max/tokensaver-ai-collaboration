@@ -1231,3 +1231,22 @@ Este adendo reconcilia o backlog com evidências de implementação mais recente
 Produto atualizado em 2026-11-11: `9df4bf40085a7ea836c42a402f713accc595481d`. O commit adiciona dois testes de regressão em `filesystem.rs`; CI run `42931214949` estava em andamento na captura. Não declarar testes aprovados até o CI terminar.
 
 A execução complementar está detalhada em `reports/TOKENSAVER_10_ROUNDS_FOLLOWUP_2026-11-11.md`. Relatórios de outras IAs foram preservados; não foram sobrescritos.
+
+
+---
+
+## ADENDO DE EXECUÇÃO — SEGUNDA SEQUÊNCIA GPT-6 (2026-11-11)
+
+- Missão 057: acrescentado teste de fronteira para aceitar `MAX_IMPORT_ROOTS` e rejeitar o valor imediatamente superior. Commit de produto `c668d644f15d0d40f0b05b93e2da106104ce93ee`; CI `42931876958` pendente na captura.
+- CI do produto base `9df4bf40085a7ea836c42a402f713accc595481d`: run `42931214949` concluído com sucesso em Linux e Windows (cargo check/test, npm install/build).
+- 051 PARTIAL: manter contrato legado; v2/deadline/telemetria dependem de aprovação.
+- 052: implementação e testes existentes; CI base aprovado.
+- 055: budgets/validação presentes; benchmark e fault injection pendentes.
+- 056: testes de integração restore×restore e restore×initialize ainda pendentes.
+- 057: teste de limite de contagem adicionado; harness cross-process/runtime Windows pendentes.
+- 063: primitives presentes; cobertura transversal/TOCTOU ainda parcial.
+- 067/068: REVIEW_REQUIRED e aguardando autorização para hardening CI/Tauri.
+- 074: paginação File Center pendente de autorização; UI ainda não consome `has_more`.
+- 070, 099 e 100: BLOCKED/NO-GO.
+
+Relatório da segunda sequência: `reports/TOKENSAVER_10_ROUNDS_FOLLOWUP_2026-11-11.md`. Não interpretar as dez rodadas como dez missões concluídas.
