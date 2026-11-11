@@ -47,3 +47,8 @@ UNAUTHENTICATED, FORBIDDEN, ROOM_CAPACITY_REACHED, CHANNEL_ACCESS_DENIED, INVALI
 
 ## Compatibilidade e validação
 Schema versionado; propriedades desconhecidas rejeitadas nas fronteiras. Criar fixtures positivas/negativas e validar com JSON Schema Draft 2020-12 após aprovação. Este documento não foi implementado nem executado em validador.
+
+
+## Convite privado e admissão
+
+O contrato detalhado de convite está em `contracts/AI_TEAM_ROOM_INVITATION_V1.md`. O convite é uma capacidade limitada, não autenticação. Exige token aleatório >=256 bits CSPRNG, armazenamento somente digest/HMAC, expiração, max_uses, revogação, identidade workload verificada e grants mínimos. Resgate e admissão/consumo são atômicos; limite 15 participantes IA ativos, sem duplicar slot em reconexão. Identidade de participante, principal e sessão são distintas. Comunicação não concede acesso a GitHub, código, banco, arquivos, APIs, tokens, credenciais ou execução. Status: PROPOSTO, não implementado nem testado.
