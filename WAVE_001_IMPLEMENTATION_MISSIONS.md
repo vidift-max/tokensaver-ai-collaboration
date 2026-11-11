@@ -198,3 +198,34 @@ Produto commit `a42cdc0bf4b584d45414feb158dc91a845cadf99`, arquivo `src-tauri/sr
 Novo teste `limited_copy_cleans_staging_file_when_target_appears_before_publication`: cobre colisão de destino na etapa de publicação, preserva bytes do destino preexistente e verifica que o staging privado é removido. É teste de regressão da primitiva compartilhada `copy_file_limited`, não substitui fault injection do fluxo de restore.
 
 **Verificação:** não executado localmente; status/checks e workflow runs do commit consultados e sem resultado publicado. Linux/Windows pendentes. Missão 063 segue PARTIAL / VERIFICATION REQUIRED.
+
+
+---
+
+## ATUALIZAÇÃO GPT-6 — MISSÃO 051 / LEITURA LIMITADA PELO BUDGET RESTANTE (2026-11-10)
+
+**Produto commit:** `8a1caa81810d128d06c7b0b72a31a488cd22ef1c`  
+**Arquivo:** `src-tauri/src/smart_context.rs`
+
+### Achado corrigido
+O Smart Context verificava o orçamento agregado depois de ler um blob. Se restassem poucos bytes no budget, a leitura ainda poderia consumir até `MAX_FILE_BYTES + 1` antes de parar. Isso violava o limite agregado durante o processamento, apesar de o contador final impedir a inclusão do blob excedente.
+
+### Patch
+- Introduzido `read_context_blob` com limite de leitura calculado a partir do orçamento restante e do limite por arquivo.
+- A leitura não consome mais que o budget agregado restante.
+- Quando o budget agregado termina no meio de um blob, o prefixo potencialmente parcial não é ranqueado.
+- Bytes lidos em blobs acima do limite individual são contabilizados antes de continuar.
+
+### Testes adicionados
+- `context_read_never_exceeds_remaining_aggregate_budget`
+- `context_read_detects_per_file_overflow_within_aggregate_budget`
+- `context_read_accepts_file_smaller_than_remaining_budget`
+
+**TESTES LOCAIS:** NÃO EXECUTADOS.  
+**CI:** run `42936444404` ainda IN_PROGRESS na última consulta.  
+**Status da missão 051:** IMPLEMENTED — CI/RE-AUDIT REQUIRED; v2/deadline/telemetria não implementados e continuam aguardando reconciliação/aprovação.
+
+Runs de regressão anteriores:
+- `42935062672`: SUCCESS Linux/Windows (commit `5221c58`).
+- `42935505884`: SUCCESS Linux/Windows (commit `73addaf`).
+
