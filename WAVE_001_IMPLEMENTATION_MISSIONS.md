@@ -288,3 +288,10 @@ Foi identificado risco de efeito colateral: `create_dir_all(projects_root)` pode
 - Correções publicadas em `88102dc7` e `dcfca211`; a segunda reposiciona o teste de erro de leitura no nível do módulo.
 - `705cc60d` passou Linux/Windows no run `42936942226`.
 - O SHA atual aguarda CI. Missão 051 permanece VERIFICATION REQUIRED.
+
+
+## Continuação — Missão 056: concorrência entre dois restores
+- O fluxo real agora usa `publish_restore_stage`, que chama `publish_noreplace` e limpa o staging se a publicação falhar.
+- Teste concorrente cobre dois restores para o mesmo target, winner único, preservação do conteúdo e cleanup de ambos os staging paths.
+- Commits produto `79f3de4` e `00263b2`; CI pendente, testes locais não executados.
+- A cobertura não é E2E do comando Tauri; valida a etapa crítica de publicação. Missão continua VERIFICATION REQUIRED.
