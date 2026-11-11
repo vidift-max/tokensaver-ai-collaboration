@@ -102,3 +102,13 @@
 7. Manter release/SaaS em NO-GO até os gates de segurança, auth, isolamento e operação terem evidência.
 
 **Conclusão:** houve avanço concreto no código: o Smart Context agora respeita o orçamento agregado durante a leitura, e não somente depois dela. Os testes novos ainda aguardam CI do SHA atual. As dez frentes foram percorridas, mas isso não equivale a dez missões concluídas.
+
+
+---
+
+## Adendo de verificação posterior (consulta final desta execução)
+
+- Run `42935878529`, commit `a42cdc0`: concluiu SUCCESS em Linux e Windows; `cargo check`, `cargo test`, `npm install` e `npm run build` passaram nos dois jobs.
+- Run `42935043128`, commit intermediário `a96c5c6`: falhou em `cargo test` em Linux e Windows. O teste foi ajustado no commit seguinte `5221c58`; run `42935062672` concluiu SUCCESS nos dois sistemas. Portanto, o erro do commit intermediário foi corrigido e a revisão subsequente ficou verde.
+- Run `42936444404`, commit atual `8a1caa8`: continua IN_PROGRESS; os dois jobs estavam executando `cargo check`, ainda sem resultado final de `cargo test` ou build frontend.
+- O estado de CI deve ser interpretado por SHA: aprovação dos commits anteriores não substitui a validação do commit atual.
