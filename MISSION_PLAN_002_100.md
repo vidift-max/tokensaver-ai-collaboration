@@ -1358,3 +1358,14 @@ HEAD atual do produto: `5221c589c08c71e284fa9aa216f8500302a5f0ed`. O workflow CI
 - CI `42936942226` (`705cc60`) estava IN_PROGRESS e `42937074749` (`d13078b`) QUEUED na última consulta; não declarar aprovação.
 - Relatório: `reports/TOKENSAVER_10_ROUNDS_EXECUTION_2026-11-11_BACKUP_SMART_CONTEXT.md`.
 - Missões 051 e 055 permanecem em validação; 056/057 ainda exigem harness E2E/casos concorrentes adicionais.
+
+
+---
+
+## ADENDO — RESTORE ROOT SYMLINK E HASH CANÔNICO (2026-11-11)
+
+- `backup.rs` commit `8a06c4bfd80dcd8e85189eecf88a1e8fb470a384`: restore deixou de usar `create_dir_all(projects_root)` antes da validação; agora usa `project_storage::claim_project_root`, evitando efeitos colaterais através de symlink.
+- `backup.rs` commit `b75ba685ee451148630a89c83ba2afcb04119b7b`: teste Unix verifica rejeição do projects root symlink sem criar o destino externo.
+- `smart_context.rs` commit `df5225038c901c0191a7964536e440af3d1f91ef`: exige SHA-256 lowercase canônico para evitar divergência Windows/Linux; teste `smart_context_accepts_only_canonical_lowercase_sha256`.
+- CI runs `42937270442` (8a06c4bf), `42937301773` (b75ba685) IN_PROGRESS e `42937340459` (df522503) QUEUED na última consulta. Testes locais não executados.
+- Relatório: `reports/TOKENSAVER_10_ROUNDS_EXECUTION_2026-11-11_BACKUP_SMART_CONTEXT.md`.
