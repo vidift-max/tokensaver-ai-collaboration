@@ -192,3 +192,26 @@ HEAD atual registrado: `97f28f18d4cb19edbd4f0794cd312e0932abf71a`.
 - No momento da última consulta, o run do HEAD atual estava em preparação Linux e checkout Windows; o run `42925228309` já havia passado por `cargo check` em ambos os sistemas, mas permanecia em `cargo test` em ambos.
 - Não há aprovação de `cargo test` para o HEAD atual. Também não foram confirmados os passos frontend para o HEAD atual.
 - Próxima ação obrigatória: aguardar os jobs dos runs mais recentes, recolher falhas/logs quando disponíveis e corrigir somente problemas demonstrados. Os testes de concorrência/restore de integração que dependem de AppHandle e execução multiplataforma não foram simulados nem declarados cobertos.
+
+
+## Atualização — CI aprovado e correção de inicialização limpa
+
+### Evidência de CI confirmada
+- HEAD do produto antes da correção adicional: `5ae5bbce6293394f9083cd81aae0b77fa28086fb`.
+- Run `42925583687`: conclusão `success`.
+- Job Linux `foundation`: `cargo check`, `cargo test` e `npm run build` concluídos com sucesso.
+- Job Windows `foundation-windows`: `cargo check`, `cargo test` e `npm run build` concluídos com sucesso.
+- Esta é a primeira confirmação completa, nesta sequência de alterações, de testes Rust e build frontend aprovados nos dois sistemas operacionais. Não extrapolar essa aprovação para commits posteriores.
+
+### Correção adicional identificada na revisão
+- A função `initialize_project` usava `fs::create_dir(&root)` sem garantir a existência da pasta-pai `storage/projects`. Isso regredia o primeiro uso em instalação limpa, pois `create_dir` não cria diretórios ancestrais.
+- Criado `src-tauri/src/project_storage.rs` com `claim_project_root`: prepara a pasta-pai, rejeita pasta-pai que seja symlink/não diretório, reivindica a pasta do projeto com `create_dir` (sem substituir) e valida o caso `AlreadyExists`.
+- Adicionados testes para: instalação limpa com pais ausentes, idempotência em diretório existente, oito chamadas concorrentes reivindicando a mesma pasta e rejeição de symlink no Unix.
+- `initialize_project` agora usa o helper.
+- Commits: `bb49cca66cefecaf41babc16eff3e6b60a28c8e4` (helper + testes) e `bacb4f0310b9ba59c11032482532879f2bb3e3df` (integração no comando).
+- O run `42928221024` foi criado para o primeiro commit e estava `queued` na última consulta. O commit integrador posterior `bacb4f03` ainda precisa de execução CI própria. Portanto, **os testes desta correção ainda não estão aprovados**.
+
+### Estado atualizado
+- Wave 001: ainda parcial; não declarar concluída.
+- Próximo: confirmar CI do HEAD `bacb4f0310b9ba59c11032482532879f2bb3e3df`; se passar, avançar testes adicionais de restore/import-root e reauditoria dos consumidores de filesystem. Se falhar, corrigir somente falhas reproduzidas.
+- As limitações anteriores de Smart Context (deadline/telemetria/resultado parcial) e benchmarks dos budgets de backup continuam abertas.
