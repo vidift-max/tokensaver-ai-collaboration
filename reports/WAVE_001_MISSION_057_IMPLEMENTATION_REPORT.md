@@ -76,3 +76,12 @@ Required verification:
 - [ ] Re-audit completed.
 
 **STATUS: IMPLEMENTATION COMPLETE — VERIFICATION REQUIRED**
+
+
+## Adendo — teste cross-process GPT-6 (2026-11-10)
+
+- Extraída a função interna `acquire_roots_lock(file, timeout)`, mantendo `Duration::from_secs(5)` no caminho de produção.
+- Adicionados `roots_lock_cross_process_child` e `roots_lock_is_exclusive_across_processes`: processo pai mantém o lock e o subprocesso deve falhar ao tentar obter o mesmo lock após timeout curto.
+- Produto commit: `907d6ddf6376cbc73a2a32ca6fbc7fdbc92a9406`.
+- O teste foi adicionado, mas ainda NÃO EXECUTADO/VALIDADO pelo CI na hora deste adendo. Missão 057 continua IMPLEMENTED — VERIFICATION REQUIRED.
+- Nenhuma outra API, persistência ou comportamento de produto foi alterado.
