@@ -390,3 +390,12 @@ HEAD atual registrado: `97f28f18d4cb19edbd4f0794cd312e0932abf71a`.
 - As outras frentes foram verificadas sem alterações fora do escopo: 056 ainda carece de harness restore×restore/initialize; 057 carece de teste cross-process específico; 051 v2 aguarda aprovação; File Center paginação aguarda autorização; CI/Tauri hardening administrativo aguarda autorização; SaaS permanece NO-GO.
 - Relatório completo: `reports/TOKENSAVER_10_ROUNDS_EXECUTION_2026-11-11_LOCKFILE_HARDENING.md` (commit de colaboração `1780881daa4bffffe8164ebbff5a83c3ccc27f8d`).
 - Dez frentes percorridas; 2 commits de produto; 1 arquivo; 1 correção de comportamento; 2 testes adicionados; 0 missões formalmente concluídas. Missão 063 permanece parcial até CI e validação multiplataforma dos novos commits.
+
+
+## Missão 057 — correção adicional de timeout Windows (2026-11-11)
+
+- Encontrado que `LockFileEx` usava apenas `LOCKFILE_EXCLUSIVE_LOCK` (0x2), que pode bloquear indefinidamente; o loop de cinco segundos não conseguia observar o deadline durante a chamada bloqueante.
+- Corrigido para combinar `LOCKFILE_EXCLUSIVE_LOCK | LOCKFILE_FAIL_IMMEDIATELY` (0x2 | 0x1), permitindo retry não bloqueante e timeout efetivo.
+- Produto commit: `7be9db9b9ac939c48cdfdc06ffc2f157fdd359e9`; arquivo `src-tauri/src/path_guard.rs`.
+- CI run `42933741807` IN_PROGRESS na última consulta. Teste de concorrência cross-process Windows ainda NÃO EXECUTADO.
+- Relatório atualizado: `reports/TOKENSAVER_10_ROUNDS_EXECUTION_2026-11-11_LOCKFILE_HARDENING.md`.
