@@ -10,7 +10,7 @@
 - Testes locais: 0 executados (ambiente desta sessão sem checkout local do repositório).
 - Missões formalmente concluídas: 0; validação dos últimos commits aguarda GitHub Actions.
 - Produto HEAD: `f234130237844d2da758d646bf9703840668e08a`.
-- Colaboração HEAD após a publicação deste relatório: `44dc90bb50250ba2a81db12f7d4b2abf4a070dc7`.
+- Relatório final publicado inicialmente no commit `44dc90bb`; metadado corrigido no commit `76223867`.
 
 ## As dez rodadas
 
