@@ -1250,3 +1250,17 @@ A execução complementar está detalhada em `reports/TOKENSAVER_10_ROUNDS_FOLLO
 - 070, 099 e 100: BLOCKED/NO-GO.
 
 Relatório da segunda sequência: `reports/TOKENSAVER_10_ROUNDS_FOLLOWUP_2026-11-11.md`. Não interpretar as dez rodadas como dez missões concluídas.
+
+
+---
+
+## ADENDO — TERCEIRA SEQUÊNCIA DE CONTINUIDADE (2026-11-11)
+
+- Missão 057: teste de fronteira `MAX_IMPORT_ROOTS` validado pelo CI run `42931876958` em Linux e Windows.
+- Missão 063: `read_roots_file` passou a rejeitar arquivo de configuração que seja symlink/diretório e abre com `O_NOFOLLOW` (Unix) ou `FILE_FLAG_OPEN_REPARSE_POINT` (Windows), validando metadata do handle. Arquivo `src-tauri/src/path_guard.rs`; commits `ab2878c`, `f5aa9d6`, `5f66e3d`.
+- Teste Unix de symlink adicionado. CI dos SHAs acima: runs `42932569134`, `42932590812`, `42932633992` ainda IN_PROGRESS na captura.
+- 051 permanece PARTIAL; contrato v2 aguarda aprovação. 052 implementação presente. 055 budgets presentes, fault injection/benchmark pendentes. 056 testes restore concorrente pendentes. 057 harness cross-process pendente. 063 segue PARTIAL até auditoria transversal e teste Windows de reparse/junction.
+- 067/068 aguardam autorização para hardening CI e mudanças Tauri. 074 aguarda autorização de paginação frontend. 070 e 099–100 BLOCKED/NO-GO.
+- Relatório: `reports/TOKENSAVER_10_ROUNDS_FOLLOWUP_2026-11-11.md`.
+
+Não interpretar dez rodadas como dez missões concluídas; esta sequência adicionou uma correção de segurança e cobertura de teste, ainda com CI pendente.
