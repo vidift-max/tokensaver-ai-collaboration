@@ -172,3 +172,13 @@
 - CI anterior do SHA `dcfca211` ainda estava `in_progress` na última consulta; o novo teste aguarda workflow próprio.
 - Runs `42937270442` e `42937301773` falharam em `cargo test` por compilação do teste Smart Context que antecedeu a correção de tupla/escopo. Isso não é resultado do teste de restore.
 - Missão 056 continua VERIFICATION REQUIRED até CI Linux e Windows verdes.
+
+
+## Continuação — canonicalização antecipada dos hashes no restore (2026-11-11)
+
+- Achado: o manifesto do backup aceitava SHA hexadecimal uppercase na validação inicial e só o rejeitava mais tarde quando comparava o hash calculado. Isso fazia processamento/leitura desnecessária de blobs inválidos.
+- Correção: helper `is_canonical_sha256` compartilhado pelo validador dos registros SQLite e pelo loop do manifesto; SHA deve ser 64 caracteres hex lowercase e `file_name` deve ser exatamente o SHA canônico.
+- Teste novo: `restore_sha256_requires_canonical_lowercase_hex`.
+- Arquivo: `src-tauri/src/backup.rs`.
+- Produto commit `f234130237844d2da758d646bf9703840668e08a`.
+- Teste local não executado; CI ainda não publicou run para esse SHA no momento do registro.
