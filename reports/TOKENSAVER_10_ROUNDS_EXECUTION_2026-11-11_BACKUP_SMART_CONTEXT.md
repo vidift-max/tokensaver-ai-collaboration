@@ -137,3 +137,12 @@
 - Arquivos de produto alterados: 2 (`backup.rs`, `smart_context.rs`).
 - Testes locais: 0; todos os quatro SHAs novos aguardam CI.
 - Missões formalmente concluídas: 0.
+
+
+## Adendo final de revisão estática dos patches (2026-11-11)
+
+- Smart Context: durante a conferência de consistência do retorno do helper, foi encontrado um destructuring de teste que ainda esperava a tupla antiga. Corrigido em `88102dc7d876573f83ee63c69528f727da48e74f`. A busca estática final encontrou 0 destructurings antigos e 4 novos com o campo `read_failed`.
+- Backup: o teste de canonicalização foi ampliado para verificar separadamente SHA uppercase e relative_path uppercase com SHA lowercase. Commit `0b78a4c1a70c7b3702b67bc51eec76258a0615d0`.
+- HEAD final do produto: `0b78a4c1a70c7b3702b67bc51eec76258a0615d0`.
+- CI dos commits `705cc60`, `d13078b`, `8a06c4b`, `b75ba68`, `df52250` e `88102dc` ainda estava IN_PROGRESS na última consulta; o run específico de `0b78a4c` ainda não aparecia. O único SHA desta sequência com CI fechado é `8a1caa8`, SUCCESS Linux/Windows.
+- A revisão estática não substitui compilação. Testes locais continuam NÃO EXECUTADOS.
