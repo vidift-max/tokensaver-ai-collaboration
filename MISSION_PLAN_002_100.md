@@ -1316,3 +1316,16 @@ HEAD atual do produto: `5221c589c08c71e284fa9aa216f8500302a5f0ed`. O workflow CI
 - Commit novo `73addaf`: teste de regressão restore × initialize. CI/status também sem resultado publicado na consulta.
 - Não declarar testes aprovados. Missões 056 e 057 permanecem IMPLEMENTED — VERIFICATION REQUIRED.
 - 051 API v2 aguarda aprovação; 074 paginação frontend aguarda autorização; 067/068 hardening CI/Tauri aguarda escopo aprovado. 070 e 099–100 seguem BLOCKED/NO-GO.
+
+
+
+---
+
+## Atualização de execução — nova cobertura de cleanup (2026-11-10)
+
+- Produto HEAD: `a42cdc0bf4b584d45414feb158dc91a845cadf99`.
+- Missão 063: adicionado teste `limited_copy_cleans_staging_file_when_target_appears_before_publication` em `src-tauri/src/filesystem.rs`.
+- O teste garante que uma colisão de destino durante a publicação não substitui o conteúdo vencedor e remove o arquivo temporário privado criado pela cópia.
+- Commit de produto: `a42cdc0bf4b584d45414feb158dc91a845cadf99`.
+- O teste não foi executado localmente. Status checks e workflow runs consultados para esse commit retornaram vazios; Linux/Windows continuam SEM RESULTADO PUBLICADO.
+- Missão 063 permanece PARTIAL / VERIFICATION REQUIRED; missões 056 e 057 também aguardam validação dinâmica. Não marcar como concluídas.
