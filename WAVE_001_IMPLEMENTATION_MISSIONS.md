@@ -176,3 +176,13 @@ O teste cross-process recebeu duas revisões pequenas após inspeção estática
 - `5221c589c08c71e284fa9aa216f8500302a5f0ed`: troca `expect_err` por `match` para não exigir `Debug` no tipo de sucesso `RootsLock`.
 
 HEAD atual do produto: `5221c589c08c71e284fa9aa216f8500302a5f0ed`. O workflow CI declara gatilho `push` na branch `v2-saas-alpha`, mas a consulta atual de status/checks ainda retorna lista vazia; portanto, o CI deste HEAD está PENDENTE/SEM RESULTADO PUBLICADO, não aprovado. Missão 057 permanece IMPLEMENTED — VERIFICATION REQUIRED.
+
+
+
+---
+
+## Atualização GPT-6 — continuidade de verificação (2026-11-10)
+
+Missão 056 recebeu teste concorrente de primitivas restore × initialize no produto, commit `73addafc9247dd7504e90ca79b43e2226579e48a`, arquivo `src-tauri/src/project_storage.rs`. O teste não foi executado localmente e o commit ainda não possui status/check publicado na consulta. Portanto, permanece IMPLEMENTED — VERIFICATION REQUIRED. A cobertura não substitui E2E com fixture Tauri; essa limitação fica explícita no relatório da missão.
+
+O HEAD de produto anterior `5221c589c08c71e284fa9aa216f8500302a5f0ed` também não apresentou status/check na consulta. Nenhum CI pode ser declarado aprovado nesta sequência até evidência explícita dos jobs Linux e Windows.
