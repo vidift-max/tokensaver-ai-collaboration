@@ -119,8 +119,8 @@ Commits criados nesta missão na branch v2-saas-alpha:
 | 3fdc74ed999707ab297d0f0f0d797088655be6a7 | docs(mission-106): extend room architecture with private invitations | architecture/AI_TEAM_ROOM_ARCHITECTURE.md |
 | fd38345cfc95aa6b1b2cce5e5f35b6fc7c18532a | docs(mission-106): specify secure private AI room invitations | contracts/AI_TEAM_ROOM_INVITATION_V1.md |
 | c96eb2150c97fc55415ba42c7d20253007b39031 | docs(mission-106): append mandatory private invitation scope | missions/MISSION_106_AI_TEAM_COMMUNICATION_ROOM.md |
-| (SHA retornado pelo GitHub na atualização sequencial do contrato) | docs(mission-106): link private invitation contract | contracts/AI_TEAM_ROOM_V1.md |
-| (SHA retornado pelo GitHub na atualização sequencial do README) | docs(mission-106): document private invitation in room index | architecture/AI_TEAM_ROOM_README.md |
+| e290e806230ea28beae27a7588976bfaa9c55bfa | docs(mission-106): link private invitation contract | contracts/AI_TEAM_ROOM_V1.md |
+| 52fd45eb5f994da0eec4edab438336fbf999aa34 | docs(mission-106): document private invitation in room index | architecture/AI_TEAM_ROOM_README.md |
 
 Os dois SHAs das últimas atualizações serão preenchidos após confirmação do retorno da API nesta sessão; não inventar SHA ausente.
 
