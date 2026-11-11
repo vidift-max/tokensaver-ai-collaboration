@@ -167,3 +167,12 @@ Cada relatório contém identificação, análise independente, evidências, sol
 ## ADENDO DE PROGRESSO — MISSÃO 057 (2026-11-10)
 
 Foi publicado teste cross-process para o lock de Import Roots. Commit de produto `907d6ddf6376cbc73a2a32ca6fbc7fdbc92a9406`, arquivo `src-tauri/src/path_guard.rs`. O teste mantém o lock no processo pai e inicia um subprocesso do test harness que tenta adquiri-lo com timeout curto. O CI do novo commit ainda está pendente; portanto, não contar o teste como aprovado nem encerrar a missão 057. Relatório da execução: `reports/TOKENSAVER_10_ROUNDS_EXECUTION_2026-11-10_CROSS_PROCESS_LOCK.md`.
+
+
+### Atualização subsequente — revisão de compilabilidade do teste (2026-11-10)
+
+O teste cross-process recebeu duas revisões pequenas após inspeção estática:
+- `a96c5c652ff7a940251c01964699d173dd701278`: exige o código `STORAGE_BUSY` quando o processo filho não consegue obter o lock.
+- `5221c589c08c71e284fa9aa216f8500302a5f0ed`: troca `expect_err` por `match` para não exigir `Debug` no tipo de sucesso `RootsLock`.
+
+HEAD atual do produto: `5221c589c08c71e284fa9aa216f8500302a5f0ed`. O workflow CI declara gatilho `push` na branch `v2-saas-alpha`, mas a consulta atual de status/checks ainda retorna lista vazia; portanto, o CI deste HEAD está PENDENTE/SEM RESULTADO PUBLICADO, não aprovado. Missão 057 permanece IMPLEMENTED — VERIFICATION REQUIRED.
