@@ -253,3 +253,9 @@ HEAD atual registrado: `97f28f18d4cb19edbd4f0794cd312e0932abf71a`.
 - Commit do produto: `fdf2017ebf4377e6135d299d0f1820a11c5cb781`.
 - Run CI: `42928530330`, estado `queued` na última consulta. Não declarar testes aprovados.
 - Este hardening mantém o teto de memória coerente entre manifesto e banco; não substitui testes de integração de restore nem limite de tempo global.
+
+
+### Snapshot CI — HEAD `fdf2017`
+- Atualização posterior: run `42928530330` passou de `queued` para `in_progress`.
+- Windows estava em `setup-node`; Linux estava instalando dependências Tauri. `cargo check`, `cargo test` e build frontend ainda não haviam começado nessa execução.
+- Runs de commits intermediários permanecem abertos; aprovação final será determinada pelo run do HEAD mais recente, não por commits anteriores.
