@@ -82,7 +82,7 @@ Esta sequência retomou o estado real do GitHub, confirmou o CI dos patches ante
   - Run `42933341382`: Linux e Windows SUCCESS.
   - Run `42933741807`: Linux e Windows SUCCESS.
 - Cada run executou cargo check/test e npm install/build em Linux e Windows.
-- Commit novo `907d6dd`: CI ainda não estava disponível na consulta após o push; status combinado sem checks publicados. Aguardar workflow antes de declarar aprovação.
+- HEAD final `5221c58`: CI ainda não estava disponível na consulta após o push; status combinado sem checks publicados. Aguardar workflow antes de declarar aprovação.
 
 ## Rodada 9 — Produto e preparação SaaS
 
@@ -113,7 +113,7 @@ Esta sequência retomou o estado real do GitHub, confirmou o CI dos patches ante
 | Missões formalmente concluídas | 0 |
 | Missões com avanço | 057 |
 | CI dos commits anteriores | Linux/Windows SUCCESS |
-| CI do commit 907d6dd | PENDENTE |
+| CI do HEAD final 5221c58 | PENDENTE / sem checks publicados |
 
 ## Pendências prioritárias
 
