@@ -230,3 +230,16 @@ HEAD atual registrado: `97f28f18d4cb19edbd4f0794cd312e0932abf71a`.
 - Para as alterações seguintes, os runs `42928221024` (`bb49cca`), `42928227950` (`bacb4f0`), `42928309321` (`c204e99`) e `42928314196` (HEAD `734816ef`) permanecem em andamento/fila. Os testes do helper de inicialização e publicação concorrente ainda aguardam resultado.
 - HEAD do produto confirmado: `734816efbc8ff8d5c1346a1b269388166854328f`.
 - HEAD da colaboração será atualizado por este registro. A Wave 001 permanece parcial; 051 ainda precisa de deadline/telemetria de truncamento, 055 de benchmark e deadline, 056/057 de testes de integração multiplataforma, e 065/066/070 de reauditoria com evidência.
+
+
+## Missão 051 — contrato v2 proposto sem quebra de compatibilidade
+
+- Inspecionados novamente backend `smart_context.rs` e frontend `src/api.ts`: o comando atual retorna `Vec<ContextHit>`, e o frontend depende diretamente desse array.
+- Criada proposta `proposals/MISSION_051_SMART_CONTEXT_V2_API_PROPOSAL.md` (commit `a9af39e3c412498ea0fbbabde23c5058f8bcfb1e` no repositório de colaboração).
+- A proposta recomenda comando aditivo `smart_context_v2` com envelope de telemetria/truncamento e manutenção do comando legado como adaptador, evitando quebra de contrato.
+- Inclui regras de deadline cooperativo, contagem de candidatos/bytes reais, orçamento de saída UTF-8, migração frontend e critérios de aceitação.
+- É apenas proposta para reconciliação; não altera código do produto nem autoriza novos budgets arbitrários.
+
+## Situação dos workflows posteriores
+- Runs `42928221024`, `42928227950`, `42928309321` e `42928314196` estavam em andamento/fila na última consulta; o mais recente corresponde ao HEAD `734816efbc8ff8d5c1346a1b269388166854328f`.
+- Nenhum teste novo de inicialização limpa ou publicação concorrente de blobs foi declarado aprovado até a conclusão desses runs.
