@@ -1302,3 +1302,17 @@ O teste cross-process recebeu duas revisões pequenas após inspeção estática
 - `5221c589c08c71e284fa9aa216f8500302a5f0ed`: troca `expect_err` por `match` para não exigir `Debug` no tipo de sucesso `RootsLock`.
 
 HEAD atual do produto: `5221c589c08c71e284fa9aa216f8500302a5f0ed`. O workflow CI declara gatilho `push` na branch `v2-saas-alpha`, mas a consulta atual de status/checks ainda retorna lista vazia; portanto, o CI deste HEAD está PENDENTE/SEM RESULTADO PUBLICADO, não aprovado. Missão 057 permanece IMPLEMENTED — VERIFICATION REQUIRED.
+
+
+
+---
+
+## ADENDO DE CONTINUIDADE — MISSÕES 056/057 (2026-11-10)
+
+- Produto HEAD: `73addafc9247dd7504e90ca79b43e2226579e48a`.
+- Missão 056: adicionado teste concorrente entre `claim_project_root` (inicialização) e `publish_noreplace` (publicação de restore), garantindo que o vencedor não seja substituído. O teste está no nível das primitivas compartilhadas, não é E2E da command Tauri.
+- Restore × restore tem teste de publicação concorrente já existente em `filesystem.rs`; resta validar execução real Linux/Windows e falha/cleanup no fluxo de restauração.
+- Missão 057: teste cross-process adicionado nos commits `907d6dd`, `a96c5c6`, `5221c58`; CI do HEAD anterior não publicou status na última consulta.
+- Commit novo `73addaf`: teste de regressão restore × initialize. CI/status também sem resultado publicado na consulta.
+- Não declarar testes aprovados. Missões 056 e 057 permanecem IMPLEMENTED — VERIFICATION REQUIRED.
+- 051 API v2 aguarda aprovação; 074 paginação frontend aguarda autorização; 067/068 hardening CI/Tauri aguarda escopo aprovado. 070 e 099–100 seguem BLOCKED/NO-GO.
