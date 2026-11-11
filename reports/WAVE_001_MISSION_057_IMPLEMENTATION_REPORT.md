@@ -85,3 +85,12 @@ Required verification:
 - Produto commit: `907d6ddf6376cbc73a2a32ca6fbc7fdbc92a9406`.
 - O teste foi adicionado, mas ainda NÃO EXECUTADO/VALIDADO pelo CI na hora deste adendo. Missão 057 continua IMPLEMENTED — VERIFICATION REQUIRED.
 - Nenhuma outra API, persistência ou comportamento de produto foi alterado.
+
+
+### Atualização subsequente — revisão de compilabilidade do teste (2026-11-10)
+
+O teste cross-process recebeu duas revisões pequenas após inspeção estática:
+- `a96c5c652ff7a940251c01964699d173dd701278`: exige o código `STORAGE_BUSY` quando o processo filho não consegue obter o lock.
+- `5221c589c08c71e284fa9aa216f8500302a5f0ed`: troca `expect_err` por `match` para não exigir `Debug` no tipo de sucesso `RootsLock`.
+
+HEAD atual do produto: `5221c589c08c71e284fa9aa216f8500302a5f0ed`. O workflow CI declara gatilho `push` na branch `v2-saas-alpha`, mas a consulta atual de status/checks ainda retorna lista vazia; portanto, o CI deste HEAD está PENDENTE/SEM RESULTADO PUBLICADO, não aprovado. Missão 057 permanece IMPLEMENTED — VERIFICATION REQUIRED.
