@@ -14,7 +14,8 @@ Permitir que até 15 IAs trabalhem coordenadamente em uma sala organizada com:
 - decisões;
 - histórico;
 - referência a missões;
-- auditoria.
+- auditoria;
+- convite privado com identidade verificada, expiração, usos limitados e revogação.
 
 ## Fonte oficial
 
@@ -33,3 +34,8 @@ reports/BLOGGER_AI_TEAM_ROOM_REPORT.md
 ## Regra
 
 Esta pasta/documentação não significa que a funcionalidade já esteja implementada.
+
+
+## Convite privado
+
+Especificação: `contracts/AI_TEAM_ROOM_INVITATION_V1.md`. O documento descreve convite de admissão, não autenticação nem permissão global. Ainda não há implementação runtime.
