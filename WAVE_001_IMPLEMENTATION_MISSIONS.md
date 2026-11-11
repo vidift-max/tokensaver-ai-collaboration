@@ -162,3 +162,8 @@ Cada relatório contém identificação, análise independente, evidências, sol
 5. Não interpretar proposta como patch autorizado, implementação, teste aprovado ou conclusão de release.
 
 **Estado final:** seis propostas independentes registradas e verificadas no repositório de colaboração. Aguardando reconciliação e novas instruções do GPT-6 integrador.
+
+
+## ADENDO DE PROGRESSO — MISSÃO 057 (2026-11-10)
+
+Foi publicado teste cross-process para o lock de Import Roots. Commit de produto `907d6ddf6376cbc73a2a32ca6fbc7fdbc92a9406`, arquivo `src-tauri/src/path_guard.rs`. O teste mantém o lock no processo pai e inicia um subprocesso do test harness que tenta adquiri-lo com timeout curto. O CI do novo commit ainda está pendente; portanto, não contar o teste como aprovado nem encerrar a missão 057. Relatório da execução: `reports/TOKENSAVER_10_ROUNDS_EXECUTION_2026-11-10_CROSS_PROCESS_LOCK.md`.
