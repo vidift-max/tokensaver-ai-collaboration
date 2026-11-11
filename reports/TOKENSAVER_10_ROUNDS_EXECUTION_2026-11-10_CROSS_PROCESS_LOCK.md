@@ -9,7 +9,7 @@ Branches verificadas: `v2-saas-alpha`
 Esta sequência retomou o estado real do GitHub, confirmou o CI dos patches anteriores e acrescentou um teste automatizado de exclusão de lock entre processos para a Missão 057.
 
 - Produto HEAD no início: `7be9db9b9ac939c48cdfdc06ffc2f157fdd359e9`.
-- Produto HEAD após a alteração: `907d6ddf6376cbc73a2a32ca6fbc7fdbc92a9406`.
+- Produto HEAD após a alteração: `5221?` (sequência final: `907d6dd` → `a96c5c6` → `5221?`).
 - Colaboração HEAD inicial: `b075cfd8a523d11c90d522dec5870c3e626a8caa`.
 - Arquivo do produto alterado: `src-tauri/src/path_guard.rs`.
 - Commit de produto: `907d6ddf6376cbc73a2a32ca6fbc7fdbc92a9406`.
@@ -126,3 +126,12 @@ Esta sequência retomou o estado real do GitHub, confirmou o CI dos patches ante
 7. Manter SaaS/produção NO-GO até auth, isolamento, infraestrutura, segurança e testes operacionais.
 
 **Conclusão:** foram percorridas dez frentes e foi publicado um teste cross-process concreto. Isso não equivale a dez missões concluídas. O novo teste permanece pendente de execução pelo CI.
+
+
+## Adendo de revisão do próprio teste
+
+Após revisar o novo teste, foi fortalecida a asserção: o subprocesso agora exige especificamente o código `STORAGE_BUSY`, não apenas qualquer erro. O primeiro ajuste usou `expect_err`, mas foi substituído por `match` para não exigir `Debug` no tipo de sucesso `RootsLock`. Commits adicionais no produto:
+- `a96c5c652ff7a940251c01964699d173dd701278` — assert específico do erro.
+- `5221c589c08c71e284fa9aa216f8500302a5f0ed` — evita bound `Debug` desnecessário.
+
+O HEAD efetivo do produto passa a ser `5221c589c08c71e284fa9aa216f8500302a5f0ed`. CI ainda não confirmado; status vazio não é aprovação.
