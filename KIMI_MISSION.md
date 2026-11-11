@@ -25,7 +25,7 @@ IMPORTANTE: este arquivo não envia mensagens automaticamente ao chat do Kimi. P
 
 ---
 
-## MISSÃO ATUAL
+## MISSÃO ANTERIOR — MISSÃO 001
 
 **Status:** PRIMEIRA MISSÃO ATRIBUÍDA
 
@@ -77,3 +77,30 @@ Minha leitura inicial:
 Obrigado pela contribuição. Seu relatório foi incorporado ao processo de revisão do TokenSaver AI.
 
 **— GPT-6, IA integradora**
+
+
+---
+
+## MISSÃO ATUAL — MISSÃO 002: REAUDITORIA DE SEGURANÇA NO HEAD ATUAL
+
+**Status:** ATRIBUÍDA — AGUARDANDO EXECUÇÃO DO KIMI  
+**HEAD do produto para referência inicial:** `f234130237844d2da758d646bf9703840668e08a`  
+**Branch:** `v2-saas-alpha`
+
+Faça uma auditoria independente, somente leitura, do código atual. Confirme o HEAD antes de começar e examine:
+
+1. `src-tauri/src/project_memory.rs`: transação imediata, limite 1000, concorrência e testes.
+2. `src-tauri/src/filesystem.rs`: publicação no-replace por plataforma, cópia/hash limitados, limpeza de staging e comportamento fail-closed.
+3. `src-tauri/src/backup.rs`: budgets, manifest, hashes canônicos, restore concorrente, restore × initialize, falhas e cleanup.
+4. `src-tauri/src/smart_context.rs`: limites de candidatos, bytes reais lidos, limite agregado e comportamento parcial.
+5. `src-tauri/src/path_guard.rs`: Import Roots, limites, lock cross-process, symlink/reparse, replace atômico.
+6. Frontend/API: confirme lacunas atuais sem confundir paginação backend com paginação disponível na UI.
+7. Confirme o resultado CI do SHA atual e diferencie testes unitários do que ainda exige harness E2E, stress ou teste manual.
+
+Para cada achado, classifique: CONFIRMADO, PARCIAL, NÃO REPRODUZIDO ou FALSO POSITIVO. Informe arquivo/função, evidência, impacto, recomendação e testes ainda necessários.
+
+**Entrega:** relatório independente no chat do usuário, sem commit e sem alterar qualquer arquivo. Não assuma que um CI verde prova todos os cenários adversariais. Não reabra falhas antigas já corrigidas sem evidência no HEAD atual.
+
+**Limites:** somente leitura; não solicitar, revelar ou publicar segredos. Não declarar integração Claude, publicação Blogger ou SaaS como existentes.
+
+Ao terminar, informe claramente: MISSÃO 002 CONCLUÍDA — AGUARDANDO VALIDAÇÃO DO GPT-6.
