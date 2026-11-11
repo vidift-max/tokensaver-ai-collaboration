@@ -364,3 +364,16 @@ HEAD atual registrado: `97f28f18d4cb19edbd4f0794cd312e0932abf71a`.
 - Auditoria reconfirmou: Smart Context v2 aguardando aprovação; restore concorrente e Import Roots cross-process pendentes; File Center ignora `has_more`; CI hardening e Tauri IPC aguardam autorização; nenhuma API real de IA ativada; SaaS continua NO-GO.
 - Branch protection e required checks continuam desativados.
 - Relatório consolidado: `reports/TOKENSAVER_10_ROUNDS_FOLLOWUP_2026-11-11.md` (seção “Segunda sequência”).
+
+
+## Nova sequência de 10 rodadas — 2026-11-11
+
+- CI run `42931876958` para o teste de fronteira de Import Roots passou em Linux e Windows (cargo check/test, npm install/build).
+- Correção de segurança em `src-tauri/src/path_guard.rs`: leitura de `import_roots.json` agora rejeita links/diretórios, usa `O_NOFOLLOW` em Unix, `FILE_FLAG_OPEN_REPARSE_POINT` em Windows e valida metadata do handle aberto.
+- Teste Unix novo para rejeitar symlink persistido. Commits: `ab2878cd157e1c6a5b7eb84dbe22b6684e8b96d6`, `f5aa9d633dc07debad97e6eb518800fbcde16c84`, `5f66e3db049430098d86963df3e51e5ea573d12e`.
+- CI dos três commits de hardening (runs `42932569134`, `42932590812`, `42932633992`) ainda em andamento na captura; não declarar sucesso até ambos os sistemas e todos os steps concluírem.
+- Revisados índices SQLite: sem evidência para índice novo/benchmark especulativo. Backend File Center já retorna `has_more`; frontend ainda não o consome.
+- Smart Context v2 permanece aguardando aprovação; 056 restore concurrency e 057 cross-process continuam pendentes.
+- Fases Automation AI 003–040 documentais REVIEW_REQUIRED; nenhum webhook, worker ou provider API real ativado.
+- SaaS e release permanecem NO-GO.
+- Relatório consolidado: `reports/TOKENSAVER_10_ROUNDS_FOLLOWUP_2026-11-11.md`, seção “Nova sequência de continuidade”.
