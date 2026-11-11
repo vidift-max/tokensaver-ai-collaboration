@@ -1409,3 +1409,25 @@ HEAD atual do produto: `5221c589c08c71e284fa9aa216f8500302a5f0ed`. O workflow CI
 - CI pendente: `79f3de42` (restore race helper), `00263b27` (cleanup assertion), `f2341302` (manifest SHA canonicalization).
 - Testes locais não executados. Missões 051/055/056 continuam VERIFICATION REQUIRED.
 - Relatório consolidado: `reports/TOKENSAVER_10_ROUNDS_EXECUTION_2026-11-11_BACKUP_SMART_CONTEXT.md`.
+
+
+---
+
+# ADENDO — BLOGGER INTELLIGENCE (DECISÃO DE ARQUITETURA)
+
+A arquitetura padrão de economia de tokens, Smart Context, Project Memory, Template Master, Template Lock e Content Mapping permanece vigente. O novo módulo de produto será especificado em:
+
+- `architecture/ADR_BLOGGER_INTELLIGENCE_STANDARD.md`
+
+Objetivo: criar no TokenSaver AI uma área de trabalho inspirada na organização do Blogger para analisar, corrigir e editar Posts, Páginas, Layout/widgets e o tema HTML/XML raiz, incluindo CSS, JavaScript, SEO e Schema.org.
+
+Regras centrais:
+- A publicação final continua no Blogger, sob ação do usuário; não presumir publicação automática.
+- Claude recebe apenas contexto/trechos relevantes, com orçamento de tokens e preservação de decisões.
+- O original é versionado; cada patch tem justificativa, diff, validação e rollback.
+- Template Master/Lock protege estrutura e invariantes.
+- Pisca-Pisca sinaliza achados verificáveis por área, com prioridade e alternativa textual acessível.
+- Capturas de tela/prints automáticos de regiões HTML foram explicitamente removidos do escopo.
+- O mapeamento será estrutural: componente/região ↔ trecho de código ↔ diagnóstico ↔ patch.
+
+Este adendo registra a direção arquitetural e não declara o módulo implementado. A implementação deve ser planejada após reconciliação das dependências e autorização específica do integrador.
