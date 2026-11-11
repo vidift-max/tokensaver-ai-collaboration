@@ -186,3 +186,15 @@ HEAD atual do produto: `5221c589c08c71e284fa9aa216f8500302a5f0ed`. O workflow CI
 Missão 056 recebeu teste concorrente de primitivas restore × initialize no produto, commit `73addafc9247dd7504e90ca79b43e2226579e48a`, arquivo `src-tauri/src/project_storage.rs`. O teste não foi executado localmente e o commit ainda não possui status/check publicado na consulta. Portanto, permanece IMPLEMENTED — VERIFICATION REQUIRED. A cobertura não substitui E2E com fixture Tauri; essa limitação fica explícita no relatório da missão.
 
 O HEAD de produto anterior `5221c589c08c71e284fa9aa216f8500302a5f0ed` também não apresentou status/check na consulta. Nenhum CI pode ser declarado aprovado nesta sequência até evidência explícita dos jobs Linux e Windows.
+
+
+
+---
+
+## Atualização GPT-6 — cleanup de staging da cópia limitada (2026-11-10)
+
+Produto commit `a42cdc0bf4b584d45414feb158dc91a845cadf99`, arquivo `src-tauri/src/filesystem.rs`.
+
+Novo teste `limited_copy_cleans_staging_file_when_target_appears_before_publication`: cobre colisão de destino na etapa de publicação, preserva bytes do destino preexistente e verifica que o staging privado é removido. É teste de regressão da primitiva compartilhada `copy_file_limited`, não substitui fault injection do fluxo de restore.
+
+**Verificação:** não executado localmente; status/checks e workflow runs do commit consultados e sem resultado publicado. Linux/Windows pendentes. Missão 063 segue PARTIAL / VERIFICATION REQUIRED.
