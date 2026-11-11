@@ -62,6 +62,12 @@ A economia de tokens não pode remover contexto necessário para segurança, cor
 
 A IA nunca deve sobrescrever silenciosamente o original nem publicar automaticamente.
 
+## 5.1 Contrato de saída Claude — HTML + instruções
+
+Para Posts e Pages, Claude entrega o conteúdo em HTML semântico, com os textos dentro das tags, acompanhado de instruções declarativas sobre destino, intenção, âncoras e restrições. O TokenSaver interpreta e valida o envelope, mapeia cada instrução para o artefato selecionado, aplica Template Lock, apresenta diff/risco e aguarda aprovação. Instruções são dados não executáveis: não podem publicar, chamar ferramentas, executar scripts, alterar permissões ou sobrescrever o original. HTML é validado como conteúdo não confiável.
+
+O formato detalhado está em `architecture/BLOGGER_CLAUDE_CONTENT_CONTRACT_V1.md`. Para artigos/páginas, Claude não precisa enviar o tema inteiro nem CSS/JavaScript global. Tarefas de tema raiz são separadas: XML Blogger, CSS e JavaScript só entram quando explicitamente solicitados, em campos próprios, com alvo, validação e autorização. Nenhuma publicação automática é permitida.
+
 ## 6. Interface inspirada no Blogger
 
 A interface deve reproduzir a lógica de navegação e organização do Blogger, sem copiar marca ou ativos proprietários:
