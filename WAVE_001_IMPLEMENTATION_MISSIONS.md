@@ -254,3 +254,22 @@ Teste: `context_read_accounts_for_partial_bytes_before_io_failure`.
 CI run `42937074749`: QUEUED na última consulta.
 
 **Testes locais:** não executados. Não declarar missões concluídas até CI e re-auditoria.
+
+
+---
+
+## ADENDO GPT-6 — MISSÕES 056/063/051: ROOT CLAIM E SHA CANÔNICO (2026-11-11)
+
+### Restore projects root
+Foi identificado risco de efeito colateral: `create_dir_all(projects_root)` poderia seguir symlink e criar diretórios no destino externo antes de a validação posterior detectar o symlink.
+- Patch `backup.rs` reutiliza `project_storage::claim_project_root` antes da criação.
+- Commit: `8a06c4bfd80dcd8e85189eecf88a1e8fb470a384`.
+- Teste Unix sem side-effect: `restore_projects_root_symlink_is_rejected_without_creating_outside_target`.
+- Commit de teste: `b75ba685ee451148630a89c83ba2afcb04119b7b`.
+
+### Smart Context SHA
+- Exige SHA-256 lowercase canônico antes de resolver arquivo, evitando diferença de comportamento em filesystem case-sensitive/case-insensitive.
+- Commit: `df5225038c901c0191a7964536e440af3d1f91ef`.
+- Teste: `smart_context_accepts_only_canonical_lowercase_sha256`.
+
+**CI:** runs `42937270442`, `42937301773` estavam IN_PROGRESS; `42937340459` QUEUED. Nenhum teste local executado. Missões seguem VERIFICATION REQUIRED.
