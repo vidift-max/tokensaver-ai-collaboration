@@ -1329,3 +1329,20 @@ HEAD atual do produto: `5221c589c08c71e284fa9aa216f8500302a5f0ed`. O workflow CI
 - Commit de produto: `a42cdc0bf4b584d45414feb158dc91a845cadf99`.
 - O teste não foi executado localmente. Status checks e workflow runs consultados para esse commit retornaram vazios; Linux/Windows continuam SEM RESULTADO PUBLICADO.
 - Missão 063 permanece PARTIAL / VERIFICATION REQUIRED; missões 056 e 057 também aguardam validação dinâmica. Não marcar como concluídas.
+
+
+---
+
+## ADENDO — EXECUÇÃO GPT-6 / SMART CONTEXT AGGREGATE BUDGET (2026-11-10)
+
+- Produto HEAD: `8a1caa81810d128d06c7b0b72a31a488cd22ef1c`.
+- Missão 051: corrigida a leitura que podia ultrapassar o orçamento agregado ao ler até `MAX_FILE_BYTES + 1` antes de verificar o total.
+- Novo helper `read_context_blob` limita a leitura ao orçamento restante; prefixo potencialmente parcial que esgota o budget não é ranqueado.
+- Três testes adicionados em `src-tauri/src/smart_context.rs`: limite agregado estrito, overflow do limite por arquivo e arquivo menor que o orçamento restante.
+- Produto commit: `8a1caa81810d128d06c7b0b72a31a488cd22ef1c`.
+- CI run `42936444404` para o novo SHA estava IN_PROGRESS na última consulta; não declarar aprovado.
+- CI run `42935062672` (commit `5221c58`) e `42935505884` (commit `73addaf`) terminaram SUCCESS em Linux e Windows.
+- Missão 051 continua PARTIAL/VERIFICATION REQUIRED: deadline, telemetria, indicação de truncamento e reconciliação da proposta v2 continuam pendentes.
+- Missões 056/057 têm testes de primitivas/lock validados pelos runs acima, mas ainda faltam cenários E2E e mutações concorrentes de Import Roots.
+- Relatório desta sequência: `reports/TOKENSAVER_10_ROUNDS_EXECUTION_2026-11-10_SMART_CONTEXT_BUDGET.md`.
+- Não interpretar dez rodadas como dez missões concluídas; nenhuma missão foi fechada nesta sequência.
