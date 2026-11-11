@@ -340,3 +340,17 @@ HEAD atual registrado: `97f28f18d4cb19edbd4f0794cd312e0932abf71a`.
 7. Branch protection/status checks: avaliar ativação após definir checks obrigatórios e acesso administrativo apropriado.
 
 **Conclusão:** cinco rodadas de auditoria, validação, revisão técnica e consolidação executadas. O último commit do produto está validado pelo CI Linux/Windows; a Wave 001 permanece PARCIAL, pois cenários de integração e gates específicos ainda não têm evidência suficiente.
+
+
+---
+
+## Execução complementar — 10 rodadas (2026-11-11)
+
+- Produto HEAD atualizado: `9df4bf40085a7ea836c42a402f713accc595481d`.
+- Commit de produto: dois testes em `src-tauri/src/filesystem.rs`, cobrindo limpeza do staging após budget failure e ausência de artefato quando source não existe.
+- CI run `42931214949` disparado para Linux e Windows; estava em andamento no momento da captura. Não declarar aprovado até conclusão dos dois jobs e steps `cargo test`/build.
+- Missões 056/057 continuam com testes de integração específicos pendentes.
+- Confirmada lacuna UX: File Center lê `page.items` da primeira página (50) e não usa `has_more`.
+- Branch protection e required checks desativados nos branches consultados.
+- Relatório completo: `reports/TOKENSAVER_10_ROUNDS_FOLLOWUP_2026-11-11.md`.
+- Nenhuma alteração de produção frontend, workflow, provider ou SaaS foi feita por ausência de autorização específica.
