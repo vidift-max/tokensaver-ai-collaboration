@@ -1431,3 +1431,17 @@ Regras centrais:
 - O mapeamento será estrutural: componente/região ↔ trecho de código ↔ diagnóstico ↔ patch.
 
 Este adendo registra a direção arquitetural e não declara o módulo implementado. A implementação deve ser planejada após reconciliação das dependências e autorização específica do integrador.
+
+
+---
+
+# ADENDO — CONTRATO CLAUDE → BLOGGER CONTENT (2026-11-11)
+
+**Decisão:** Claude entrega HTML com os textos já estruturados e também instruções declarativas de organização. O TokenSaver interpreta, valida, mapeia e apresenta o diff antes de qualquer aplicação. As instruções são dados, nunca comandos executáveis.
+
+- Posts/Páginas: envelope versionado com `artifact`, `instructions`, `content_html`, metadados SEO, notas e suposições.
+- Tema raiz: tarefa separada; Blogger XML não é HTML genérico. CSS/JavaScript só entram quando explicitamente solicitados e em campos separados.
+- TokenSaver aplica Smart Context, Project Memory, Template Master/Lock, Content Mapping, validação, snapshot, diff, aprovação e rollback.
+- Não enviar tema inteiro para editar artigo; não executar scripts importados; não publicar automaticamente; não incluir capturas de tela.
+- Especificação: `architecture/BLOGGER_CLAUDE_CONTENT_CONTRACT_V1.md`.
+- Estado: CONTRATO DOCUMENTADO; implementação e integração Claude ainda não iniciadas.
