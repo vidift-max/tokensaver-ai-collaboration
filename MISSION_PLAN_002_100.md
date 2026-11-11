@@ -1204,3 +1204,30 @@ Nenhum arquivo do produto principal foi alterado. Nenhum provider, secret, workf
 ## RECONCILIAÇÃO INDEPENDENTE — MISSÕES 086–100 (CHATGPT GPT-6, 2026-11-10)
 
 Relatórios individuais 086–100 e consolidado preexistentes foram localizados e lidos; não foram duplicados. Contribuição de reconciliação: `reports/AUTOMATION_AI_MISSIONS_086_100_CHATGPT_GPT6_RECONCILIATION.md`. Status confirmado: 086–098 PARTIAL; 099–100 BLOCKED. Foi corrigida uma lacuna concreta da Missão 087: os cinco arquivos listados em `prompts/v1/README.md` não existiam na árvore; agora foram adicionados como templates DRAFT, junto com `manifest.json`. Não há loader, renderer, validator ou runtime. Nenhum teste de execução foi feito; nenhuma alteração no produto principal. Security Gate 050 e release permanecem BLOCKED/NO-GO. AGUARDANDO VALIDAÇÃO DO GPT-6.
+
+
+---
+
+## ADENDO DE STATUS — EXECUÇÃO GPT-6 (2026-11-11)
+
+Este adendo reconcilia o backlog com evidências de implementação mais recentes; não substitui os relatórios individuais.
+
+| Missão | Estado reconciliado | Próximo gate |
+|---|---|---|
+| 051 | PARTIAL — budget agregado implementado; API v2/telemetria/deadline não implementadas | Aprovar contrato v2 e testes de budget |
+| 052 | IMPLEMENTAÇÃO PRESENTE — transação imediata e testes de concorrência no código | Re-auditoria e CI atual |
+| 055 | IMPLEMENTAÇÃO PRESENTE — budgets e validação; benchmark/fault-injection pendentes | Testes de falha e benchmark |
+| 056 | IMPLEMENTED — TESTS PENDING | restore×restore, restore×initialize, cleanup, Linux/Windows |
+| 057 | IMPLEMENTED — TESTS PENDING | harness cross-process e runtime Windows |
+| 063 | PARTIAL — primitives e proteções existentes; cobertura transversal incompleta | re-auditoria filesystem/TOCTOU |
+| 067 | REVIEW_REQUIRED | autorização para hardening CI |
+| 068 | REVIEW_REQUIRED | revisão IPC/capabilities e runtime Tauri |
+| 069 | REVIEW_REQUIRED | testes de estado assíncrono e acessibilidade |
+| 070 | BLOCKED / NO-GO | todos os gates de release e evidência operacional |
+| 071–085 | PARTIAL / REVIEW_REQUIRED | autorização por patch UX; File Center não consome has_more |
+| 086–098 | PARTIAL/documental | implementação somente após aprovação de arquitetura e contratos |
+| 099–100 | BLOCKED / NO-GO | auth, isolamento, infraestrutura, segurança e operação demonstrados |
+
+Produto atualizado em 2026-11-11: `9df4bf40085a7ea836c42a402f713accc595481d`. O commit adiciona dois testes de regressão em `filesystem.rs`; CI run `42931214949` estava em andamento na captura. Não declarar testes aprovados até o CI terminar.
+
+A execução complementar está detalhada em `reports/TOKENSAVER_10_ROUNDS_FOLLOWUP_2026-11-11.md`. Relatórios de outras IAs foram preservados; não foram sobrescritos.
