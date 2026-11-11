@@ -259,3 +259,34 @@ HEAD atual registrado: `97f28f18d4cb19edbd4f0794cd312e0932abf71a`.
 - Atualização posterior: run `42928530330` passou de `queued` para `in_progress`.
 - Windows estava em `setup-node`; Linux estava instalando dependências Tauri. `cargo check`, `cargo test` e build frontend ainda não haviam começado nessa execução.
 - Runs de commits intermediários permanecem abertos; aprovação final será determinada pelo run do HEAD mais recente, não por commits anteriores.
+
+
+## Execução em duas rodadas — 11/11/2026
+
+### Rodada 1 — verificação e reauditoria
+- Branch do produto confirmada: `v2-saas-alpha`.
+- HEAD verificado no início: `fdf2017ebf4377e6135d299d0f1820a11c5cb781`.
+- CI do HEAD `fdf2017`: run `42928530330`, conclusão formal `success`.
+- Jobs `foundation` (Linux) e `foundation-windows` concluídos com `success`.
+- Em ambos os jobs foram concluídos com sucesso: `cargo check`, `cargo test`, `npm install` e `npm run build`.
+- Isso valida a suíte de testes e o build do frontend para o commit `fdf2017`; não valida alterações posteriores.
+- Reauditoria de `project_storage.rs` identificou uma lacuna: `create_dir_all(parent)` podia atravessar um symlink em componente ancestral antes da verificação do diretório-pai imediato. A verificação posterior não desfazia a travessia.
+- Nenhuma falha de token/permissão do GitHub observada.
+
+### Rodada 2 — correção e validação pendente
+- Alterado `src-tauri/src/project_storage.rs` para criar componentes ancestrais individualmente, usando `symlink_metadata` e `create_dir`, recusando symlinks e componentes não-diretório antes de avançar.
+- Mantida a reivindicação final do diretório do projeto por `create_dir`, sem substituir um destino existente.
+- Adicionado teste Unix `claim_rejects_intermediate_parent_symlink_without_writing_outside`, que confirma rejeição do symlink intermediário e ausência de criação da pasta fora do local autorizado.
+- Commit do produto: `29deca8886b74019326cd24feb7af6318d19fdda`.
+- CI desse commit: run `42929383805`, estado `in_progress` na última consulta. Linux estava instalando dependências Tauri; Windows estava em setup-node. `cargo check`, `cargo test` e build frontend ainda pendentes.
+- **Não declarar a correção aprovada** até o run `42929383805` concluir com sucesso nos dois jobs.
+
+### Pendências após as duas rodadas
+1. Aguardar e verificar os dois jobs do run `42929383805`; corrigir apenas falhas reproduzidas.
+2. Manter testes de integração restore×restore e restore×initialize como pendentes até existirem evidências executáveis.
+3. Missão 057 ainda requer teste cross-process e runtime Windows.
+4. Missão 051 permanece parcial: deadline cooperativo, sinalização de truncamento e métricas exigem reconciliação do contrato v2 proposto; não implementar quebra de API sem aprovação.
+5. Missão 055 ainda precisa de benchmark dos budgets e tratamento de operações longas.
+6. Wave 001 permanece parcial; não avançar gate 070 como concluído.
+
+**Resumo:** rodada 1 validada por CI integral no HEAD `fdf2017`; rodada 2 contém hardening adicional publicado em `29deca8`, com CI ainda em execução. Nenhum teste do segundo commit foi declarado aprovado.
