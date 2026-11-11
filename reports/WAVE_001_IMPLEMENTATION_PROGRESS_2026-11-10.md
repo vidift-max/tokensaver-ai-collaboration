@@ -215,3 +215,18 @@ HEAD atual registrado: `97f28f18d4cb19edbd4f0794cd312e0932abf71a`.
 - Wave 001: ainda parcial; não declarar concluída.
 - Próximo: confirmar CI do HEAD `bacb4f0310b9ba59c11032482532879f2bb3e3df`; se passar, avançar testes adicionais de restore/import-root e reauditoria dos consumidores de filesystem. Se falhar, corrigir somente falhas reproduzidas.
 - As limitações anteriores de Smart Context (deadline/telemetria/resultado parcial) e benchmarks dos budgets de backup continuam abertas.
+
+
+## Atualização — consumidor de blob incorporado à primitiva no-replace
+
+- Reauditoria do consumidor `ensure_blob_with_status` identificou uma janela de corrida: após verificar que o blob não existia, o código usava `fs::rename`, que em Unix pode substituir um destino criado concorrentemente.
+- Substituída a publicação por `filesystem::publish_noreplace`; temporário agora usa `OpenOptions::create_new`, grava e sincroniza antes da publicação. Em disputa, o perdedor valida o blob vencedor e reutiliza o conteúdo, sem substituir a entrada imutável.
+- Adicionado teste concorrente com oito chamadas para o mesmo SHA: espera exatamente um publicador e valida bytes finais.
+- Commits: `c204e999a9996777439e98b5fa2fe6e5f808ef59` (correção) e `734816efbc8ff8d5c1346a1b269388166854328f` (teste).
+- CI disparado: run `42928309321` para `c204e999` (em andamento na última consulta) e run `42928314196` para HEAD `734816ef` (em fila/em andamento). Não há aprovação para esses commits ainda.
+
+### Situação de CI ao final desta atualização
+- Confirmado sucesso integral no commit anterior `5ae5bbce`: Linux e Windows passaram em `cargo check`, `cargo test` e `npm run build`.
+- Para as alterações seguintes, os runs `42928221024` (`bb49cca`), `42928227950` (`bacb4f0`), `42928309321` (`c204e99`) e `42928314196` (HEAD `734816ef`) permanecem em andamento/fila. Os testes do helper de inicialização e publicação concorrente ainda aguardam resultado.
+- HEAD do produto confirmado: `734816efbc8ff8d5c1346a1b269388166854328f`.
+- HEAD da colaboração será atualizado por este registro. A Wave 001 permanece parcial; 051 ainda precisa de deadline/telemetria de truncamento, 055 de benchmark e deadline, 056/057 de testes de integração multiplataforma, e 065/066/070 de reauditoria com evidência.
