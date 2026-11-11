@@ -399,3 +399,10 @@ HEAD atual registrado: `97f28f18d4cb19edbd4f0794cd312e0932abf71a`.
 - Produto commit: `7be9db9b9ac939c48cdfdc06ffc2f157fdd359e9`; arquivo `src-tauri/src/path_guard.rs`.
 - CI run `42933741807` IN_PROGRESS na última consulta. Teste de concorrência cross-process Windows ainda NÃO EXECUTADO.
 - Relatório atualizado: `reports/TOKENSAVER_10_ROUNDS_EXECUTION_2026-11-11_LOCKFILE_HARDENING.md`.
+
+
+### CI snapshot posterior — Import Roots
+- Run `42933260337`: Linux completo SUCCESS; Windows `cargo check` e `cargo test` SUCCESS, `npm install` ainda em andamento.
+- Run `42933341382`: Linux completo SUCCESS; Windows `cargo check` SUCCESS e `cargo test` em andamento.
+- Run `42933741807` para commit `7be9db9`: Linux e Windows em `cargo check` na última consulta.
+- Não declarar CI completo em Windows nem a missão 057 concluída até os três runs terminarem.
