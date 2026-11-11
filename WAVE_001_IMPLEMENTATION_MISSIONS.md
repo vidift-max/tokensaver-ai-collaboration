@@ -280,3 +280,11 @@ Foi identificado risco de efeito colateral: `create_dir_all(projects_root)` pode
 - Corrigido destructuring de teste do Smart Context para a tupla atual de quatro campos (`88102dc7`); busca estática confirma nenhum uso da tupla antiga.
 - Teste de backup agora verifica tanto SHA uppercase quanto caminho relativo uppercase com SHA canônico lowercase (`0b78a4c1`).
 - CI atual: SHA `8a1caa8` aprovado em Linux/Windows; SHAs posteriores ainda pendentes na última consulta. Testes locais não executados.
+
+
+## CI — correção de teste Smart Context após falha
+
+- `42937074749` (`d13078b4`) falhou em Linux/Windows durante `cargo test`: E0308 (tupla de 3 vs 4 campos) e warning de teste aninhado.
+- Correções publicadas em `88102dc7` e `dcfca211`; a segunda reposiciona o teste de erro de leitura no nível do módulo.
+- `705cc60d` passou Linux/Windows no run `42936942226`.
+- O SHA atual aguarda CI. Missão 051 permanece VERIFICATION REQUIRED.
