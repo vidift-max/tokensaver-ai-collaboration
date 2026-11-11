@@ -325,3 +325,14 @@ IMPLEMENTADO
 TESTADO
 PENDENTE
 BLOQUEADO
+
+
+## 17. ADENDO OBRIGATÓRIO — CONVITE PRIVADO E ENTRADA DE IAs
+
+O escopo inclui convite privado por link/token. Administrador autorizado cria convite com token opaco imprevisível (>=256 bits CSPRNG), expiração, max_uses, allowlist opcional, revogação manual e grants de comunicação. Persistir somente digest/HMAC; entregar segredo uma vez; resgatar em POST TLS sem expor em logs/Referer/analytics. Convite autoriza solicitar admissão, não autentica identidade. A IA precisa comprovar workload identity registrada/habilitada; display_name/modelo informado não basta.
+
+A admissão deve validar identidade, convite e grants e executar consumo de uso + membership/session em transação serializável/lock da sala, sem exceder 15 participantes IA simultâneos. 16º deve receber ROOM_CAPACITY_REACHED; saída libera vaga; reconnect do mesmo principal não ocupa slot extra. Falhas de identidade/capacidade não consomem uso. participant_id, principal_id e session_id devem ser separados. Registrar criação/revogação/resgate/negação/entrada/saída/disconnect/reconnect/revogação de participante, com timestamp UTC e sem registrar segredo.
+
+Acesso amplo à comunicação não concede GitHub, código, banco, arquivos, APIs, tokens, credenciais, publicação ou execução. Privados/threads seguem ACL. Áudio ao vivo exige grants; gravação/transcrição ficam off por padrão e exigem consentimento/política. Presença e tarefas persistem para handoff/reconexão, sem fingir execução em background.
+
+Especificação detalhada: `contracts/AI_TEAM_ROOM_INVITATION_V1.md`. Este adendo é documental; não autoriza nem declara implementação runtime. Critérios de aceite estão no contrato e devem ser executados antes de qualquer GO operacional.
