@@ -111,3 +111,29 @@
 - 070 e 099–100: BLOCKED/NO-GO.
 
 **Conclusão:** houve duas correções de integridade/limites com testes de regressão publicados. O commit Smart Context anterior passou no CI; os dois SHAs mais recentes ainda aguardam validação. Não declarar a Wave 001 nem o produto prontos.
+
+
+---
+
+## Adendo — correções adicionais da mesma sequência (2026-11-11)
+
+### Missão 056/063 — projetos root sem efeitos colaterais por symlink
+- Achado: `restore_project_backup` usava `fs::create_dir_all(projects_root)` antes de verificar se `projects_root` era symlink. Se o destino do symlink não existisse, a criação recursiva poderia materializar diretórios fora do armazenamento autorizado antes da rejeição.
+- Correção: restauração agora reutiliza `project_storage::claim_project_root`, que valida toda a cadeia de diretórios e rejeita symlinks antes de criar o root.
+- Produto commit `8a06c4bfd80dcd8e85189eecf88a1e8fb470a384`; arquivo `src-tauri/src/backup.rs`.
+- Teste adicionado em `b75ba685ee451148630a89c83ba2afcb04119b7b`: `restore_projects_root_symlink_is_rejected_without_creating_outside_target` (Unix).
+- CI runs `42937270442` e `42937301773` estavam IN_PROGRESS na última consulta.
+
+### Missão 051 — hash canônico no Smart Context
+- Achado: Smart Context aceitava qualquer caixa de hex SHA; em Windows, path lookup pode ser case-insensitive e encontrar um blob lowercase usando SHA uppercase, enquanto Linux não. Isso produz comportamento divergente e aceita metadado não canônico.
+- Correção: helper `is_canonical_sha256` exige 64 caracteres hexadecimais lowercase antes de resolver o blob.
+- Produto commit `df5225038c901c0191a7964536e440af3d1f91ef`; arquivo `src-tauri/src/smart_context.rs`.
+- Teste adicionado: `smart_context_accepts_only_canonical_lowercase_sha256`.
+- CI run `42937340459` estava QUEUED na última consulta.
+
+### Contagem revisada
+- Correções de produção nesta sequência: 4.
+- Testes adicionados: 4 (backup uppercase SHA; Smart Context erro de I/O parcial; restore root symlink; Smart Context SHA lowercase).
+- Arquivos de produto alterados: 2 (`backup.rs`, `smart_context.rs`).
+- Testes locais: 0; todos os quatro SHAs novos aguardam CI.
+- Missões formalmente concluídas: 0.
