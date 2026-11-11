@@ -199,15 +199,14 @@ Não houve execução local: não foi realizado checkout local nem havia ambient
 - **Resultados internos:** lease/fencing PASS; build PASS; handoff FAIL (exit 101); processos independentes FAIL (exit 1); `runner_process_evidence=null`.
 - **Duração aproximada do job:** 86 segundos pelos timestamps do log.
 
-### Reexecução solicitada
+### Reexecução dos jobs com falha
 
-Foi solicitado `rerun_failed_workflow_run_jobs` para ambos os runs. O GitHub aceitou as duas solicitações. Na última consulta disponível:
-- job de serviço reexecutado: ID `130834820002`, status `in_progress`;
-- job distribuído reexecutado: ID `130834830776`, status `in_progress`;
-- logs da nova tentativa ainda não estavam disponíveis para leitura (download retornou BlobNotFound);
-- não foi obtido resultado terminal da reexecução.
+Foi solicitado `rerun_failed_workflow_run_jobs` para ambos os runs originais. As reexecuções terminaram e reproduziram as mesmas falhas, no mesmo SHA:
+- CI, job reexecutado `ai-team-room-service` ID `130834820002`: **FAILURE**; novamente seis testes passaram e os mesmos dois testes PostgreSQL falharam (SQLSTATE 23514 e 23503).
+- Distributed Runner, job reexecutado ID `130834830776`: **FAILURE**; lease/fencing e build passaram, handoff terminou com exit 101 e o E2E de processos com exit 1 na asserção `two recovery workers must serialize to one recovery transition`.
+- Logs reexecutados disponíveis; timestamps do CI entre 22:39:35Z e 22:40:10Z.
 
-A aceitação da solicitação de rerun não é evidência de PASS. Os resultados originais permanecem FAILURE. A reexecução fica **PENDENTE** até obter status terminal e logs.
+A reprodução adicional confirma que não se tratava de falha transitória do ambiente. Os resultados terminais são FAILURE, não PASS.
 
 ## 11. Run IDs e evidências
 
@@ -244,7 +243,7 @@ O ZIP do artifact ID `13894778218` foi baixado e inspecionado. O scan textual do
 2. Corrigir teardown da comunicação para remover memberships dependentes antes da exclusão do tenant, ou aprovar política de FK e retenção apropriada.
 3. Corrigir a sequência de recovery E2E para que os dois workers concorram pela transição, sem preflight que a consome.
 4. Tornar o teste Runner A → Runner B determinístico e executar os asserts de fencing 2, stale renew/checkpoint/complete rejeitados e B complete aceito.
-5. Obter status terminal dos dois reruns já solicitados.
+5. Reruns concluídos e falhas reproduzidas no mesmo SHA; aguardar correção autorizada.
 6. Executar os testes específicos e a regressão integral após a implementação.
 7. Executar CI completo e Distributed Runner Lab no mesmo SHA corrigido.
 8. Inspecionar o artifact produzido após a correção antes de declarar evidência sem segredos.
@@ -256,7 +255,7 @@ O ZIP do artifact ID `13894778218` foi baixado e inspecionado. O scan textual do
 
 `CENTRAL.md` e `INSTRUCTIONS.md` do repositório de colaboração determinam que nenhuma IA modifique o projeto principal sem autorização expressa do GPT-6 integrador. A instrução desta missão solicita correções, mas não há grant específico do integrador registrado no canal de colaboração. Para preservar o trabalho paralelo e a governança, não foram criados commits nem PRs no produto.
 
-**PENDENTE — resultado dos reruns.** Os jobs reexecutados estavam `in_progress` e sem logs disponíveis na última consulta. Não podem ser contabilizados como reproduções concluídas adicionais nem como PASS.
+**VALIDADO — reruns reproduziram as falhas.** Ambos os jobs reexecutados terminaram FAILURE no mesmo SHA; os logs confirmam novamente os dois erros PostgreSQL e a asserção do Runner.
 
 ## 15. Riscos
 
@@ -276,7 +275,7 @@ O ZIP do artifact ID `13894778218` foi baixado e inspecionado. O scan textual do
 |Foundation Linux|PASS|PASS no SHA auditado|Run 43108058615, job foundation|
 |Foundation Windows|PASS|PASS no SHA auditado|Run 43108058615, job foundation-windows|
 |Keycloak/OIDC|PASS|PASS no SHA auditado|Run 43108058615, job keycloak-oidc-smoke|
-|Full CI|FAIL|NO-GO; rerun ainda sem resultado terminal|Run 43108058615; jobs acima|
+|Full CI|FAIL|FAIL novamente após rerun; NO-GO|Run 43108058615; job reexecutado 130834820002|
 
 ## 17. Avaliação objetiva do Release Gate
 
@@ -311,8 +310,8 @@ Após aprovação, implementar sem tocar na lógica de autorização/fencing do 
 | 3 — Correção PostgreSQL | **BLOQUEADO** | Correções objetivas definidas; alteração no produto depende do grant do integrador |
 | 4 — Diagnóstico Distributed Runner | **VALIDADO** | Preflight de recovery identificado como causa da asserção; fluxo real parcialmente executado |
 | 5 — Correção Runner | **BLOQUEADO** | Correção proposta; não aplicada por governança |
-| 6 — Regressão | **TESTADO / PENDENTE** | Foundation, OIDC e lease/fencing PASS; PG/handoff e Runner FAIL; reruns sem conclusão |
-| 7 — CI completo | **PENDENTE / NO-GO** | Runs originais falham; reruns aceitos mas sem status terminal observável |
+| 6 — Regressão | **TESTADO** | Foundation, OIDC e lease/fencing PASS; os reruns reproduziram PG/handoff e Runner FAIL |
+| 7 — CI completo | **VALIDADO / NO-GO** | Runs originais e reexecuções terminam FAILURE no SHA atual |
 | 8 — Segurança | **TESTADO / PENDENTE** | Busca textual e inspeção de artifact limitadas; scan histórico/SAST/SCA pendentes |
 | 9 — Release Gate | **VALIDADO** | NO-GO baseado em falhas críticas reproduzidas |
 | 10 — Relatório | **IMPLEMENTADO / VALIDADO** | Este relatório independente foi criado no repositório de colaboração; produto principal intacto |
@@ -322,7 +321,7 @@ Após aprovação, implementar sem tocar na lógica de autorização/fencing do 
 - **IMPLEMENTADO:** relatório independente e diagnóstico técnico.
 - **TESTADO:** reproduções remotas nos workflows indicados; testes locais não executados.
 - **VALIDADO:** causas raiz das falhas PostgreSQL e do assert de recovery identificadas.
-- **PENDENTE:** reruns terminais, correções, regressão e CI verde em SHA final.
+- **PENDENTE:** correções, regressão e CI verde em SHA final.
 - **BLOQUEADO:** commits no projeto principal aguardando autorização expressa do GPT-6 integrador.
 
 **NO-GO**
