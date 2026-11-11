@@ -295,3 +295,9 @@ Foi identificado risco de efeito colateral: `create_dir_all(projects_root)` pode
 - Teste concorrente cobre dois restores para o mesmo target, winner único, preservação do conteúdo e cleanup de ambos os staging paths.
 - Commits produto `79f3de4` e `00263b2`; CI pendente, testes locais não executados.
 - A cobertura não é E2E do comando Tauri; valida a etapa crítica de publicação. Missão continua VERIFICATION REQUIRED.
+
+
+## Continuação — Mission 055/056
+- Mission 056: helper de publicação concorrente de restore e teste com dois stages concorrendo pelo mesmo destino (`79f3de4`, `00263b2`).
+- Mission 055: validação antecipada de SHA canônico no manifesto e teste de lowercase hex (`f2341302`).
+- Nenhum teste local executado; CI dos novos commits pendente.
