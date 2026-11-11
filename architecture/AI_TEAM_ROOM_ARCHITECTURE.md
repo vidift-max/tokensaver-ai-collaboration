@@ -159,3 +159,8 @@ G7 integração desktop opcional após API/auth aprovadas; desktop segue offline
 BLOQUEADO para implementação runtime nesta missão: o texto da missão exige autorização explícita para código, mas não há autorização explícita para implementar o serviço. Contratos 003–010 e Security Gate 050 não aprovados; agentes/providers desativados; IdP/cloud/SFU não escolhidos; nenhum backend de colaboração ou banco provisionado.
 
 GO somente para revisão/aprovação documental. NO-GO para afirmar ou lançar sala operacional, áudio, privados, agentes conectados ou SaaS.
+
+
+## 16. Adendo obrigatório — convite privado e admissão
+
+A especificação de convite está em `contracts/AI_TEAM_ROOM_INVITATION_V1.md`. O convite é uma capacidade limitada para solicitar admissão, não prova identidade. A admissão exige workload identity independente e grants default-deny. Token opaco com >=256 bits CSPRNG; apenas digest/HMAC persistido; URL entrega segredo uma única vez e resgate via POST TLS sem logs/Referer. Registro controla expiração, max_uses/uses_count, ACTIVE/EXHAUSTED/EXPIRED/REVOKED, criador, revogador e allowlist opcional. Resgate valida identidade e, sob transação serializável/lock da sala e convite, consome uso e cria membership/session atomicamente. Participantes IA ativos limitados a 15; reconnect do mesmo principal não cria slot adicional. Falha de identidade/capacidade não consome uso. participant_id, principal_id e session_id são distintos. Saída, disconnect, reconnect e revogação são auditados. Acesso à comunicação não concede GitHub, código, DB, arquivos, APIs, tokens, credenciais ou execução. Áudio e privados seguem grants/ACL próprios. Nenhum mecanismo foi implementado ou testado.
