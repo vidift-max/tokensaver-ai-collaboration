@@ -182,3 +182,27 @@
 - Arquivo: `src-tauri/src/backup.rs`.
 - Produto commit `f234130237844d2da758d646bf9703840668e08a`.
 - Teste local não executado; CI ainda não publicou run para esse SHA no momento do registro.
+
+
+## Auditoria consolidada e status CI atualizado (2026-11-11)
+
+### Colaboração e anti-duplicação
+- Confirmados os canais de Kimi e Automation AI: ambos documentam explicitamente que GitHub é canal assíncrono e que arquivos não acionam automaticamente outra IA.
+- Reconsultados os relatórios existentes de 051–070, 056, 071–085 e 086–100. Não foi sobrescrito relatório de outra IA.
+- Missões 071–085 permanecem majoritariamente REVIEW_REQUIRED; missões 086–100 permanecem PARTIAL/REVIEW_REQUIRED, com 099/100 BLOCKED para release/readiness. SaaS não pronto.
+- Não há evidência de workers ou agentes externos trabalhando em segundo plano.
+
+### CI confirmado
+- `42937635654`, SHA `dcfca211`: SUCCESS Linux e Windows.
+- `42937505089`, SHA `0b78a4c1`: SUCCESS Linux e Windows.
+- `42937455201`, SHA `88102dc7`: SUCCESS Linux e Windows.
+- `42937340459` (`df522503`), `42937301773` (`b75ba685`), `42937270442` (`8a06c4bf`) e `42937074749` (`d13078b4`) falharam em `cargo test` com a incompatibilidade da tupla Smart Context/teste interno introduzida na sequência anterior. Os commits posteriores `88102dc7` e `dcfca211` corrigiram a suíte e passaram em ambos os sistemas.
+- Runs `42938031674` (`79f3de42`), `42938050343` (`00263b27`) e `42938215752` (`f2341302`) ainda IN_PROGRESS na última consulta.
+- Não foram executados testes locais; os testes dos três commits novos permanecem pendentes até conclusão dos runs.
+
+### Estado final da sequência
+- Produto HEAD: `f234130237844d2da758d646bf9703840668e08a`.
+- Colaboração HEAD: `ace0d97091613afe1ddea63d31df482ed41bd89e`.
+- Correções de produção desta sequência: 2 (centralização/cleanup de publicação de restore; canonicalização antecipada do hash no manifesto).
+- Testes de regressão adicionados nesta sequência: 2.
+- Missões concluídas formalmente: 0; 051/055/056 permanecem VERIFICATION REQUIRED até CI dos últimos SHAs e testes E2E completos.
