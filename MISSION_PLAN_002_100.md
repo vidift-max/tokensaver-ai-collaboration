@@ -1378,3 +1378,11 @@ HEAD atual do produto: `5221c589c08c71e284fa9aa216f8500302a5f0ed`. O workflow CI
 - `0b78a4c1`: ampliado teste de backup para cobrir relative_path uppercase independentemente de SHA uppercase.
 - CI do SHA `8a1caa8` está SUCCESS Linux/Windows. CI dos SHAs subsequentes ainda não concluído na última consulta.
 - Relatório atualizado: `reports/TOKENSAVER_10_ROUNDS_EXECUTION_2026-11-11_BACKUP_SMART_CONTEXT.md`.
+
+
+## CI — falha e correção da suíte Smart Context (2026-11-11)
+
+- Run `42936942226`, commit `705cc60d`: SUCCESS Linux/Windows.
+- Run `42937074749`, commit `d13078b4`: FAILURE Linux/Windows em `cargo test`. Erro E0308 de tupla antiga e warning de teste aninhado.
+- `88102dc7` corrigiu a tupla; `dcfca211` corrigiu o escopo do teste.
+- Novo SHA `dcfca211` aguarda CI; nenhum teste local foi executado.
