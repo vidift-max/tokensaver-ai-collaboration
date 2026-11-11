@@ -1273,3 +1273,12 @@ Não interpretar dez rodadas como dez missões concluídas; esta sequência adic
 - Relatório: `reports/TOKENSAVER_10_ROUNDS_EXECUTION_2026-11-11_LOCKFILE_HARDENING.md`.
 - CI novo pendente na última consulta: runs `42933260337` e `42933341382`. Não considerar a missão validada até conclusão dos dois jobs Linux/Windows.
 - Status: 063 PARTIAL; 056 e 057 ainda precisam de testes de integração/cross-process; 051 v2 e 071–085 seguem condicionados a aprovação de contrato/escopo; 070 e 099–100 NO-GO.
+
+
+## Missão 057 — correção adicional de timeout Windows (2026-11-11)
+
+- Encontrado que `LockFileEx` usava apenas `LOCKFILE_EXCLUSIVE_LOCK` (0x2), que pode bloquear indefinidamente; o loop de cinco segundos não conseguia observar o deadline durante a chamada bloqueante.
+- Corrigido para combinar `LOCKFILE_EXCLUSIVE_LOCK | LOCKFILE_FAIL_IMMEDIATELY` (0x2 | 0x1), permitindo retry não bloqueante e timeout efetivo.
+- Produto commit: `7be9db9b9ac939c48cdfdc06ffc2f157fdd359e9`; arquivo `src-tauri/src/path_guard.rs`.
+- CI run `42933741807` IN_PROGRESS na última consulta. Teste de concorrência cross-process Windows ainda NÃO EXECUTADO.
+- Relatório atualizado: `reports/TOKENSAVER_10_ROUNDS_EXECUTION_2026-11-11_LOCKFILE_HARDENING.md`.
