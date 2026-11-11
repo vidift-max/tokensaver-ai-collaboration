@@ -1394,3 +1394,9 @@ HEAD atual do produto: `5221c589c08c71e284fa9aa216f8500302a5f0ed`. O workflow CI
 - Commits produto: `79f3de4`, `00263b2`.
 - CI ainda pendente para os commits novos; teste local não executado.
 - Missão 056 permanece VERIFICATION REQUIRED.
+
+
+## Atualização 2026-11-11 — restore e hashes
+- `backup.rs` agora aplica canonicalização SHA-256 no manifesto antes de ler blobs, evitando trabalho desnecessário com identificadores inválidos; teste unitário adicionado.
+- Produto commit `f2341302`.
+- Harness concorrente de restore também adicionado nos commits `79f3de4` e `00263b2`; CI ainda pendente.
