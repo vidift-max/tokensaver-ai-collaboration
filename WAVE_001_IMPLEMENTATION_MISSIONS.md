@@ -229,3 +229,28 @@ Runs de regressão anteriores:
 - `42935062672`: SUCCESS Linux/Windows (commit `5221c58`).
 - `42935505884`: SUCCESS Linux/Windows (commit `73addaf`).
 
+
+
+---
+
+## ADENDO GPT-6 — MISSÕES 055/051: CANONICALIZAÇÃO DE BLOB E ERRO DE I/O (2026-11-11)
+
+### Missão 055 — backup/restore
+Produto commit: `705cc60d701490a94d4e0507e2adf88ebf79a34c`, arquivo `src-tauri/src/backup.rs`.
+
+Achado: `insert_restore_db_blob` permitia SHA hexadecimal maiúsculo e normalizava a chave do BTreeMap, mas deixava o relative_path original no banco restaurado. Isso criava divergência entre caminho persistido e nome canônico lowercase do blob.
+
+Correção: SHA e relative_path devem ser canônicos em minúsculas.  
+Teste: `restore_db_blob_map_rejects_uppercase_sha_and_path`.  
+CI run `42936942226`: IN_PROGRESS na última consulta.
+
+### Missão 051 — Smart Context
+Produto commit: `d13078b4d2b96f96bed2a636a074d9791b41bd8e`, arquivo `src-tauri/src/smart_context.rs`.
+
+Achado: `read_to_end` pode retornar erro após consumir bytes. O código descartava o buffer parcial e continuava, subcontando consumo do budget agregado.
+
+Correção: helper retorna bytes parciais, contabiliza-os e encerra a varredura em erro de leitura.  
+Teste: `context_read_accounts_for_partial_bytes_before_io_failure`.  
+CI run `42937074749`: QUEUED na última consulta.
+
+**Testes locais:** não executados. Não declarar missões concluídas até CI e re-auditoria.
