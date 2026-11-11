@@ -383,7 +383,7 @@ HEAD atual registrado: `97f28f18d4cb19edbd4f0794cd312e0932abf71a`.
 
 - Produto HEAD inicial: `5f66e3db049430098d86963df3e51e5ea573d12e`; HEAD após patches: `92564af1267002529cb7685ae194af2b37383791`.
 - Rodada 2 encontrou que `lock_roots` abria `import_roots.lock` sem rejeitar symlink/reparse point. Criado `open_roots_lock_file`, com `O_NOFOLLOW` (Unix), `FILE_FLAG_OPEN_REPARSE_POINT` (Windows) e validação do handle como arquivo regular. Commit produto `3caf529759a39989a9bec8c87263bbdce8092386`.
-- Adicionados dois testes genéricos (aceitar arquivo regular, rejeitar diretório) e um teste Unix (rejeitar symlink). Commit produto `92564af1267002529cb7685ae194af2b37383791`.
+- Adicionados três testes: aceitar arquivo regular, rejeitar diretório e rejeitar symlink no Unix. Commit produto `92564af1267002529cb7685ae194af2b37383791`.
 - Arquivo do produto alterado: `src-tauri/src/path_guard.rs`.
 - CI anterior run `42932633992`: Linux e Windows SUCCESS em cargo check/test e npm install/build; esse run valida o SHA anterior `5f66e3d`, não os dois commits novos.
 - Runs dos novos commits: `42933260337` (`3caf529`) e `42933341382` (`92564af`) IN_PROGRESS na última consulta. Testes locais NÃO EXECUTADOS.
