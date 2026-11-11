@@ -243,3 +243,13 @@ HEAD atual registrado: `97f28f18d4cb19edbd4f0794cd312e0932abf71a`.
 ## Situação dos workflows posteriores
 - Runs `42928221024`, `42928227950`, `42928309321` e `42928314196` estavam em andamento/fila na última consulta; o mais recente corresponde ao HEAD `734816efbc8ff8d5c1346a1b269388166854328f`.
 - Nenhum teste novo de inicialização limpa ou publicação concorrente de blobs foi declarado aprovado até a conclusão desses runs.
+
+
+## Missão 055 — limitar metadados de blobs no restore
+
+- Reauditoria de `restore_project_backup` encontrou que o manifesto era limitado a 10.000 blobs, mas o mapa `db_blobs` era preenchido a partir do banco SQLite sem aplicar o mesmo teto.
+- Extraída `insert_restore_db_blob`, que agora limita o mapa antes de inserir, valida SHA-256, tamanho, caminho relativo exato e rejeita chaves duplicadas.
+- Adicionados testes para rejeição do 10.001º registro, SHA duplicado e caminho fora de `blobs/`.
+- Commit do produto: `fdf2017ebf4377e6135d299d0f1820a11c5cb781`.
+- Run CI: `42928530330`, estado `queued` na última consulta. Não declarar testes aprovados.
+- Este hardening mantém o teto de memória coerente entre manifesto e banco; não substitui testes de integração de restore nem limite de tempo global.
