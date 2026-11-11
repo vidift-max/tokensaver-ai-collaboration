@@ -273,3 +273,10 @@ Foi identificado risco de efeito colateral: `create_dir_all(projects_root)` pode
 - Teste: `smart_context_accepts_only_canonical_lowercase_sha256`.
 
 **CI:** runs `42937270442`, `42937301773` estavam IN_PROGRESS; `42937340459` QUEUED. Nenhum teste local executado. Missões seguem VERIFICATION REQUIRED.
+
+
+## Atualização de revisão dos patches — HEAD `0b78a4c` (2026-11-11)
+
+- Corrigido destructuring de teste do Smart Context para a tupla atual de quatro campos (`88102dc7`); busca estática confirma nenhum uso da tupla antiga.
+- Teste de backup agora verifica tanto SHA uppercase quanto caminho relativo uppercase com SHA canônico lowercase (`0b78a4c1`).
+- CI atual: SHA `8a1caa8` aprovado em Linux/Windows; SHAs posteriores ainda pendentes na última consulta. Testes locais não executados.
