@@ -157,3 +157,18 @@
 - CI para `dcfca211` ainda não concluído na última consulta.
 - O teste parcial de I/O não pode ser contado como aprovado até CI do novo SHA.
 
+
+
+## Continuação — harness de publicação concorrente do restore (2026-11-11)
+
+### Implementação
+- Extraído `publish_restore_stage(stage, target)` em `src-tauri/src/backup.rs`. A rotina de produção agora centraliza a publicação no-replace e remove o staging se a publicação falhar.
+- Adicionado teste concorrente `concurrent_restore_stages_publish_exactly_one_and_clean_loser`: dois diretórios de staging disputam o mesmo destino; exatamente um publica; o conteúdo vencedor permanece intacto; ambos os caminhos de staging deixam de existir (vencedor por rename, perdedor por cleanup).
+- Produto commit `79f3de421d0216812a5fa611998120f3e94ab21f`; ajuste da asserção de cleanup commit `00263b27a3870134a638821f3b84380e5cb05720`.
+- Arquivo alterado: `src-tauri/src/backup.rs`.
+
+### Validação
+- O teste foi adicionado, mas não executado localmente.
+- CI anterior do SHA `dcfca211` ainda estava `in_progress` na última consulta; o novo teste aguarda workflow próprio.
+- Runs `42937270442` e `42937301773` falharam em `cargo test` por compilação do teste Smart Context que antecedeu a correção de tupla/escopo. Isso não é resultado do teste de restore.
+- Missão 056 continua VERIFICATION REQUIRED até CI Linux e Windows verdes.
