@@ -1346,3 +1346,15 @@ HEAD atual do produto: `5221c589c08c71e284fa9aa216f8500302a5f0ed`. O workflow CI
 - Missões 056/057 têm testes de primitivas/lock validados pelos runs acima, mas ainda faltam cenários E2E e mutações concorrentes de Import Roots.
 - Relatório desta sequência: `reports/TOKENSAVER_10_ROUNDS_EXECUTION_2026-11-10_SMART_CONTEXT_BUDGET.md`.
 - Não interpretar dez rodadas como dez missões concluídas; nenhuma missão foi fechada nesta sequência.
+
+
+---
+
+## ADENDO GPT-6 — BACKUP CANONICAL SHA + SMART CONTEXT I/O ACCOUNTING (2026-11-11)
+
+- Produto commit `705cc60d701490a94d4e0507e2adf88ebf79a34c`: `insert_restore_db_blob` agora rejeita SHA/path em maiúsculas para evitar que o mapa de comparação normalize a chave, mas o caminho persistido no banco restaurado permaneça não canônico. Teste `restore_db_blob_map_rejects_uppercase_sha_and_path`.
+- Produto commit `d13078b4d2b96f96bed2a636a074d9791b41bd8e`: Smart Context contabiliza bytes parciais consumidos quando `read_to_end` retorna erro de I/O e interrompe a varredura. Teste `context_read_accounts_for_partial_bytes_before_io_failure`.
+- CI do commit anterior `8a1caa8`: run `42936444404` SUCCESS em Linux e Windows.
+- CI `42936942226` (`705cc60`) estava IN_PROGRESS e `42937074749` (`d13078b`) QUEUED na última consulta; não declarar aprovação.
+- Relatório: `reports/TOKENSAVER_10_ROUNDS_EXECUTION_2026-11-11_BACKUP_SMART_CONTEXT.md`.
+- Missões 051 e 055 permanecem em validação; 056/057 ainda exigem harness E2E/casos concorrentes adicionais.
