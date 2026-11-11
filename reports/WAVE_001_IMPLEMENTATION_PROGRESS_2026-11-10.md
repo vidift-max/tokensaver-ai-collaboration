@@ -354,3 +354,13 @@ HEAD atual registrado: `97f28f18d4cb19edbd4f0794cd312e0932abf71a`.
 - Branch protection e required checks desativados nos branches consultados.
 - Relatório completo: `reports/TOKENSAVER_10_ROUNDS_FOLLOWUP_2026-11-11.md`.
 - Nenhuma alteração de produção frontend, workflow, provider ou SaaS foi feita por ausência de autorização específica.
+
+
+## Segunda execução complementar — 10 rodadas (2026-11-11)
+
+- Produto base `9df4bf40085a7ea836c42a402f713accc595481d`: CI run `42931214949` concluído com sucesso em Linux e Windows; cargo check/test e npm install/build aprovados.
+- Novo teste de limite `MAX_IMPORT_ROOTS` em `src-tauri/src/path_guard.rs`; commit com diff `c668d644f15d0d40f0b05b93e2da106104ce93ee`.
+- CI do novo teste: run `42931876958`, pendente na captura. O run `42931902639` foi disparado por um commit sem diff de conteúdo; não conta como alteração de código.
+- Auditoria reconfirmou: Smart Context v2 aguardando aprovação; restore concorrente e Import Roots cross-process pendentes; File Center ignora `has_more`; CI hardening e Tauri IPC aguardam autorização; nenhuma API real de IA ativada; SaaS continua NO-GO.
+- Branch protection e required checks continuam desativados.
+- Relatório consolidado: `reports/TOKENSAVER_10_ROUNDS_FOLLOWUP_2026-11-11.md` (seção “Segunda sequência”).
