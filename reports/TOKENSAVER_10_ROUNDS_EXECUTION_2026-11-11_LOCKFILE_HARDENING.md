@@ -123,3 +123,15 @@ As dez frentes foram percorridas sequencialmente, com auditoria, correção de s
 7. Manter SaaS/produção em NO-GO até evidências de autenticação, isolamento, infraestrutura, operação e segurança.
 
 **STATUS GERAL: 10 RODADAS PERCORRIDAS — CORREÇÃO DE SEGURANÇA IMPLEMENTADA — CI DOS NOVOS COMMITS PENDENTE — WAVE 001 AINDA PARCIAL.**
+
+
+## Adendo — correção do timeout de lock no Windows (sequência seguinte)
+
+Nova auditoria da missão 057 encontrou um defeito adicional no caminho Windows: `LockFileEx` era chamado apenas com `LOCKFILE_EXCLUSIVE_LOCK` (0x2), que permite espera bloqueante. Assim, o loop com deadline de cinco segundos não conseguia aplicar o timeout enquanto outro processo mantivesse o lock.
+
+Correção aplicada em `src-tauri/src/path_guard.rs`: a chamada agora combina `LOCKFILE_EXCLUSIVE_LOCK | LOCKFILE_FAIL_IMMEDIATELY` (0x2 | 0x1), permitindo que o loop faça tentativas não bloqueantes e respeite o deadline. Commit de produto: `7be9db9b9ac939c48cdfdc06ffc2f157fdd359e9`.
+
+- CI run `42933741807` para o novo commit: IN_PROGRESS na última consulta.
+- Os runs anteriores `42933260337` e `42933341382` também ainda estavam IN_PROGRESS na última consulta; não declarar aprovados.
+- Teste específico de concorrência/timeout Windows: TESTE NÃO EXECUTADO; aguarda CI e continua recomendada a validação de runtime com dois processos.
+- Missão 057 continua PARTIAL até validação Linux/Windows e harness cross-process.
