@@ -1293,3 +1293,12 @@ Não interpretar dez rodadas como dez missões concluídas; esta sequência adic
 - Teste ainda não executado nesta atualização; aguarda CI Linux/Windows do commit `907d6dd`.
 - Missão 057 continua IMPLEMENTED — VERIFICATION REQUIRED; não marcar concluída antes do CI e revisão dos casos concorrentes add/add, add/remove e interrupção durante gravação.
 - Relatório da sequência: `reports/TOKENSAVER_10_ROUNDS_EXECUTION_2026-11-10_CROSS_PROCESS_LOCK.md`.
+
+
+### Atualização subsequente — revisão de compilabilidade do teste (2026-11-10)
+
+O teste cross-process recebeu duas revisões pequenas após inspeção estática:
+- `a96c5c652ff7a940251c01964699d173dd701278`: exige o código `STORAGE_BUSY` quando o processo filho não consegue obter o lock.
+- `5221c589c08c71e284fa9aa216f8500302a5f0ed`: troca `expect_err` por `match` para não exigir `Debug` no tipo de sucesso `RootsLock`.
+
+HEAD atual do produto: `5221c589c08c71e284fa9aa216f8500302a5f0ed`. O workflow CI declara gatilho `push` na branch `v2-saas-alpha`, mas a consulta atual de status/checks ainda retorna lista vazia; portanto, o CI deste HEAD está PENDENTE/SEM RESULTADO PUBLICADO, não aprovado. Missão 057 permanece IMPLEMENTED — VERIFICATION REQUIRED.
