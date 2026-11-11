@@ -1386,3 +1386,11 @@ HEAD atual do produto: `5221c589c08c71e284fa9aa216f8500302a5f0ed`. O workflow CI
 - Run `42937074749`, commit `d13078b4`: FAILURE Linux/Windows em `cargo test`. Erro E0308 de tupla antiga e warning de teste aninhado.
 - `88102dc7` corrigiu a tupla; `dcfca211` corrigiu o escopo do teste.
 - Novo SHA `dcfca211` aguarda CI; nenhum teste local foi executado.
+
+
+## Atualização 2026-11-11 — restore publication race
+- Extraído helper `publish_restore_stage` no fluxo real de restore; no-replace continua obrigatório e staging perdedor é removido.
+- Teste concorrente novo em `backup.rs`: dois restore stages competem pelo mesmo target; exatamente um vence; o destino não é substituído e staging é consumido/limpo.
+- Commits produto: `79f3de4`, `00263b2`.
+- CI ainda pendente para os commits novos; teste local não executado.
+- Missão 056 permanece VERIFICATION REQUIRED.
