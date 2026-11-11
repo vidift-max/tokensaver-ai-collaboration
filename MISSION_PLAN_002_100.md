@@ -1282,3 +1282,14 @@ Não interpretar dez rodadas como dez missões concluídas; esta sequência adic
 - Produto commit: `7be9db9b9ac939c48cdfdc06ffc2f157fdd359e9`; arquivo `src-tauri/src/path_guard.rs`.
 - CI run `42933741807` IN_PROGRESS na última consulta. Teste de concorrência cross-process Windows ainda NÃO EXECUTADO.
 - Relatório atualizado: `reports/TOKENSAVER_10_ROUNDS_EXECUTION_2026-11-11_LOCKFILE_HARDENING.md`.
+
+
+## ADENDO — CONTINUIDADE GPT-6 / TESTE CROSS-PROCESS IMPORT ROOTS (2026-11-10)
+
+- Produto commit `907d6ddf6376cbc73a2a32ca6fbc7fdbc92a9406`: extrai aquisição de lock para helper com timeout injetável e adiciona teste pai/filho para provar exclusão cross-process.
+- Arquivo: `src-tauri/src/path_guard.rs`.
+- Teste adicionado: `roots_lock_is_exclusive_across_processes`; subprocesso tenta obter o mesmo lock e deve receber erro após timeout curto.
+- O timeout de produção permanece cinco segundos; nenhum contrato persistido ou API frontend mudou.
+- Teste ainda não executado nesta atualização; aguarda CI Linux/Windows do commit `907d6dd`.
+- Missão 057 continua IMPLEMENTED — VERIFICATION REQUIRED; não marcar concluída antes do CI e revisão dos casos concorrentes add/add, add/remove e interrupção durante gravação.
+- Relatório da sequência: `reports/TOKENSAVER_10_ROUNDS_EXECUTION_2026-11-10_CROSS_PROCESS_LOCK.md`.
