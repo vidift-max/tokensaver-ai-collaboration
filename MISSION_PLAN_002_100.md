@@ -1369,3 +1369,12 @@ HEAD atual do produto: `5221c589c08c71e284fa9aa216f8500302a5f0ed`. O workflow CI
 - `smart_context.rs` commit `df5225038c901c0191a7964536e440af3d1f91ef`: exige SHA-256 lowercase canônico para evitar divergência Windows/Linux; teste `smart_context_accepts_only_canonical_lowercase_sha256`.
 - CI runs `42937270442` (8a06c4bf), `42937301773` (b75ba685) IN_PROGRESS e `42937340459` (df522503) QUEUED na última consulta. Testes locais não executados.
 - Relatório: `reports/TOKENSAVER_10_ROUNDS_EXECUTION_2026-11-11_BACKUP_SMART_CONTEXT.md`.
+
+
+## Atualização de HEAD — revisão final da sequência (2026-11-11)
+
+- Produto HEAD atual: `0b78a4c1a70c7b3702b67bc51eec76258a0615d0`.
+- `88102dc7`: corrigido teste Smart Context para nova tupla do helper após a sinalização de erro de I/O.
+- `0b78a4c1`: ampliado teste de backup para cobrir relative_path uppercase independentemente de SHA uppercase.
+- CI do SHA `8a1caa8` está SUCCESS Linux/Windows. CI dos SHAs subsequentes ainda não concluído na última consulta.
+- Relatório atualizado: `reports/TOKENSAVER_10_ROUNDS_EXECUTION_2026-11-11_BACKUP_SMART_CONTEXT.md`.
