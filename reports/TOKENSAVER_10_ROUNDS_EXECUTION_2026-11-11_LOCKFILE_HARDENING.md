@@ -135,3 +135,11 @@ Correção aplicada em `src-tauri/src/path_guard.rs`: a chamada agora combina `L
 - Os runs anteriores `42933260337` e `42933341382` também ainda estavam IN_PROGRESS na última consulta; não declarar aprovados.
 - Teste específico de concorrência/timeout Windows: TESTE NÃO EXECUTADO; aguarda CI e continua recomendada a validação de runtime com dois processos.
 - Missão 057 continua PARTIAL até validação Linux/Windows e harness cross-process.
+
+
+## Snapshot de CI (consulta posterior)
+
+- Run `42933260337` (`3caf529`): Linux concluiu todos os passos com sucesso; Windows concluiu `cargo check` e `cargo test` com sucesso, `npm install` ainda em andamento.
+- Run `42933341382` (`92564af`): Linux concluiu todos os passos com sucesso; Windows concluiu `cargo check`, `cargo test` ainda em andamento.
+- Run `42933741807` (`7be9db9`): Linux e Windows estavam em `cargo check` na última consulta; os demais passos ainda não iniciaram.
+- Portanto, Linux validou os dois commits anteriores; Windows ainda não concluiu a matriz desses commits; o commit do timeout Windows ainda não foi validado por CI.
