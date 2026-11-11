@@ -5,7 +5,7 @@ Integrador: GPT-6
 
 ## Resultado executivo
 
-As dez frentes foram percorridas sequencialmente, com auditoria, correção de segurança, testes de regressão adicionados, revisão dos subsistemas e consolidação. Houve uma correção de comportamento no backend e dois testes novos.
+As dez frentes foram percorridas sequencialmente, com auditoria, correção de segurança, testes de regressão adicionados, revisão dos subsistemas e consolidação. Houve uma correção de comportamento no backend e três testes novos.
 
 - Produto HEAD inicial: `5f66e3db049430098d86963df3e51e5ea573d12e`
 - Produto HEAD após patches: `92564af1267002529cb7685ae194af2b37383791`
@@ -105,7 +105,7 @@ As dez frentes foram percorridas sequencialmente, com auditoria, correção de s
 - Commits novos no produto: 2.
 - Arquivos de produto alterados: 1.
 - Correções de comportamento: 1.
-- Testes novos: 2.
+- Testes novos: 3.
 - Missões formalmente concluídas: 0.
 - Missões com avanço: 063.
 - Testes locais: não executados.
