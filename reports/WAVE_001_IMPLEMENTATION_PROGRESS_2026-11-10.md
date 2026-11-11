@@ -377,3 +377,16 @@ HEAD atual registrado: `97f28f18d4cb19edbd4f0794cd312e0932abf71a`.
 - Fases Automation AI 003–040 documentais REVIEW_REQUIRED; nenhum webhook, worker ou provider API real ativado.
 - SaaS e release permanecem NO-GO.
 - Relatório consolidado: `reports/TOKENSAVER_10_ROUNDS_FOLLOWUP_2026-11-11.md`, seção “Nova sequência de continuidade”.
+
+
+## Execução de 10 rodadas — hardening adicional de Import Roots (2026-11-11)
+
+- Produto HEAD inicial: `5f66e3db049430098d86963df3e51e5ea573d12e`; HEAD após patches: `92564af1267002529cb7685ae194af2b37383791`.
+- Rodada 2 encontrou que `lock_roots` abria `import_roots.lock` sem rejeitar symlink/reparse point. Criado `open_roots_lock_file`, com `O_NOFOLLOW` (Unix), `FILE_FLAG_OPEN_REPARSE_POINT` (Windows) e validação do handle como arquivo regular. Commit produto `3caf529759a39989a9bec8c87263bbdce8092386`.
+- Adicionados dois testes genéricos (aceitar arquivo regular, rejeitar diretório) e um teste Unix (rejeitar symlink). Commit produto `92564af1267002529cb7685ae194af2b37383791`.
+- Arquivo do produto alterado: `src-tauri/src/path_guard.rs`.
+- CI anterior run `42932633992`: Linux e Windows SUCCESS em cargo check/test e npm install/build; esse run valida o SHA anterior `5f66e3d`, não os dois commits novos.
+- Runs dos novos commits: `42933260337` (`3caf529`) e `42933341382` (`92564af`) IN_PROGRESS na última consulta. Testes locais NÃO EXECUTADOS.
+- As outras frentes foram verificadas sem alterações fora do escopo: 056 ainda carece de harness restore×restore/initialize; 057 carece de teste cross-process específico; 051 v2 aguarda aprovação; File Center paginação aguarda autorização; CI/Tauri hardening administrativo aguarda autorização; SaaS permanece NO-GO.
+- Relatório completo: `reports/TOKENSAVER_10_ROUNDS_EXECUTION_2026-11-11_LOCKFILE_HARDENING.md` (commit de colaboração `1780881daa4bffffe8164ebbff5a83c3ccc27f8d`).
+- Dez frentes percorridas; 2 commits de produto; 1 arquivo; 1 correção de comportamento; 2 testes adicionados; 0 missões formalmente concluídas. Missão 063 permanece parcial até CI e validação multiplataforma dos novos commits.
