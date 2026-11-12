@@ -327,3 +327,274 @@ Após aprovação, implementar sem tocar na lógica de autorização/fencing do 
 **NO-GO**
 
 A missão de recuperação não pode ser declarada concluída com CI verde: as falhas continuam no SHA final disponível e nenhuma correção foi integrada. O objetivo de diagnóstico e evidência foi cumprido; a implementação e a validação final permanecem bloqueadas.
+
+
+---
+
+# Mission 5 — Authorized Recovery Implementation & Final CI Gate
+
+**Updated:** 2026-11-12  
+**Role:** IA 4 — QA / Release Engineer  
+**Authorization:** explicit authorization from GPT-6 integrator received for the three Mission 5 fixes.  
+**Product repository:** `vidift-max/tokensaver-ai`  
+**Target branch:** `v2-saas-alpha`
+
+## 1. Final executive result
+
+<badge color="success">GO — CI recovery gate passed</badge>
+
+All three originally confirmed causes were corrected. A fourth defect uncovered by the real distributed E2E was also corrected without weakening its checkpoint assertions. The pull request was merged and **both complete workflows passed on the exact final branch SHA**:
+
+`e18557c65753714bf926845639526b22c0309826`
+
+The branch head was independently read after merge and matched this SHA. Both final push-triggered workflows report that same SHA and terminal `success`.
+
+**Scope qualification:** GO applies to this Mission 5 CI-recovery gate. It is not a blanket production/commercial launch approval and does not close the separate product-readiness, billing, model-provider, installer/signing, deployment, and operations gaps recorded in the earlier production-readiness report.
+
+## 2. SHA initial and final
+
+| Item | SHA |
+|---|---|
+| Initial audited HEAD | `637631142961c1a9f7c342f2621cb65c009d6e45` |
+| PR head SHA | `8b2db8d8e45667b1c9ad7d3a9cd90ef6ee7ba206` |
+| PR synthetic merge SHA tested | `0006c4a0cb0d6e55820428fa1f38dd69e965bae0` |
+| **Final merged branch SHA** | **`e18557c65753714bf926845639526b22c0309826`** |
+
+The merge commit differed from the synthetic PR merge SHA. In accordance with the exact-SHA rule, CI was run again after merge on the final branch SHA. The branch reference `v2-saas-alpha` was read after completion and resolved to `e18557c65753714bf926845639526b22c0309826`.
+
+## 3. Handoff — cause and correction
+
+**Before:** the PostgreSQL test set only `expires_at=NOW()-1 second`. Its existing `issued_at` remained later than that timestamp, violating `sessions_check (expires_at > issued_at)` with SQLSTATE 23514.
+
+**Correction:** `services/ai-team-room/src/handoffs.rs` now:
+- saves the original `issued_at` and `expires_at`;
+- sets `issued_at=NOW()-2 minutes` and `expires_at=NOW()-1 second`;
+- queries and asserts `issued_at < expires_at AND expires_at <= NOW()`;
+- runs the real authenticated acceptance attempt and expects `HandoffError::Forbidden`;
+- restores the original timestamps.
+
+No migration or database constraint was relaxed.
+
+**Result:** `postgres_handoff_states_authorization_fencing_and_candidate_race` passed in both the service PostgreSQL suite and the independent distributed workflow. The targeted failure is resolved.
+
+## 4. Communication — foreign key and teardown
+
+**Before:** tenant teardown attempted to delete principals while `team_room_channel_members.added_by_principal_id` still referenced the actor, causing SQLSTATE 23503.
+
+**Model decision:** preserve the restrictive FK. `added_by_principal_id` is an actor/audit reference; automatic cascade deletion could erase provenance or unexpectedly remove membership records. `SET NULL` would also require a separate schema/product decision and nullable audit semantics.
+
+**Correction:** in `services/ai-team-room/src/communication.rs`, the PostgreSQL test teardown explicitly deletes memberships belonging to the fixture tenant's channels before deleting the tenant. The production FK and migration remain unchanged.
+
+**Result:** `postgres_general_private_acl_and_message_idempotency` passed. The complete Team Room service test binary passed with 8/8 tests. No migration was necessary.
+
+## 5. Distributed Runner — cause and correction
+
+**Before:** the E2E called the authenticated recovery endpoint as a preflight, persisting `RECOVERY_REQUIRED` before launching Recovery Worker A and B. Both workers then correctly observed no new transition, and the old assertion failed with `0 !== 1`.
+
+**Correction:** `scripts/distributed-runner-process-e2e.mjs` no longer mutates task state before worker startup. It checks candidate eligibility without consuming recovery, then starts two independently authenticated Recovery Worker processes against the same PostgreSQL task. The assertion now requires exactly the sorted results `[0,1]`, proving one and only one transition winner. The existing real handoff, takeover, ownership, and fencing assertions remain active.
+
+### Additional defect found during validation
+
+The first revised E2E passed the two PostgreSQL tests and reached a later owner-initiated handoff assertion. That assertion exposed a separate payload-shape defect: `mission-runner.mjs` passed an envelope containing a nested `checkpoint` object to `TeamRoomClient.checkpoint`, which itself wraps the value for the API. PostgreSQL therefore stored the document one level too deep, so the recipient did not restore `checkpoint.description` at the expected location.
+
+**Correction:** `scripts/mission-runner.mjs` now sends the checkpoint document itself to `TeamRoomClient.checkpoint`. The E2E adds a direct PostgreSQL assertion that the stored checkpoint document has the expected `description`, then retains the post-acceptance assertion that the exact checkpoint was restored. No assertion was weakened.
+
+## 6. Files changed
+
+Exactly four product files were changed:
+
+| File | Change |
+|---|---|
+| `services/ai-team-room/src/handoffs.rs` | Valid expired-session fixture, temporal invariant assertion, restore original timestamps |
+| `services/ai-team-room/src/communication.rs` | Explicit ordered teardown of fixture channel memberships |
+| `scripts/distributed-runner-process-e2e.mjs` | Remove preflight recovery mutation; concurrent worker race and exact one-winner assertion; verify checkpoint document persisted |
+| `scripts/mission-runner.mjs` | Send the checkpoint document without an extra nested wrapper |
+
+No migration, production FK, authentication, authorization, lease, or fencing implementation was weakened or altered.
+
+## 7. Commits and integration
+
+| Commit | Change |
+|---|---|
+| `e76a07dc6911019169fcbafc81383d0b9813c087` | Handoff temporal fixture |
+| `59d3bba68aef5223034085ca66b0c8986a06f368` | Communication teardown |
+| `3f2054b060eaccc1de23d4e9dde87e425c91b862` | Concurrent Recovery Worker E2E |
+| `f9e9541e49afd7af02385474c146a427bfda8330` | Correct checkpoint payload shape |
+| `8b2db8d8e45667b1c9ad7d3a9cd90ef6ee7ba206` | Assert checkpoint document in PostgreSQL |
+| **`e18557c65753714bf926845639526b22c0309826`** | Merge commit into `v2-saas-alpha` |
+
+PR: https://github.com/vidift-max/tokensaver-ai/pull/1
+
+## 8. Individual and regression tests
+
+### Final Team Room service PostgreSQL job
+
+Workflow `TokenSaver AI CI`, run `43125683693`, job `130877032536`:
+
+- JWT tests: 6 passed.
+- HTTP/security boundary tests: 5 passed.
+- Team Room PostgreSQL service tests: 8 passed, including both previously failing tests and distributed lease/fencing.
+- Admission tests: 3 passed.
+- Identity/session tests: 4 passed.
+- No test removed, ignored, filtered to hide failure, or converted to a mock.
+
+### Foundation Linux
+
+Workflow `TokenSaver AI CI`, run `43125683693`, job `130877032719`:
+
+- `cargo check`: PASS.
+- `cargo test`: 86 passed, 0 failed.
+- `npm run test:missions`: 19 passed, 0 failed.
+- `npm run build`: PASS.
+- Source ZIP packaged and uploaded.
+
+### Foundation Windows
+
+Workflow `TokenSaver AI CI`, run `43125683693`, job `130877031965`:
+
+- `CONTINUE_MISSION.bat` smoke: PASS.
+- `cargo check`: PASS.
+- `cargo test`: 83 passed, 0 failed.
+- `npm run test:missions`: 19 passed, 0 failed.
+- `npm run build`: PASS.
+
+The platform-specific Rust test totals differ (86 Linux, 83 Windows); both native test commands completed successfully with zero failures.
+
+### Keycloak/OIDC
+
+Workflow `TokenSaver AI CI`, run `43125683693`, job `130877032403`:
+
+- Ephemeral Keycloak startup/readiness: PASS.
+- Realm and confidential client creation: PASS.
+- Real discovery, client-credentials token, JWKS signature: PASS.
+- Exchange, session, authorization and PostgreSQL admission: PASS.
+
+### Distributed Runner and Recovery Workers
+
+Workflow `Distributed Runner PostgreSQL Lab`, run `43125683708`, job `130877032294`:
+
+- PostgreSQL lease/fencing integration: PASS.
+- Authenticated handoff PostgreSQL integration: PASS.
+- Real Team Room service build: PASS.
+- Two independent Mission Runner processes: PASS.
+- Recovery Worker A and B ran as distinct processes and identities against the same PostgreSQL 16 task.
+- `recovery_transition_count=1`; `recovery_status_persisted=RECOVERY_REQUIRED`.
+- Database clock confirmed lease expiration after 16 seconds.
+- Fencing A=1, B=2.
+- Stale A renew/checkpoint/complete/release: REJECTED.
+- B renew/checkpoint/complete: ACCEPTED.
+- Competing eligible recipient: REJECTED_HTTP_403.
+- Final task status: COMPLETED.
+- Owner-initiated handoff: COMPLETED, fencing 1→2, checkpoint preserved, stale owner operations rejected.
+
+This is a real PostgreSQL/service/process proof, not a mock or in-memory concurrency test.
+
+## 9. Full CI on the exact final SHA
+
+### TokenSaver AI CI
+
+- Workflow run: `43125683693`
+- Link: https://github.com/vidift-max/tokensaver-ai/actions/runs/43125683693
+- Event: push to `v2-saas-alpha`
+- SHA: `e18557c65753714bf926845639526b22c0309826`
+- Result: **SUCCESS**
+- Jobs:
+  - `foundation-windows` — SUCCESS
+  - `foundation` — SUCCESS
+  - `ai-team-room-service` — SUCCESS
+  - `keycloak-oidc-smoke` — SUCCESS
+- Approximate run duration from GitHub timestamps: 5m11s.
+
+### Distributed Runner PostgreSQL Lab
+
+- Workflow run: `43125683708`
+- Link: https://github.com/vidift-max/tokensaver-ai/actions/runs/43125683708
+- Event: push to `v2-saas-alpha`
+- SHA: `e18557c65753714bf926845639526b22c0309826`
+- Result: **SUCCESS**
+- Job `PostgreSQL 16 + Team Room + independent Runner processes` — SUCCESS
+- Approximate run duration from GitHub timestamps: 2m00s.
+
+Both workflows ran against the **same exact final SHA**. The branch reference was independently queried after both completed and still pointed to that SHA. No later product commit was made.
+
+### PR validation history
+
+The PR synthetic merge SHA `0006c4a0cb0d6e55820428fa1f38dd69e965bae0` also passed both workflows (runs `43124904319` and `43124904241`). The first PR revision had exposed the nested checkpoint defect and failed the distributed E2E (run `43124528769`); that failure was retained, fixed, and covered by the added PostgreSQL checkpoint-shape assertion. The merge created a new SHA, so both workflows were rerun on the final branch SHA as required.
+
+## 10. Artifacts and evidence
+
+Final distributed artifact:
+- Artifact ID: `13902587483`
+- Name: `distributed-runner-postgres-evidence-43125683708`
+- Contains: `distributed-runner-evidence.json`, `runner-process-evidence.json`, `test.log`, `team-room-service.log`.
+- Artifact JSON records final SHA `e18557c65753714bf926845639526b22c0309826` and aggregate `PASS`.
+- The archive was downloaded and inspected.
+
+Artifact security scan covered compact JWT patterns, bearer strings, GitHub token patterns, AWS access key patterns, and private-key headers across all four artifact files. **No matches were found.** Service log contained only local test startup/health messages and no bearer credentials.
+
+Repository-level pattern searches also found no `sk_live`, `ghp_`, or `AKIA` matches. Existing synthetic RSA private-key fixtures and `test-only-secret` remain in test-oriented code; this is not a full historical Gitleaks/SAST/SCA audit and no claim of comprehensive secret scanning is made.
+
+## 11. Security and integrity
+
+- Session expiry fixture now models a valid expired session and preserves the DB constraint.
+- Communication FK remains restrictive; test teardown is explicit and ordered.
+- No production authentication or authorization bypass introduced.
+- No lease or fencing checks removed or weakened.
+- Two independent worker identities and processes are evidenced.
+- Artifact scan found no token/credential patterns.
+- No production migration was required.
+- No full production penetration test, historical secret scan, SAST/SCA, or supply-chain review was performed as part of this mission.
+
+## 12. Final validation matrix
+
+| Validação | Resultado | Evidência |
+|---|---|---|
+| Handoff expiration | **PASS** | Run 43125683693, job 130877032536; SQLSTATE 23514 no longer occurs |
+| PostgreSQL communication | **PASS** | Run 43125683693, job 130877032536; 8/8 service tests |
+| Foreign key integrity | **PASS** | Same test passes with restrictive `added_by_principal_id` FK preserved |
+| Distributed Runner | **PASS** | Run 43125683708, job 130877032294 |
+| Recovery Worker A/B | **PASS** | Two distinct PIDs/sessions; transition count exactly 1 |
+| Fencing | **PASS** | A=1, B=2; stale A operations rejected; B completion accepted |
+| Regression suite | **PASS** | Rust, JS/TS, Team Room, sessions, handoff, ownership, lease/fencing |
+| Linux | **PASS** | 86 Rust + 19 JS tests; build PASS |
+| Windows | **PASS** | 83 Rust + 19 JS tests; build PASS |
+| Keycloak/OIDC | **PASS** | Run 43125683693, job 130877032403 |
+| Full CI | **PASS** | Runs 43125683693 and 43125683708 both SUCCESS on final SHA |
+
+## 13. Ten-round completion status
+
+| Rodada | Estado | Evidência/resultado |
+|---|---|---|
+| 1 — Audit before changes | **VALIDADO** | Reconfirmed branch, SHA, code, tests, workflows, previous reports and commits before editing |
+| 2 — Fix Handoff | **IMPLEMENTADO / TESTADO** | Coherent timestamps; target PostgreSQL test PASS |
+| 3 — Validate Handoff | **TESTADO / VALIDADO** | JWT, sessions, authorization, handoff, lease/fencing and service PG suites PASS |
+| 4 — Fix Communication FK/teardown | **IMPLEMENTADO / TESTADO** | Explicit test teardown; restrictive FK retained; PG test PASS |
+| 5 — Validate Communication | **TESTADO / VALIDADO** | Channels, memberships, ACL, idempotency, admission and migrations through service suite PASS |
+| 6 — Fix Distributed Runner | **IMPLEMENTADO / TESTADO** | Real workers compete; exactly one transition; checkpoint payload corrected |
+| 7 — Prove concurrency | **TESTADO / VALIDADO** | PostgreSQL 16, two worker PIDs/sessions, one winner, fencing and checkpoint evidence PASS |
+| 8 — Full regression | **TESTADO / VALIDADO** | Rust Linux/Windows, JS 19/19 each, Team Room, Keycloak/OIDC and distributed E2E PASS |
+| 9 — Exact-SHA CI | **VALIDADO** | Both final push workflows SUCCESS on `e18557c...`; branch HEAD matches |
+| 10 — Final report | **IMPLEMENTADO / VALIDADO** | This follow-up appended and verified in collaboration repo |
+
+## 14. Pending items and risks
+
+For the **Mission 5 CI recovery gate**, no blocking item remains.
+
+Separate product-readiness work remains outside this mission: actual AI provider integration, SaaS customer identity/billing/usage ledger, signed desktop release/update pipeline, production ingress/CSP/CORS hardening, PostgreSQL backup/PITR and deployment/observability. Those remain governed by the earlier `PRODUCTION_READINESS_COMMERCIAL_REPORT.md` and must not be treated as resolved by a green CI run.
+
+No local test execution is claimed; the evidence in this report is from actual GitHub Actions runs on the exact final branch SHA.
+
+## 15. Final release decision
+
+**GO — Mission 5 CI Recovery Release Gate.**
+
+Reason:
+- all three confirmed causes were corrected;
+- the additional checkpoint-shape defect found during E2E was corrected;
+- both previously failing PostgreSQL tests pass;
+- concurrent independent Recovery Workers produce exactly one persisted transition;
+- fencing and stale-owner rejection remain enforced;
+- Linux, Windows, Team Room, Keycloak/OIDC and Distributed Runner workflows all pass;
+- both complete workflows report SUCCESS on the exact final branch SHA `e18557c65753714bf926845639526b22c0309826`.
+
+This GO is limited to the CI recovery mission. It does not supersede separate NO-GO production/commercial readiness findings.
