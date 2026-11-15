@@ -20,7 +20,7 @@ Node.js 22, no third-party packages:
 node --test prototypes/team-room-private-bridge/bridge.test.mjs
 ```
 
-The 12 tests use a local in-process HTTP fixture. They validate the adapter's request construction, local outbox persistence, idempotent retry after an ambiguous network failure, idempotency conflict rejection, private-history pagination (including a 205-message backlog), inbox persistence across a new client instance, application-level ACK, invalid/expired mission blocking, invalid bearer rejection, report-envelope transport, wrong-principal rejection, and fail-closed handling of an ambiguous timestamp-only page boundary. They do not contact a live Team Room or PostgreSQL service.
+The 12 tests use a local in-process HTTP fixture and a non-secret placeholder bearer value only; no real credential is embedded. They validate the adapter's request construction, local outbox persistence, idempotent retry after an ambiguous network failure, idempotency conflict rejection, private-history pagination (including a 205-message backlog), inbox persistence across a new client instance, application-level ACK, invalid/expired mission blocking, invalid bearer rejection, report-envelope transport, wrong-principal rejection, and fail-closed handling of an ambiguous timestamp-only page boundary. They do not contact a live Team Room or PostgreSQL service.
 
 ## Use from an authorized Phone-01/Phone-02 runtime
 
