@@ -78,9 +78,14 @@ async function fixture(t) {
     }
     if (req.method === 'GET') {
       const limit = Math.min(100, Number(url.searchParams.get('limit') || 50));
-      const before = url.searchParams.get('before');
+      const beforeCreatedAt = url.searchParams.get('before_created_at');
+      const beforeMessageId = url.searchParams.get('before_message_id');
+      if (Boolean(beforeCreatedAt) !== Boolean(beforeMessageId) || url.searchParams.has('before')) return send(400, { error: 'composite cursor required' });
       let rows = messages.filter(x => x.sender_principal_id === peerId || x.sender_principal_id === selfId);
-      if (before) rows = rows.filter(x => Date.parse(x.created_at) < Date.parse(before));
+      if (beforeCreatedAt && beforeMessageId) {
+        const boundary = Date.parse(beforeCreatedAt);
+        rows = rows.filter(x => Date.parse(x.created_at) < boundary || (Date.parse(x.created_at) === boundary && x.message_id < beforeMessageId));
+      }
       rows.sort((a, b) => Date.parse(a.created_at) - Date.parse(b.created_at) || a.message_id.localeCompare(b.message_id));
       const hasMore = rows.length > limit;
       const items = rows.slice(-limit);
@@ -232,11 +237,22 @@ test('report envelope uses the same transport and idempotency path', async t => 
 });
 
 
-test('same-timestamp backlog fails closed when timestamp-only cursor cannot continue', async t => {
+test('composite cursor recovers same-timestamp backlog and older rows without loss or duplicates', async t => {
   const { bridge, messages, statePath } = await fixture(t);
-  for (let i = 0; i < 205; i++) messages.push({ ...peerMessage(mission(`same-time:${i}`), i), created_at: '2026-11-15T00:00:00.000Z' });
-  await assert.rejects(() => bridge.poll(peerId), e => e instanceof BridgeError && e.code === 'CURSOR_AMBIGUOUS');
-  assert.equal(fs.existsSync(statePath), false);
+  const tiedAt = '2026-11-15T00:00:00.000Z';
+  const olderAt = '2026-11-14T00:00:00.000Z';
+  for (let i = 0; i < 205; i++) messages.push({ ...peerMessage(mission(`same-time:${i}`), i), created_at: tiedAt });
+  for (let i = 0; i < 25; i++) messages.push({ ...peerMessage(mission(`older:${i}`), i + 205), created_at: olderAt });
+  const result = await bridge.poll(peerId);
+  assert.equal(result.new_messages.length, 230);
+  assert.equal(result.pages_read, 3);
+  assert.equal(result.pending_messages.length, 230);
+  assert.equal(new Set(result.new_messages.map(x => x.message_id)).size, 230);
+  const expected = messages.filter(x => x.sender_principal_id === peerId)
+    .sort((a, b) => Date.parse(a.created_at) - Date.parse(b.created_at) || a.message_id.localeCompare(b.message_id))
+    .map(x => x.message_id);
+  assert.deepEqual(result.new_messages.map(x => x.message_id), expected);
+  assert.equal(JSON.parse(fs.readFileSync(statePath, 'utf8')).seen[peerId].length, 230);
 });
 
 test('valid bearer for the wrong principal is rejected', async t => {
