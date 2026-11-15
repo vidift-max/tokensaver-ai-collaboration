@@ -17,6 +17,17 @@ An isolated Node.js 22 client adapter was implemented in this collaboration bran
 
 The central repository remains a contract/documentation repository. The actual reusable server implementation lives in the main TokenSaver repository, which this mission did not modify.
 
+## Source-code evidence inspected
+
+- Team Room route composition, `/auth/me`, and service bind default: [main.rs at `b143fd4`](https://github.com/vidift-max/tokensaver-ai/blob/b143fd4fe63de672b2d1e968da11dbfbd50ef49f/services/ai-team-room/src/main.rs).
+- Private history/send routes, private membership checks, PostgreSQL persistence and `client_message_id` conflict handling: [communication.rs at `b143fd4`](https://github.com/vidift-max/tokensaver-ai/blob/b143fd4fe63de672b2d1e968da11dbfbd50ef49f/services/ai-team-room/src/communication.rs).
+- Per-phone mailbox ownership restriction and phone routes: [phone.rs at PR #7 HEAD](https://github.com/vidift-max/tokensaver-ai/blob/fcdbd9f913e016a5a50610e0d6c675f72e5c8974/services/ai-team-room/src/phone.rs).
+- [PR #7](https://github.com/vidift-max/tokensaver-ai/pull/7) remains OPEN/DRAFT/unmerged.
+- [TokenSaver AI CI run 43222078880](https://github.com/vidift-max/tokensaver-ai/actions/runs/43222078880) and [Distributed Runner PostgreSQL Lab run 43222078759](https://github.com/vidift-max/tokensaver-ai/actions/runs/43222078759) passed on the PR #7 SHA stated above.
+- Canonical collaboration schemas: [Mission v1](https://github.com/vidift-max/tokensaver-ai-collaboration/blob/42de3e2eaca2d38dc69f5a91ee3c729968c56771/contracts/v1/mission.schema.json) and [Agent Result v1](https://github.com/vidift-max/tokensaver-ai-collaboration/blob/42de3e2eaca2d38dc69f5a91ee3c729968c56771/contracts/v1/agent-result.schema.json).
+
+The Team Room service requires `DATABASE_URL`; OIDC is loaded only when trusted issuer configuration is present. Its default bind is `127.0.0.1:8081`, so a phone-reachable deployment needs an intentionally configured network binding behind a TLS reverse proxy. No public HTTP listener or production endpoint was enabled in P2.23.
+
 ## Round 1 — Audit of the collaboration central
 
 ### Existing contracts found
@@ -146,6 +157,8 @@ The adapter implements:
 - private send/read routes;
 - local outbox persistence before POST;
 - stable `client_message_id` on retry;
+- exact `expectedPrincipalId` binding against `/auth/me`;
+- fail-closed handling when timestamp-only pagination produces an empty ambiguous page;
 - idempotency-key/payload conflict detection;
 - bounded history pagination and cursor recovery;
 - inbox persistence before handing messages to the caller;
@@ -241,7 +254,7 @@ The `AI-PHONE-01` PR #7 has separate CI evidence on SHA `fcdbd9f913e016a5a50610e
 
 ## Exact blockers and minimum next actions
 
-1. **Reachable Team Room service:** provide/authorize a no-cost host for the existing Rust/Axum service + PostgreSQL and a real HTTPS endpoint. The repository's source code is not a deployment. No paid service was selected.
+1. **Reachable Team Room service:** provide/authorize a no-cost host for the existing Rust/Axum service + PostgreSQL, configure trusted OIDC, and expose it behind a TLS reverse proxy. The service defaults to loopback `127.0.0.1:8081`; source code is not a deployment. No paid service was selected.
 2. **Trusted identities:** provision a trusted OIDC issuer/JWKS and separate least-privilege principals for Phone-01 and Phone-02, then grant same-room membership and `private_chat`. GPT-6 has no verified workload identity today; the Keycloak CI smoke uses ephemeral test identity only.
 3. **Phone-01 bridge process:** integrate this client with an authorized Phone-01 process/runner. The current ChatGPT session cannot run a permanent background poller or directly call the Team Room API.
 4. **Phone-02 physical identification:** `USER_ACTION_REQUIRED — fabricante/modelo + versão Android`. Do not send IMEI, serial, phone number or MAC address.
