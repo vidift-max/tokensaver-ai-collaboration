@@ -269,7 +269,7 @@ The `AI-PHONE-01` PR #7 has separate CI evidence on SHA `fcdbd9f913e016a5a50610e
 - No attestation workflow was modified.
 - No PR was merged or created in the main repository.
 - No workflow dispatch/rerun was performed by P2.23.
-- No secret/token/API key was created, read or committed.
+- No real secret, API key or session credential was created, read or committed; tests contain only a non-secret local bearer placeholder.
 - No paid service was contracted.
 - No production deployment or destructive operation occurred.
 - Phone-03 was not started.
