@@ -65,7 +65,7 @@ The main repository has a separate Team Room server. That distinction is materia
 4. Phone-02 posts a `REPORT` envelope in the same private conversation.
 5. Phone-01 polls the private history and persists the report.
 
-The server-side private-message route uses `client_message_id` as its idempotency key. The client persists its outbox entry before POST and reuses the same UUID after an ambiguous timeout. The history API has `before` pagination but no explicit `after` cursor; the prototype scans bounded pages until it finds its prior cursor and fails closed rather than advancing past a missing cursor.
+The server-side private-message route uses `client_message_id` as its idempotency key. The client persists its outbox entry before POST and reuses the same UUID after an ambiguous timeout. The history API exposes only a timestamp `before` cursor, not a compound `(created_at,message_id)` cursor. The prototype fails closed when a page boundary becomes empty/ambiguous, but the server can still skip a partial set of messages sharing the same timestamp as the boundary. A composite cursor or monotonic sequence is required before claiming a strict no-loss inbox.
 
 The Team Room WebSocket can be added as a foreground wake-up optimization. HTTPS history remains the recovery source of truth. No FCM notification path is claimed.
 
@@ -199,9 +199,11 @@ Executed locally with Node.js `v22.16.0`, using an in-process HTTP fixture. No l
 | First poll backfills 205-message bounded history | PASS |
 | Expired and invalid inbound missions retained as blocked | PASS |
 | Invalid bearer rejected before private-history access | PASS |
+| Valid bearer for wrong principal rejected | PASS |
+| Same-timestamp pagination ambiguity fails closed | PASS |
 | Report envelope uses same transport/idempotency path | PASS |
 
-**Local result: 10/10 PASS.**
+**Local result: 12/12 PASS.**
 
 Not executed / not proven:
 
