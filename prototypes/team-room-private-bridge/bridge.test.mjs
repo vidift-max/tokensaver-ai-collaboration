@@ -93,7 +93,7 @@ async function fixture(t) {
   const address = server.address();
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'team-room-bridge-'));
   const statePath = path.join(dir, 'state.json');
-  const bridge = new TeamRoomPrivateBridge({ apiUrl: `http://127.0.0.1:${address.port}`, token: 'test-session', roomId, statePath });
+  const bridge = new TeamRoomPrivateBridge({ apiUrl: `http://127.0.0.1:${address.port}`, token: 'test-session', roomId, expectedPrincipalId: selfId, statePath });
   t.after(() => { server.close(); fs.rmSync(dir, { recursive: true, force: true }); });
   return { bridge, messages, statePath };
 }
@@ -130,7 +130,7 @@ test('poll persists inbox and returns pending messages until application ACK', a
   const first = await bridge.poll(peerId);
   assert.equal(first.new_messages.length, 1);
   assert.equal(first.pending_messages.length, 1);
-  const restarted = new TeamRoomPrivateBridge({ apiUrl: bridge.baseUrl, token: bridge.token, roomId: bridge.roomId, statePath });
+  const restarted = new TeamRoomPrivateBridge({ apiUrl: bridge.baseUrl, token: bridge.token, roomId: bridge.roomId, expectedPrincipalId: selfId, statePath });
   const afterRestart = await restarted.poll(peerId);
   assert.equal(afterRestart.new_messages.length, 0);
   assert.equal(afterRestart.pending_messages.length, 1);
@@ -229,4 +229,18 @@ test('report envelope uses the same transport and idempotency path', async t => 
   assert.equal(result.status, 'SENT');
   assert.equal(messages.length, 1);
   assert.equal(JSON.parse(messages[0].body).type, 'REPORT');
+});
+
+
+test('same-timestamp backlog fails closed when timestamp-only cursor cannot continue', async t => {
+  const { bridge, messages, statePath } = await fixture(t);
+  for (let i = 0; i < 205; i++) messages.push({ ...peerMessage(mission(`same-time:${i}`), i), created_at: '2026-11-15T00:00:00.000Z' });
+  await assert.rejects(() => bridge.poll(peerId), e => e instanceof BridgeError && e.code === 'CURSOR_AMBIGUOUS');
+  assert.equal(fs.existsSync(statePath), false);
+});
+
+test('valid bearer for the wrong principal is rejected', async t => {
+  const { bridge } = await fixture(t);
+  bridge.expectedPrincipalId = '44444444-4444-4444-8444-444444444444';
+  await assert.rejects(() => bridge.poll(peerId), e => e instanceof BridgeError && e.code === 'IDENTITY_MISMATCH');
 });
