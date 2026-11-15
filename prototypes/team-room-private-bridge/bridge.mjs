@@ -238,17 +238,20 @@ export class TeamRoomPrivateBridge {
     while (hasMore) {
       if (pageCount >= this.maxPages) throw new BridgeError('History pagination limit reached; cursor not advanced', 'PAGINATION_LIMIT');
       const query = new URLSearchParams({ limit: '100' });
-      if (before) query.set('before', before);
+      if (before) {
+        query.set('before_created_at', before.created_at);
+        query.set('before_message_id', before.message_id);
+      }
       const page = await this.request('GET', `/team-room/${this.roomId}/private/${peerPrincipalId}/messages`, undefined, `?${query}`);
       if (!Array.isArray(page.items)) throw new BridgeError('Private history response is missing items', 'INVALID_RESPONSE');
-      if (before && page.items.length === 0) throw new BridgeError('Timestamp-only history cursor cannot safely continue; server must expose a composite (created_at,message_id) cursor', 'CURSOR_AMBIGUOUS');
+      if (before && page.items.length === 0 && page.has_more) throw new BridgeError('Private history returned an empty page while claiming more rows', 'INVALID_RESPONSE');
       collected.unshift(...page.items);
       pageCount += 1;
       hasMore = Boolean(page.has_more);
       if (cursor && page.items.some(m => m.message_id === cursor.message_id)) cursorFound = true;
       if (!cursor && !hasMore) cursorFound = true;
       if (cursorFound || !hasMore || page.items.length === 0) break;
-      before = page.items[0].created_at;
+      before = { created_at: page.items[0].created_at, message_id: page.items[0].message_id };
     }
     if (!cursorFound) throw new BridgeError('Stored cursor was not found within bounded history scan; refusing to skip messages', 'CURSOR_NOT_FOUND');
 
