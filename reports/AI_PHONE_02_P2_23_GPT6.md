@@ -240,10 +240,12 @@ The `AI-PHONE-01` PR #7 has separate CI evidence on SHA `fcdbd9f913e016a5a50610e
 | Contract de missão | `PROVADO` | Existing Mission v1 schema found and reused as nested canonical object; formal freeze still pending |
 | Contract de relatório | `PROVADO` | Existing Agent Result v1 schema found and reused as nested canonical object; not identical to all requested phone report fields |
 | Canal Phone-01 → Phone-02 | `IMPLEMENTADO NÃO TESTADO` | Client adapter tested against local HTTP fixture; no live authenticated pair |
-| Canal Phone-02 → Phone-01 | `IMPLEMENTADO NÃO TESTADO` | Same private-message transport path; no live report return |\n| Integração do adapter no Phone-01 | `BLOQUEADO` | Client library is not wired into a persistent Phone-01 runner/process |
+| Canal Phone-02 → Phone-01 | `IMPLEMENTADO NÃO TESTADO` | Same private-message transport path; no live report return |
+| Integração do adapter no Phone-01 | `BLOQUEADO` | Client library is not wired into a persistent Phone-01 runner/process |
 | Inbox | `IMPLEMENTADO NÃO TESTADO` | Prototype local inbox; Android Room inbox not implemented |
 | Persistência | `IMPLEMENTADO NÃO TESTADO` | Atomic local prototype state tested; production PostgreSQL/Android persistence not exercised by P2.23 |
-| Deploy do Team Room | `USER_ACTION_REQUIRED` | No-cost host, PostgreSQL, trusted OIDC configuration and TLS reverse proxy are not provisioned |\n| Autenticação | `USER_ACTION_REQUIRED` | Separate Phone-01/Phone-02 principals, OIDC issuer/JWKS, room membership and `private_chat` grants must be provisioned; GPT-6 workload identity remains unverified |
+| Deploy do Team Room | `USER_ACTION_REQUIRED` | No-cost host, PostgreSQL, trusted OIDC configuration and TLS reverse proxy are not provisioned |
+| Autenticação | `USER_ACTION_REQUIRED` | Separate Phone-01/Phone-02 principals, OIDC issuer/JWKS, room membership and `private_chat` grants must be provisioned; GPT-6 workload identity remains unverified |
 | Executor de IA | `BLOQUEADO` | No model/provider executor adapter for Phone-02 |
 | APK Android | `PLANEJADO` | Kotlin/Room/WorkManager integration specified; no APK built |
 | Hardware Phone-02 | `USER_ACTION_REQUIRED` | Manufacturer/model + Android version missing |
