@@ -126,9 +126,9 @@ function validateUuid(value, name) {
 }
 
 export class TeamRoomPrivateBridge {
-  constructor({ apiUrl, token, roomId, statePath, fetchImpl = globalThis.fetch, maxPages = DEFAULT_MAX_PAGES }) {
-    if (!apiUrl || !token || !roomId || !statePath || typeof fetchImpl !== 'function') {
-      throw new BridgeError('apiUrl, token, roomId, statePath and fetchImpl are required', 'CONFIG_REQUIRED');
+  constructor({ apiUrl, token, roomId, expectedPrincipalId, statePath, fetchImpl = globalThis.fetch, maxPages = DEFAULT_MAX_PAGES }) {
+    if (!apiUrl || !token || !roomId || !expectedPrincipalId || !statePath || typeof fetchImpl !== 'function') {
+      throw new BridgeError('apiUrl, token, roomId, expectedPrincipalId, statePath and fetchImpl are required', 'CONFIG_REQUIRED');
     }
     let parsed;
     try { parsed = new URL(apiUrl); } catch { throw new BridgeError('apiUrl must be an absolute URL', 'CONFIG_INVALID'); }
@@ -136,10 +136,12 @@ export class TeamRoomPrivateBridge {
       throw new BridgeError('Team Room API must use HTTPS except loopback development', 'INSECURE_API_URL');
     }
     validateUuid(roomId, 'roomId');
+    validateUuid(expectedPrincipalId, 'expectedPrincipalId');
     if (!Number.isInteger(maxPages) || maxPages < 1 || maxPages > 100) throw new BridgeError('maxPages must be 1..100', 'CONFIG_INVALID');
     this.baseUrl = parsed.toString().replace(/\/+$/, '');
     this.token = token;
     this.roomId = roomId;
+    this.expectedPrincipalId = expectedPrincipalId;
     this.statePath = path.resolve(statePath);
     this.fetchImpl = fetchImpl;
     this.maxPages = maxPages;
@@ -173,7 +175,7 @@ export class TeamRoomPrivateBridge {
 
   async authenticate() {
     const identity = await this.request('GET', '/auth/me');
-    if (identity.room_id !== this.roomId || !identity.principal_id || !identity.session_id || !identity.execution_id) {
+    if (identity.room_id !== this.roomId || identity.principal_id !== this.expectedPrincipalId || !identity.session_id || !identity.execution_id) {
       throw new BridgeError('Authenticated identity does not match configured room/session schema', 'IDENTITY_MISMATCH', 403);
     }
     return identity;
@@ -239,6 +241,7 @@ export class TeamRoomPrivateBridge {
       if (before) query.set('before', before);
       const page = await this.request('GET', `/team-room/${this.roomId}/private/${peerPrincipalId}/messages`, undefined, `?${query}`);
       if (!Array.isArray(page.items)) throw new BridgeError('Private history response is missing items', 'INVALID_RESPONSE');
+      if (before && page.items.length === 0) throw new BridgeError('Timestamp-only history cursor cannot safely continue; server must expose a composite (created_at,message_id) cursor', 'CURSOR_AMBIGUOUS');
       collected.unshift(...page.items);
       pageCount += 1;
       hasMore = Boolean(page.has_more);
