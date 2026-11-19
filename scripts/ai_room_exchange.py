@@ -71,9 +71,9 @@ def main():
     history = [f"Usuário autorizou o teste: {initial}"]
     agents = [
         ("Agent-A", "qwen2.5:1.5b", "Agent-B"),
-        ("Agent-B", "gemma3:1b", "Agent-A"),
+        ("Agent-B", "smollm2:1.7b", "Agent-A"),
         ("Agent-A", "qwen2.5:1.5b", "Agent-B"),
-        ("Agent-B", "gemma3:1b", "Agent-A"),
+        ("Agent-B", "smollm2:1.7b", "Agent-A"),
     ]
     for agent, model, other in agents:
         answer = generate(model, agent, other, history)
