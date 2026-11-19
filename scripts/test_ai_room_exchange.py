@@ -10,6 +10,7 @@ ROOT = pathlib.Path(__file__).resolve().parents[1]
 os.environ.setdefault("GITHUB_TOKEN", "test-token")
 os.environ.setdefault("GITHUB_REPOSITORY", "owner/repo")
 os.environ.setdefault("ISSUE_NUMBER", "1")
+os.environ.setdefault("EVENT_COMMENT_ID", "12345")
 os.environ.setdefault("INITIAL_MESSAGE", "/ai-room start test")
 
 spec = importlib.util.spec_from_file_location(
@@ -42,6 +43,8 @@ class ExchangeTests(unittest.TestCase):
 
         def fake_urlopen(request, timeout=60):
             requests.append(request)
+            if request.get_method() == "GET":
+                return FakeResponse([])
             if request.full_url.endswith("/api/generate"):
                 return FakeResponse({"response": next(model_replies)})
             return FakeResponse({"id": len(requests)})
@@ -55,10 +58,10 @@ class ExchangeTests(unittest.TestCase):
         ]
         comment_requests = [
             r for r in requests if "/issues/1/comments" in r.full_url
+            and r.get_method() == "POST"
         ]
         self.assertEqual(len(generation_requests), 4)
         self.assertEqual(len(comment_requests), 4)
-
         models = [
             json.loads(r.data.decode())["model"] for r in generation_requests
         ]
@@ -69,7 +72,24 @@ class ExchangeTests(unittest.TestCase):
         comments = [json.loads(r.data.decode())["body"] for r in comment_requests]
         self.assertIn("Agent-A", comments[0])
         self.assertIn("Agent-B", comments[1])
-        self.assertTrue(all("AI-ROOM-AUTO" in c for c in comments))
+        self.assertTrue(all("source-comment:12345" in c for c in comments))
+
+    def test_duplicate_source_comment_is_skipped_before_inference(self):
+        requests = []
+
+        def fake_urlopen(request, timeout=60):
+            requests.append(request)
+            if request.get_method() == "GET":
+                return FakeResponse([
+                    {"body": "<!-- AI-ROOM-AUTO source-comment:12345 --> already done"}
+                ])
+            self.fail("duplicate request must not invoke inference or publish")
+
+        with patch.object(module.urllib.request, "urlopen", side_effect=fake_urlopen):
+            module.main()
+
+        self.assertEqual(len(requests), 1)
+        self.assertEqual(requests[0].get_method(), "GET")
 
 
 if __name__ == "__main__":
