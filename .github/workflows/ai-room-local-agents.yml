@@ -16,8 +16,9 @@ jobs:
   local-agent-exchange:
     if: >-
       github.event.issue.pull_request == null &&
+      github.event.issue.number == 1 &&
       github.event.comment.user.login == 'vidift-max' &&
-      contains(github.event.comment.body, '/ai-room start')
+      startsWith(github.event.comment.body, '/ai-room start ')
     runs-on: ubuntu-latest
     timeout-minutes: 25
     steps:
