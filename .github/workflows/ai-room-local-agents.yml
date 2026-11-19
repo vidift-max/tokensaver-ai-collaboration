@@ -24,7 +24,7 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 
-      - name: Start local Ollama runtime
+      - name: Run offline orchestration tests\n        run: python3 scripts/test_ai_room_exchange.py\n\n      - name: Start local Ollama runtime
         run: |
           docker run -d --name ollama -p 11434:11434 ollama/ollama:latest
           for i in $(seq 1 60); do
