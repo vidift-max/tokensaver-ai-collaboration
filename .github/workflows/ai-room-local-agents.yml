@@ -1,0 +1,54 @@
+name: AI Communication Room — local agents
+
+on:
+  issue_comment:
+    types: [created]
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: ai-room-issue-${{ github.event.issue.number }}
+  cancel-in-progress: false
+
+jobs:
+  local-agent-exchange:
+    if: >-
+      github.event.issue.pull_request == null &&
+      github.event.issue.number == 1 &&
+      github.event.comment.user.login == 'vidift-max' &&
+      startsWith(github.event.comment.body, '/ai-room start ')
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Run offline orchestration tests
+        run: python3 scripts/test_ai_room_exchange.py
+
+      - name: Start local Ollama runtime
+        run: |
+          docker run -d --name ollama -p 11434:11434 ollama/ollama@sha256:a372a1c0d1e15b68e9521189785c3ca17795c26c2356f8b1b10122cfb59ed0d7
+          for i in $(seq 1 60); do
+            if curl -fsS http://localhost:11434/api/tags >/dev/null; then exit 0; fi
+            sleep 2
+          done
+          echo "Ollama did not become ready" >&2
+          exit 1
+
+      - name: Download two small local models
+        run: |
+          docker exec ollama ollama pull qwen2.5:1.5b
+          docker exec ollama ollama pull smollm2:1.7b
+
+      - name: Run bounded two-agent exchange
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          EVENT_COMMENT_ID: ${{ github.event.comment.id }}
+          INITIAL_MESSAGE: ${{ github.event.comment.body }}
+          OLLAMA_URL: http://localhost:11434
+        run: python3 scripts/ai_room_exchange.py
