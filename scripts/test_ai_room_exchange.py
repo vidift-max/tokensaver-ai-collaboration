@@ -35,10 +35,10 @@ class FakeResponse:
 
 
 class ExchangeTests(unittest.TestCase):
-    def test_four_turns_alternate_models_and_publish_four_comments(self):
+    def test_four_turns_alternate_models_publish_and_neutralize_mentions(self):
         requests = []
         model_replies = iter(
-            ["Resposta A1", "Resposta B1", "Resposta A2", "Resposta B2"]
+            ["Resposta @usuario A1", "Resposta B1", "Resposta A2", "Resposta B2"]
         )
 
         def fake_urlopen(request, timeout=60):
@@ -73,6 +73,7 @@ class ExchangeTests(unittest.TestCase):
         self.assertIn("Agent-A", comments[0])
         self.assertIn("Agent-B", comments[1])
         self.assertTrue(all("source-comment:12345" in c for c in comments))
+        self.assertIn("@\u200busuario", comments[0])
 
     def test_duplicate_source_comment_is_skipped_before_inference(self):
         requests = []
@@ -90,6 +91,30 @@ class ExchangeTests(unittest.TestCase):
 
         self.assertEqual(len(requests), 1)
         self.assertEqual(requests[0].get_method(), "GET")
+
+    def test_comment_ledger_error_fails_closed(self):
+        def fail_urlopen(_request, timeout=60):
+            raise OSError("simulated GitHub API outage")
+
+        with patch.object(module.urllib.request, "urlopen", side_effect=fail_urlopen):
+            with self.assertRaises(OSError):
+                module.main()
+
+    def test_oversized_initial_message_is_rejected_before_inference(self):
+        def fake_urlopen(request, timeout=60):
+            return FakeResponse([])
+
+        with patch.object(module.urllib.request, "urlopen", side_effect=fake_urlopen), \
+             patch.dict(os.environ, {"INITIAL_MESSAGE": "/ai-room start " + ("x" * 2001)}):
+            with self.assertRaisesRegex(RuntimeError, "exceeds 2000"):
+                module.main()
+
+    def test_invalid_source_comment_id_is_rejected_before_network(self):
+        with patch.object(module, "EVENT_COMMENT_ID", "not-an-id"):
+            with patch.object(module.urllib.request, "urlopen") as mocked:
+                with self.assertRaisesRegex(RuntimeError, "invalid source comment ID"):
+                    module.main()
+                mocked.assert_not_called()
 
 
 if __name__ == "__main__":
