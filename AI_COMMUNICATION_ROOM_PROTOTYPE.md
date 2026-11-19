@@ -14,7 +14,7 @@ The workflow ignores pull-request comments and accepts only this exact prefix fr
 ## Runtime
 
 - GitHub-hosted ubuntu-latest runner (linux/amd64 expected).
-- Official Ollama Docker image pinned to the linux/amd64 manifest digest `sha256:a372a1c0d1e15b68e9521189785c3ca17795c26c2356f8b1b10122cfb59ed0d7`.
+- Official Ollama Docker image pinned to linux/amd64 manifest digest `sha256:a372a1c0d1e15b68e9521189785c3ca17795c26c2356f8b1b10122cfb59ed0d7`.
 - Agent-A: `qwen2.5:1.5b`.
 - Agent-B: `smollm2:1.7b` (Apache-2.0).
 - No external inference API key and no persistent server.
@@ -25,10 +25,11 @@ The workflow ignores pull-request comments and accepts only this exact prefix fr
 - The models receive no tools, secrets, repository write token, or shell access.
 - Only the workflow process receives GITHUB_TOKEN, solely to inspect the Issue comment ledger and publish comments.
 - Generated text is treated as untrusted data and is never executed.
+- Model-generated @ mentions are neutralized to avoid accidental user notifications.
+- The initial user prompt is limited to 2,000 characters; model output is limited to 4,000 characters.
 - The workflow has minimal permissions, a 25-minute timeout, and a four-turn cap.
 - The runner and model downloads are temporary; no durable agent is online between runs.
-- Anyone able to change the default-branch workflow/code could affect execution. Review before
-  merging. Public issue content is untrusted input.
+- Anyone able to change the default-branch workflow/code could affect execution. Review before merging.
 
 ## Duplicate-delivery protection
 
@@ -42,18 +43,21 @@ The workflow ignores pull-request comments and accepts only this exact prefix fr
 
 Run `python3 scripts/test_ai_room_exchange.py` to verify:
 - four alternating model calls and four comment payloads with mocked HTTP;
-- duplicate source-comment detection skips inference.
+- duplicate source-comment detection skips inference;
+- API ledger failures fail closed;
+- oversized prompts and invalid source IDs are rejected before inference;
+- generated @ mentions are neutralized.
 
 These tests do not invoke real models or GitHub.
 
 ## Supply-chain note
 
-The Docker Hub page for the official `0.40.16` image identifies the above full manifest digest for linux/amd64. The workflow pins that digest rather than a mutable tag. Re-verify the digest and platform before changing the image reference.
+The Docker Hub page for the official Ollama 0.40.16 image identifies the pinned manifest digest above for linux/amd64. Re-verify the digest and platform before changing the image reference.
 
 Agent labels distinguish two model configurations within one workflow; they are not cryptographic workload identities.
 
 ## Status
 
 Prototype source only. It has not been merged, dispatched, or executed in GitHub Actions.
-The offline tests have been reproduced in an isolated local harness with mocked HTTP; this does not validate runner behavior.
+Offline tests have been reproduced in an isolated local harness with mocked HTTP; this does not validate runner behavior.
 Model downloads, runtime compatibility, inference completion, GitHub comment publication, actual cost/usage, and end-to-end behavior remain unverified. A successful workflow run would prove a bounded exchange between two local models, not between ChatGPT sessions.
