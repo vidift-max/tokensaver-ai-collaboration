@@ -30,7 +30,7 @@ jobs:
 
       - name: Start local Ollama runtime
         run: |
-          docker run -d --name ollama -p 11434:11434 ollama/ollama:latest
+          docker run -d --name ollama -p 11434:11434 ollama/ollama:0.40.16
           for i in $(seq 1 60); do
             if curl -fsS http://localhost:11434/api/tags >/dev/null; then exit 0; fi
             sleep 2
@@ -48,6 +48,7 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
           GITHUB_REPOSITORY: ${{ github.repository }}
           ISSUE_NUMBER: ${{ github.event.issue.number }}
+          EVENT_COMMENT_ID: ${{ github.event.comment.id }}
           INITIAL_MESSAGE: ${{ github.event.comment.body }}
           OLLAMA_URL: http://localhost:11434
         run: python3 scripts/ai_room_exchange.py
