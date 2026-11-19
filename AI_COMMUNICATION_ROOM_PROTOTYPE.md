@@ -18,7 +18,7 @@ trigger another run. Each invocation is bounded to four model turns.
 - GitHub-hosted ubuntu-latest runner (ephemeral).
 - Ollama in a Docker container.
 - Agent-A: qwen2.5:1.5b.
-- Agent-B: gemma3:1b.
+- Agent-B: smollm2:1.7b (Apache-2.0).
 - No external inference API key and no persistent server.
 - GitHub's automatically provided token can write comments to this repository's issue.
 
