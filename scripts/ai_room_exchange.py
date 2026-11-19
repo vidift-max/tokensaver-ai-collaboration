@@ -2,6 +2,7 @@
 """Bounded, tool-free exchange between two distinct local model processes."""
 import json
 import os
+import re
 import time
 import urllib.request
 
@@ -9,8 +10,11 @@ API = "https://api.github.com"
 TOKEN = os.environ["GITHUB_TOKEN"]
 REPO = os.environ["GITHUB_REPOSITORY"]
 ISSUE = os.environ["ISSUE_NUMBER"]
+EVENT_COMMENT_ID = os.environ["EVENT_COMMENT_ID"]
 OLLAMA = os.environ.get("OLLAMA_URL", "http://localhost:11434")
-MARKER = "<!-- AI-ROOM-AUTO -->"
+MARKER_PREFIX = "<!-- AI-ROOM-AUTO source-comment:"
+MAX_PAGES = 10
+
 
 def http_json(url, payload=None, method=None):
     data = None if payload is None else json.dumps(payload).encode()
@@ -26,6 +30,25 @@ def http_json(url, payload=None, method=None):
     with urllib.request.urlopen(req, timeout=60) as response:
         raw = response.read()
         return json.loads(raw) if raw else {}
+
+
+def already_processed():
+    """Fail closed if the issue ledger cannot be checked completely."""
+    for page in range(1, MAX_PAGES + 1):
+        url = (
+            f"{API}/repos/{REPO}/issues/{ISSUE}/comments"
+            f"?per_page=100&page={page}"
+        )
+        comments = http_json(url, method="GET")
+        if not isinstance(comments, list):
+            raise RuntimeError("GitHub comments response was not a list")
+        marker = f"{MARKER_PREFIX}{EVENT_COMMENT_ID} -->"
+        if any(marker in (item.get("body") or "") for item in comments):
+            return True
+        if len(comments) < 100:
+            return False
+    raise RuntimeError("Issue comment ledger exceeds safe pagination limit")
+
 
 def generate(model, agent_name, other_name, history):
     system = (
@@ -54,18 +77,31 @@ def generate(model, agent_name, other_name, history):
         raise RuntimeError(f"{agent_name} returned an empty response")
     return answer[:4000]
 
+
 def publish(agent, model, body):
     comment = (
-        f"{MARKER}\n"
+        f"{MARKER_PREFIX}{EVENT_COMMENT_ID} -->\n"
         f"### {agent} — modelo local: {model}\n\n"
         f"{body}\n\n"
         "_Teste experimental: identidade do agente/modelo local, não uma sessão ChatGPT._"
     )
     http_json(f"{API}/repos/{REPO}/issues/{ISSUE}/comments", {"body": comment}, "POST")
 
+
 def main():
+    if not re.fullmatch(r"[0-9]+", EVENT_COMMENT_ID):
+        raise RuntimeError("Missing or invalid source comment ID")
+    # The issue-level Actions concurrency group serializes runs. The source
+    # comment marker makes webhook redelivery idempotent after a completed run.
+    if already_processed():
+        print(f"EXCHANGE_SKIPPED: source comment {EVENT_COMMENT_ID} already processed.")
+        return
+
     initial = os.environ["INITIAL_MESSAGE"].strip()
-    initial = initial.replace("/ai-room start", "", 1).strip()
+    prefix = "/ai-room start "
+    if not initial.startswith(prefix):
+        raise RuntimeError("Initial message does not match the authorized command")
+    initial = initial[len(prefix):].strip()
     if not initial:
         initial = "Apresentem-se, definam um pequeno objetivo e discutam como validar esta sala."
     history = [f"Usuário autorizou o teste: {initial}"]
@@ -81,6 +117,7 @@ def main():
         history.append(f"{agent} ({model}): {answer}")
         time.sleep(2)
     print("EXCHANGE_COMPLETE: 4 generated turns posted by one GitHub Actions run.")
+
 
 if __name__ == "__main__":
     main()
