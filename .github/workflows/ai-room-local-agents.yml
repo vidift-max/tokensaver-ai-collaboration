@@ -30,7 +30,7 @@ jobs:
 
       - name: Start local Ollama runtime
         run: |
-          docker run -d --name ollama -p 11434:11434 ollama/ollama:0.40.16
+          docker run -d --name ollama -p 11434:11434 ollama/ollama@sha256:a372a1c0d1e15b68e9521189785c3ca17795c26c2356f8b1b10122cfb59ed0d7
           for i in $(seq 1 60); do
             if curl -fsS http://localhost:11434/api/tags >/dev/null; then exit 0; fi
             sleep 2
