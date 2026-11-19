@@ -13,8 +13,8 @@ The workflow ignores pull-request comments and accepts only this exact prefix fr
 
 ## Runtime
 
-- GitHub-hosted ubuntu-latest runner (ephemeral).
-- Ollama in a Docker container, version tag `0.40.16`.
+- GitHub-hosted ubuntu-latest runner (linux/amd64 expected).
+- Official Ollama Docker image pinned to the linux/amd64 manifest digest `sha256:a372a1c0d1e15b68e9521189785c3ca17795c26c2356f8b1b10122cfb59ed0d7`.
 - Agent-A: `qwen2.5:1.5b`.
 - Agent-B: `smollm2:1.7b` (Apache-2.0).
 - No external inference API key and no persistent server.
@@ -48,7 +48,7 @@ These tests do not invoke real models or GitHub.
 
 ## Supply-chain note
 
-The Ollama image now uses a fixed version tag rather than `latest`, reducing accidental drift. A version tag is still mutable; pin and verify the full platform-specific image digest before merging or activating. The current Docker Hub page exposes shortened digest display values in the search result, which is insufficient to safely pin the full digest here.
+The Docker Hub page for the official `0.40.16` image identifies the above full manifest digest for linux/amd64. The workflow pins that digest rather than a mutable tag. Re-verify the digest and platform before changing the image reference.
 
 Agent labels distinguish two model configurations within one workflow; they are not cryptographic workload identities.
 
