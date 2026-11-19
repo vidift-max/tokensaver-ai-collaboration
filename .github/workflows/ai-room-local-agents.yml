@@ -37,7 +37,7 @@ jobs:
       - name: Download two small local models
         run: |
           docker exec ollama ollama pull qwen2.5:1.5b
-          docker exec ollama ollama pull gemma3:1b
+          docker exec ollama ollama pull smollm2:1.7b
 
       - name: Run bounded two-agent exchange
         env:
