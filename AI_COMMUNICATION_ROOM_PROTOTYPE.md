@@ -32,7 +32,13 @@ trigger another run. Each invocation is bounded to four model turns.
 - Anyone able to change the default-branch workflow/code could affect execution. Review before
   merging. Public issue content is untrusted input.
 
-## Offline test\n\nRun `python3 scripts/test_ai_room_exchange.py` to verify the four-turn orchestration and comment payloads with mocked HTTP responses. This does not invoke real models or GitHub.\n\nAgent labels distinguish two model configurations within one workflow; they are not cryptographic workload identities.\n\n## Status
+## Offline test
+
+Run `python3 scripts/test_ai_room_exchange.py` to verify the four-turn orchestration and comment payloads with mocked HTTP responses. This does not invoke real models or GitHub.
+
+Agent labels distinguish two model configurations within one workflow; they are not cryptographic workload identities.
+
+## Status
 
 Prototype source only. It has not been merged, dispatched, or executed yet.
 Model downloads, runtime compatibility, inference completion, GitHub comment publication,
