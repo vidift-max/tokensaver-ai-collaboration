@@ -5,42 +5,55 @@ It does not connect two ChatGPT sessions and does not represent GPT-6 or Claude.
 
 ## Trigger
 
-On Issue #1, an authorized repository owner (vidift-max) posts a comment:
+On Issue #1, the repository owner (vidift-max) posts a comment beginning with:
 
     /ai-room start Please compare two safe ways to structure the message protocol.
 
-The workflow runs only for that owner and only for Issue comments containing the command.
-It ignores pull-request comments. Generated agent comments contain a marker and cannot
-trigger another run. Each invocation is bounded to four model turns.
+The workflow ignores pull-request comments and accepts only this exact prefix from the owner on Issue #1. Generated agent comments do not match the trigger. Each invocation is bounded to four model turns.
 
 ## Runtime
 
 - GitHub-hosted ubuntu-latest runner (ephemeral).
-- Ollama in a Docker container.
-- Agent-A: qwen2.5:1.5b.
-- Agent-B: smollm2:1.7b (Apache-2.0).
+- Ollama in a Docker container, version tag `0.40.16`.
+- Agent-A: `qwen2.5:1.5b`.
+- Agent-B: `smollm2:1.7b` (Apache-2.0).
 - No external inference API key and no persistent server.
-- GitHub's automatically provided token can write comments to this repository's issue.
+- GitHub's automatically provided token can read the Issue comment ledger and write comments.
 
 ## Safety boundaries
 
 - The models receive no tools, secrets, repository write token, or shell access.
-- Only the workflow process receives GITHUB_TOKEN, solely to publish comments.
+- Only the workflow process receives GITHUB_TOKEN, solely to inspect the Issue comment ledger and publish comments.
 - Generated text is treated as untrusted data and is never executed.
 - The workflow has minimal permissions, a 25-minute timeout, and a four-turn cap.
 - The runner and model downloads are temporary; no durable agent is online between runs.
 - Anyone able to change the default-branch workflow/code could affect execution. Review before
   merging. Public issue content is untrusted input.
 
-## Offline test
+## Duplicate-delivery protection
 
-Run `python3 scripts/test_ai_room_exchange.py` to verify the four-turn orchestration and comment payloads with mocked HTTP responses. This does not invoke real models or GitHub.
+- Workflow concurrency is serialized by Issue number.
+- Each run receives the triggering GitHub comment ID.
+- Before inference, the script scans the Issue comment ledger for output carrying that source ID; if found, it skips the run.
+- If the ledger cannot be read completely, the script fails closed before inference.
+- This protects completed runs from webhook redelivery. It is not a transactional exactly-once guarantee if a run is interrupted partway through publishing its four replies.
+
+## Offline tests
+
+Run `python3 scripts/test_ai_room_exchange.py` to verify:
+- four alternating model calls and four comment payloads with mocked HTTP;
+- duplicate source-comment detection skips inference.
+
+These tests do not invoke real models or GitHub.
+
+## Supply-chain note
+
+The Ollama image now uses a fixed version tag rather than `latest`, reducing accidental drift. A version tag is still mutable; pin and verify the full platform-specific image digest before merging or activating. The current Docker Hub page exposes shortened digest display values in the search result, which is insufficient to safely pin the full digest here.
 
 Agent labels distinguish two model configurations within one workflow; they are not cryptographic workload identities.
 
 ## Status
 
-Prototype source only. It has not been merged, dispatched, or executed yet.
-Model downloads, runtime compatibility, inference completion, GitHub comment publication,
-actual cost/usage, and end-to-end behavior remain unverified. A successful workflow run would
-prove a bounded exchange between two local models, not between ChatGPT sessions.
+Prototype source only. It has not been merged, dispatched, or executed in GitHub Actions.
+The offline tests have been reproduced in an isolated local harness with mocked HTTP; this does not validate runner behavior.
+Model downloads, runtime compatibility, inference completion, GitHub comment publication, actual cost/usage, and end-to-end behavior remain unverified. A successful workflow run would prove a bounded exchange between two local models, not between ChatGPT sessions.
