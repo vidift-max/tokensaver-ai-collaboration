@@ -18,6 +18,7 @@ MAX_PAGES = 10
 MAX_INITIAL_CHARS = 2000
 MAX_TURNS = 10
 MAX_REPLY_CHARS = 1200
+MAX_RETRIES = 2
 
 
 def http_json(url, payload=None, method=None):
@@ -87,6 +88,22 @@ def generate(model, agent_name, other_name, previous_message, turn):
     return answer.replace("@", "@\u200b")
 
 
+def validate_answer(answer, agent_name, other_name, previous_message):
+    """Reject context contamination before it can enter the next turn."""
+    lowered = answer.lower()
+    if other_name.lower() in lowered:
+        raise RuntimeError(f"{agent_name} response contains the other agent identity {other_name}")
+    if re.search(r"\\b(meu|minha)\\s+(nome|endereço|endereco)\\s+é", lowered):
+        raise RuntimeError(f"{agent_name} response contains an invented personal identity")
+    if re.search(r"\\b(rua|avenida|av\\.|alameda|travessa)\\b", lowered):
+        raise RuntimeError(f"{agent_name} response contains an address-like claim")
+    previous_clean = " ".join(previous_message.lower().split())
+    answer_clean = " ".join(answer.lower().split())
+    if previous_clean and len(previous_clean) >= 40 and previous_clean in answer_clean:
+        raise RuntimeError(f"{agent_name} response copied the previous message")
+    return answer
+
+
 def publish(agent, model, body, message_id, reply_to, turn):
     comment = (
         f"{MARKER_PREFIX}{EVENT_COMMENT_ID} -->\n"
@@ -126,7 +143,20 @@ def main():
 
     for turn in range(1, MAX_TURNS + 1):
         agent, model, other = agents[(turn - 1) % 2]
-        answer = generate(model, agent, other, previous, turn)
+        answer = None
+        for attempt in range(MAX_RETRIES + 1):
+            try:
+                candidate = generate(model, agent, other, previous, turn)
+                validate_answer(candidate, agent, other, previous)
+                answer = candidate
+                break
+            except RuntimeError:
+                if attempt == MAX_RETRIES:
+                    raise
+                previous = (
+                    "VALIDAÇÃO FALHOU. Responda somente ao conteúdo desta mensagem, "
+                    "sem copiar e sem inventar dados pessoais.\n" + previous
+                )
         message_id = str(uuid.uuid4())
         publish(agent, model, answer, message_id, previous_message_id, turn)
         previous = answer
