@@ -83,6 +83,18 @@ class ExchangeTests(unittest.TestCase):
         self.assertIn("reply_to: id-1", comments[1])
         self.assertIn("reply_to: id-9", comments[9])
 
+    def test_context_validator_rejects_identity_leak_and_address(self):
+        with self.assertRaisesRegex(RuntimeError, "other agent identity"):
+            module.validate_answer("Olá Agent-B, sou Agent-A.", "Agent-A", "Agent-B", "pergunta")
+        with self.assertRaisesRegex(RuntimeError, "address-like claim"):
+            module.validate_answer("Meu endereço é Rua das Flores, 23.", "Agent-A", "Agent-B", "pergunta")
+
+    def test_context_validator_rejects_previous_message_copy(self):
+        previous = "Esta é uma mensagem suficientemente longa para testar cópia integral."
+        with self.assertRaisesRegex(RuntimeError, "copied the previous message"):
+            module.validate_answer(previous, "Agent-A", "Agent-B", previous)
+
+
     def test_duplicate_source_comment_is_skipped_before_inference(self):
         requests = []
 
