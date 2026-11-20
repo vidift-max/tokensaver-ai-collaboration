@@ -35,11 +35,9 @@ class FakeResponse:
 
 
 class ExchangeTests(unittest.TestCase):
-    def test_four_turns_alternate_models_publish_and_neutralize_mentions(self):
+    def test_ten_turns_alternate_models_and_link_replies(self):
         requests = []
-        model_replies = iter(
-            ["Resposta @usuario A1", "Resposta B1", "Resposta A2", "Resposta B2"]
-        )
+        model_replies = iter([f"Resposta {i}" for i in range(1, 11)])
 
         def fake_urlopen(request, timeout=60):
             requests.append(request)
@@ -50,30 +48,40 @@ class ExchangeTests(unittest.TestCase):
             return FakeResponse({"id": len(requests)})
 
         with patch.object(module.urllib.request, "urlopen", side_effect=fake_urlopen), \
-             patch.object(module.time, "sleep"):
+             patch.object(module.time, "sleep"), \
+             patch.object(module.uuid, "uuid4", side_effect=[f"id-{i}" for i in range(1, 11)]):
             module.main()
 
-        generation_requests = [
-            r for r in requests if r.full_url.endswith("/api/generate")
-        ]
+        generation_requests = [r for r in requests if r.full_url.endswith("/api/generate")]
         comment_requests = [
-            r for r in requests if "/issues/1/comments" in r.full_url
-            and r.get_method() == "POST"
+            r for r in requests
+            if "/issues/1/comments" in r.full_url and r.get_method() == "POST"
         ]
-        self.assertEqual(len(generation_requests), 4)
-        self.assertEqual(len(comment_requests), 4)
-        models = [
-            json.loads(r.data.decode())["model"] for r in generation_requests
-        ]
+        self.assertEqual(len(generation_requests), 10)
+        self.assertEqual(len(comment_requests), 10)
+
+        models = [json.loads(r.data.decode())["model"] for r in generation_requests]
         self.assertEqual(
             models,
-            ["qwen2.5:1.5b", "smollm2:1.7b", "qwen2.5:1.5b", "smollm2:1.7b"],
+            [
+                "qwen2.5:1.5b", "smollm2:1.7b",
+                "qwen2.5:1.5b", "smollm2:1.7b",
+                "qwen2.5:1.5b", "smollm2:1.7b",
+                "qwen2.5:1.5b", "smollm2:1.7b",
+                "qwen2.5:1.5b", "smollm2:1.7b",
+            ],
         )
+
         comments = [json.loads(r.data.decode())["body"] for r in comment_requests]
-        self.assertIn("Agent-A", comments[0])
-        self.assertIn("Agent-B", comments[1])
-        self.assertTrue(all("source-comment:12345" in c for c in comments))
-        self.assertIn("@\u200busuario", comments[0])
+        for i, comment in enumerate(comments, 1):
+            self.assertIn(f"turn: {i}/10", comment)
+            self.assertIn("message_id:", comment)
+            self.assertIn("reply_to:", comment)
+            self.assertIn("source-comment:12345", comment)
+
+        self.assertIn("reply_to: USER-12345", comments[0])
+        self.assertIn("reply_to: id-1", comments[1])
+        self.assertIn("reply_to: id-9", comments[9])
 
     def test_duplicate_source_comment_is_skipped_before_inference(self):
         requests = []
@@ -101,10 +109,7 @@ class ExchangeTests(unittest.TestCase):
                 module.main()
 
     def test_oversized_initial_message_is_rejected_before_inference(self):
-        def fake_urlopen(request, timeout=60):
-            return FakeResponse([])
-
-        with patch.object(module.urllib.request, "urlopen", side_effect=fake_urlopen), \
+        with patch.object(module.urllib.request, "urlopen", return_value=FakeResponse([])), \
              patch.dict(os.environ, {"INITIAL_MESSAGE": "/ai-room start " + ("x" * 2001)}):
             with self.assertRaisesRegex(RuntimeError, "exceeds 2000"):
                 module.main()
